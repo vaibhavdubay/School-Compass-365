@@ -18,11 +18,38 @@ export function app(): express.Express {
   server.set('views', browserDistFolder);
 
   // Example Express Rest API endpoints
+
+  server.use('/admin/login/*', async (req, res, next) => {
+    try {
+      const id = atob((req.params as any)?.['0']) || '';
+      const response = await fetch(
+        `http://localhost:3000/api/admin/login/${id}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      if (!response.ok) {
+        res.redirect('/login');
+      }
+      const admin = await response.json(); // Parse response body as JSON
+      console.log(admin.userName);
+      next();
+    } catch (err) {
+      console.error(err);
+      res.redirect('/login');
+    }
+  });
   // server.get('/api/**', (req, res) => { });
   // Serve static files from /browser
-  server.get('*.*', express.static(browserDistFolder, {
-    maxAge: '1y'
-  }));
+  server.get(
+    '*.*',
+    express.static(browserDistFolder, {
+      maxAge: '1y',
+    })
+  );
 
   // All regular routes use the Angular engine
   server.get('*', (req, res, next) => {
