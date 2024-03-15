@@ -1,0 +1,79 @@
+.section {
+  background: #f7f7f7;
+
+  .header,
+  .footer {
+    padding: 14px;
+    height: 4rem;
+    background-color: white;
+    box-shadow: 0 0 5px 0 #00000030;
+    .login_screen_handler {
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+  }
+  .container-fluid {
+    height: calc(100vh - 8rem);
+    .image_baner {
+      padding-right: 3rem;
+      div {
+        height: 90%;
+        max-width: 30rem;
+        background-size: cover;
+        background-position: center;
+        border-radius: 1.5rem;
+        width: 100%;
+        &.teachers-section {
+          background-image: url(/assets/images/teachers_login.jpeg);
+        }
+        &.student-section {
+          background-image: url(/assets/images/teachers_login.jpeg);
+        }
+      }
+    }
+    .form_section {
+      padding: 0 1rem;
+      max-width: 28rem;
+      .form-container {
+        padding: 18px;
+        border-radius: 1.5rem;
+        background-color: white;
+        box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.175);
+        .input-container {
+          width: 100%;
+          display: flex;
+          .prefix-icon {
+            width: 15%;
+          }
+          .suffix-icon {
+            width: 30px;
+            position: absolute;
+            right: 0;
+          }
+          input {
+            background-color: white !important;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.9em;
+            font-weight: 400;
+            box-shadow: 0px 0px 5px 0px #0000004a;
+            border-radius: 15px;
+            transition: 0.4s;
+            width: 85%;
+            border: 0;
+            &:focus-visible {
+              box-shadow: 0px 0px 5px 0px #0000006f;
+              outline: 0;
+            }
+          }
+        }
+        .login_button {
+          padding: 8px;
+          color: white;
+          font-weight: 700;
+          background: orange;
+          border-radius: 29px;
+        }
+      }
+    }
+  }
+}

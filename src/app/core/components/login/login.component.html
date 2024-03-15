@@ -1,1 +1,56 @@
-<p>login works!</p>
+<section class="section">
+  <div class="header d-flex justify-content-between">
+    <div><h4>School Compass</h4></div>
+    <div class="login_screen_handler">
+      <span (click)="isChecked = false">Student </span>
+      <mat-slide-toggle
+        [color]="'warn'"
+        [(ngModel)]="isChecked"
+      ></mat-slide-toggle>
+      <span (click)="isChecked = true">Teacher </span>
+    </div>
+  </div>
+  <div class="container-fluid d-flex align-items-center justify-content-center">
+    <div class="row h-100 py-4 w-75 justify-content-center">
+      <div
+        class="col-md-6 image_baner d-flex align-items-center justify-content-end"
+      >
+        <div [class]="isChecked ? 'teachers-section' : 'student-section'"></div>
+      </div>
+      <div class="col-md-6 form_section d-flex align-items-center">
+        <div class="form-container p-4 w-100">
+          <div class="h4 mb-3">Login</div>
+          <div class="input-container mb-3">
+            <div class="prefix-icon"></div>
+            <input
+              autocomplete="off"
+              [ariaAutoComplete]="'off'"
+              matInput
+              placeholder="Username"
+            />
+          </div>
+          <div class="input-container mb-3">
+            <div class="prefix-icon"></div>
+            <input
+              autocomplete="off"
+              [ariaAutoComplete]="'off'"
+              matInput
+              [type]="hide ? 'password' : 'text'"
+              placeholder="Password"
+            />
+            <div class="suffix-icon"></div>
+          </div>
+          <div class="w-100 mb-3">Forget Password?</div>
+          <div class="w-100 mt-4 login_button text-center">Login</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer d-flex justify-content-between">
+    <div>
+      <span>Terms of Service | Privacy Policy </span>
+    </div>
+    <div>School Compass 365. All rights reserved</div>
+    <div>Contact Us</div>
+  </div>
+</section>
