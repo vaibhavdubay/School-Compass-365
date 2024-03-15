@@ -2,13 +2,23 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
-import { AdminLoginPageComponent } from './pages/admin-login-page/admin-login-page.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { STORE_FEATURES } from '@sc-enums/store';
+import { StoreModule } from '@ngrx/store';
+import { AdminReducer } from './state/reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { AdminEffects } from './state/effect';
 
 @NgModule({
-  declarations: [
-    AdminLoginComponent,
-    AdminLoginPageComponent
+  declarations: [AdminLoginComponent],
+  imports: [
+    CommonModule,
+    AdminRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    StoreModule.forFeature(STORE_FEATURES.ADMIN, AdminReducer),
+    EffectsModule.forFeature([AdminEffects]),
   ],
-  imports: [CommonModule, AdminRoutingModule],
+  providers: [],
 })
 export class AdminModule {}

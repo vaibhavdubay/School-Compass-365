@@ -1,9 +1,9 @@
 import { APP_BASE_HREF } from '@angular/common';
 import { CommonEngine } from '@angular/ssr';
-import express from 'express';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 import AppServerModule from './src/main.server';
+import express from 'express';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -21,7 +21,7 @@ export function app(): express.Express {
 
   server.use('/admin/login/*', async (req, res, next) => {
     try {
-      const id = atob((req.params as any)?.['0']) || '';
+      const id = atob((req.params as string[])?.['0']) || '';
       const response = await fetch(
         `http://localhost:3000/api/admin/login/${id}`,
         {
@@ -29,17 +29,15 @@ export function app(): express.Express {
           headers: {
             'Content-Type': 'application/json',
           },
-        }
+        },
       );
       if (!response.ok) {
-        res.redirect('/login');
+        return res.redirect('/login');
+      } else {
+        next();
       }
-      const admin = await response.json(); // Parse response body as JSON
-      console.log(admin.userName);
-      next();
     } catch (err) {
-      console.error(err);
-      res.redirect('/login');
+      return res.redirect('/login');
     }
   });
   // server.get('/api/**', (req, res) => { });
@@ -48,7 +46,7 @@ export function app(): express.Express {
     '*.*',
     express.static(browserDistFolder, {
       maxAge: '1y',
-    })
+    }),
   );
 
   // All regular routes use the Angular engine

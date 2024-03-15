@@ -5,7 +5,9 @@
     "outDir": "./dist/out-tsc",
     "paths": {
       "@sc-modules/*": ["src/app/modules/*"],
-      "@sc-core/*": ["src/app/core/*"],
+      "@sc-models/*": ["src/app/core/models/*.model"],
+      "@sc-enums/*": ["src/app/core/enums/*.enum"],
+      "@sc-environment": ["src/environments/environment"],
       "@sc-shared/*": ["src/app/shared/*"],
     },
     "forceConsistentCasingInFileNames": true,

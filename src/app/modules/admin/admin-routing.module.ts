@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminLoginPageComponent } from './pages/admin-login-page/admin-login-page.component';
+import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 
 const routes: Routes = [
   {
     path: 'login/:id',
-    component: AdminLoginPageComponent,
+    component: AdminLoginComponent,
   },
 ];
 
