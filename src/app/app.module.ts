@@ -13,12 +13,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from './core/core.module';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     CoreModule,
     FormsModule,
+    LayoutModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
