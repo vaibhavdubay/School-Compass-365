@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ApiService } from '../../service/http.service';
 import { ScreenSizeObserver } from '../../service/screen.service';
+import { Role } from '@sc-enums/role';
 
 @Component({
   selector: 'sc-login',
@@ -10,7 +11,7 @@ import { ScreenSizeObserver } from '../../service/screen.service';
 })
 export class LoginComponent {
   hide = true;
-  isChecked = false;
+  isStudent = false;
   loginForm: FormGroup;
 
   constructor(
@@ -27,9 +28,11 @@ export class LoginComponent {
     this.hide = !this.hide;
   }
   login() {
-    const loginUrl = !this.isChecked ? '/student-profile' : '/teacher-profile';
-    this.apiService
-      .post(loginUrl, this.loginForm.value, {})
-      .subscribe((res) => {});
+    const loginUrl = `/auth/${
+      this.isStudent ? Role.STUDENT : Role.TEACHER
+    }/login`;
+    this.apiService.post(loginUrl, this.loginForm.value).subscribe((user) => {
+      console.log(user);
+    });
   }
 }

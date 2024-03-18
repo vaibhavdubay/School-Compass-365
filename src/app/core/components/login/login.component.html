@@ -3,9 +3,11 @@
     <h4 [class.mobile_font]="screenObserver.isMobile">School Compass</h4>
     <div class="login_screen_handler d-inline-flex align-items-center">
       <span
-        (click)="isChecked = false"
+        (click)="isStudent = false"
+        tabindex="0"
+        (keydown.enter)="isStudent = false"
         [class.mobile_font]="screenObserver.isMobile"
-        [ngStyle]="{ color: !isChecked ? 'var(--primary-550)' : 'black' }"
+        [ngStyle]="{ color: !isStudent ? 'var(--primary-550)' : 'black' }"
         >Student</span
       >
       <div class="toggle-wrapper">
@@ -14,15 +16,17 @@
             hidden
             id="transparent"
             type="checkbox"
-            [(ngModel)]="isChecked"
+            [(ngModel)]="isStudent"
           />
           <label class="toggle-item" for="transparent"> </label>
         </div>
       </div>
       <span
-        (click)="isChecked = true"
+        (click)="isStudent = true"
+        tabindex="1"
+        (keydown.enter)="isStudent = false"
         [class.mobile_font]="screenObserver.isMobile"
-        [ngStyle]="{ color: isChecked ? 'var(--primary-550)' : 'black' }"
+        [ngStyle]="{ color: isStudent ? 'var(--primary-550)' : 'black' }"
         >Teacher
       </span>
     </div>
@@ -33,7 +37,7 @@
       <div
         class="col-md-6 image_baner d-flex align-items-center justify-content-end"
       >
-        <div [class]="isChecked ? 'teachers-section' : 'student-section'"></div>
+        <div [class]="isStudent ? 'teachers-section' : 'student-section'"></div>
       </div>
       <div class="col-md-6 form_section d-flex align-items-center">
         <div class="form-container p-4 w-100">
@@ -45,6 +49,7 @@
             <input
               autocomplete="off"
               [ariaAutoComplete]="'off'"
+              tabindex="3"
               matInput
               placeholder="Username"
             />
@@ -57,6 +62,7 @@
               autocomplete="off"
               [ariaAutoComplete]="'off'"
               matInput
+              tabindex="4"
               [type]="hide ? 'password' : 'text'"
               placeholder="Password"
             />
@@ -64,12 +70,19 @@
               <span
                 class="material-symbols-outlined"
                 (click)="togglePasswordVisibility()"
+                (keydown.enter)="togglePasswordVisibility()"
+                tabindex="5"
                 >{{ hide ? 'visibility_off' : 'visibility' }}</span
               >
             </div>
           </div>
           <div class="w-100 mb-3 mobile_font">Forget Password?</div>
-          <div class="w-100 mt-4 login_button text-center" (click)="login()">
+          <div
+            class="w-100 mt-4 login_button text-center"
+            (click)="login()"
+            tabindex="6"
+            (keydown.enter)="login()"
+          >
             Login
           </div>
         </div>
@@ -80,7 +93,7 @@
   <div class="container d-flex align-items-center justify-content-center">
     <div class="row h-100 w-100 py-4 w-75 justify-content-center">
       <div class="col-md-6 image_baner d-flex justify-content-end pt-3">
-        <div [class]="isChecked ? 'teachers-section' : 'student-section'"></div>
+        <div [class]="isStudent ? 'teachers-section' : 'student-section'"></div>
       </div>
       <div class="col-md-6 form_section d-flex align-items-center">
         <div class="form-container p-4 w-100">
@@ -93,6 +106,7 @@
               autocomplete="off"
               [ariaAutoComplete]="'off'"
               matInput
+              tabindex="3"
               placeholder="Username"
             />
           </div>
@@ -104,19 +118,28 @@
               autocomplete="off"
               [ariaAutoComplete]="'off'"
               matInput
+              (keydown.enter)="login()"
+              tabindex="4"
               [type]="hide ? 'password' : 'text'"
               placeholder="Password"
             />
             <div class="suffix-icon pt-1">
               <span
                 class="material-symbols-outlined"
+                tabindex="5"
                 (click)="togglePasswordVisibility()"
+                (keydown.enter)="togglePasswordVisibility()"
                 >{{ hide ? 'visibility_off' : 'visibility' }}</span
               >
             </div>
           </div>
           <div class="w-100 mb-3 mobile_font">Forget Password?</div>
-          <div class="w-100 mt-4 login_button text-center" (click)="login()">
+          <div
+            class="w-100 mt-4 login_button text-center"
+            (click)="login()"
+            tabindex="6"
+            (keydown.enter)="login()"
+          >
             Login
           </div>
         </div>
