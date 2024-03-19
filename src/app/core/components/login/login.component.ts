@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ApiService } from '../../service/http.service';
 import { ScreenSizeObserver } from '../../service/screen.service';
 import { Role } from '@sc-enums/role';
+import { Router } from '@angular/router';
+import { SharedStoreService } from 'src/app/core/service/shared-store.service';
+import { logInActions } from 'src/app/core/store/action';
+import { selectLoggedInUser } from '../../store/selector';
 
 @Component({
   selector: 'sc-login',
@@ -10,29 +13,40 @@ import { Role } from '@sc-enums/role';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  hide = true;
-  isStudent = false;
+  isAdmin = false;
+  isTeacher = false;
+  hidePassword = true;
   loginForm: FormGroup;
 
   constructor(
-    private fb: FormBuilder,
-    private apiService: ApiService,
     public readonly screenObserver: ScreenSizeObserver,
+    private sharedStore: SharedStoreService,
+    private fb: FormBuilder,
+    router: Router,
   ) {
+    if (router.url.startsWith('/admin')) {
+      this.isAdmin = true;
+    }
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
+
   togglePasswordVisibility() {
-    this.hide = !this.hide;
+    this.hidePassword = !this.hidePassword;
   }
+
   login() {
-    const loginUrl = `/auth/${
-      this.isStudent ? Role.STUDENT : Role.TEACHER
-    }/login`;
-    this.apiService.post(loginUrl, this.loginForm.value).subscribe((user) => {
-      console.log(user);
-    });
+    this.sharedStore.dispatch(
+      logInActions.logIn({ role: this.role, logDto: this.loginForm.value }),
+    );
+    this.sharedStore.select(selectLoggedInUser).subscribe(console.log);
+  }
+
+  get role() {
+    if (this.isAdmin) return Role.ADMIN;
+    else if (this.isTeacher) return Role.TEACHER;
+    else return Role.STUDENT;
   }
 }
