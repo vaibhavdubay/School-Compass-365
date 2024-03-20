@@ -1,13 +1,23 @@
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { logInActions } from './action';
-import { map, switchMap, tap } from 'rxjs';
+import { catchError, filter, map, of, switchMap, tap } from 'rxjs';
 import { ApiService } from '../service/http.service';
-import { LoginResponse } from '@sc-models/core';
+import { LoggedInUser, LoginResponse } from '@sc-models/core';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { selectLoggedInUser } from './selector';
+import { SsrCookieService } from 'ngx-cookie-service-ssr';
 
 @Injectable()
 export class SharedStoreEffect {
-  constructor(private action$: Actions, private apiService: ApiService) {}
+  constructor(
+    private action$: Actions,
+    private apiService: ApiService,
+    private router: Router,
+    private store: Store,
+    private cookieService: SsrCookieService,
+  ) {}
 
   logIn = createEffect(() => {
     return this.action$.pipe(
@@ -25,15 +35,48 @@ export class SharedStoreEffect {
       return this.action$.pipe(
         ofType(logInActions.logInSuccess),
         tap(({ response }) => {
-          this.setSecureCookie(response.accessToken);
+          const role = response.user.role;
+          this.router.navigate([role, 'dashboard']);
+          this.cookieService.set('authorization', response.accessToken, {
+            expires: 500,
+            sameSite: 'Strict',
+            secure: true,
+            path: '/',
+          });
         }),
       );
     },
     { dispatch: false },
   );
 
-  private setSecureCookie(accessToken: string) {
-    const expires = new Date(Date.now() + 1000 * 60 * 60 * 24).toUTCString();
-    document.cookie = `authorization=${accessToken}; expires=${expires}; path=/; Secure; HttpOnly; SameSite=Strict`;
-  }
+  userProfile = createEffect(() => {
+    return this.action$.pipe(
+      ofType(logInActions.userProfile),
+      concatLatestFrom(() => this.store.select(selectLoggedInUser)),
+      filter((action) => !action[1]),
+      switchMap(() =>
+        this.apiService.get<LoggedInUser>(`/auth/user-profile`).pipe(
+          map((response) => logInActions.userProfileSuccess({ response })),
+          catchError((error) => of(logInActions.userProfileFailure({ error }))),
+        ),
+      ),
+    );
+  });
+
+  userProfileFailure = createEffect(
+    () => {
+      return this.action$.pipe(
+        ofType(logInActions.userProfileFailure),
+        tap(() => {
+          if (typeof window !== 'undefined') {
+            localStorage.clear();
+            sessionStorage.clear();
+          }
+          this.cookieService.deleteAll();
+          this.router.navigate(['']);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
 }

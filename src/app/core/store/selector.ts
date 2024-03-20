@@ -10,3 +10,8 @@ export const selectLoggedInUser = createSelector(
   selectSharedState,
   (state) => state.loggedInUser,
 );
+
+export const selectSchoolProfile = createSelector(
+  selectLoggedInUser,
+  (state) => state.school,
+);

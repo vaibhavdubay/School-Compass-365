@@ -19,4 +19,11 @@ export const SharedStoreReducer = createReducer(
       loggedInUser: action.response.user,
     }),
   ),
+  on(
+    logInActions.userProfileSuccess,
+    (state, action): SharedState => ({
+      ...state,
+      loggedInUser: action.response,
+    }),
+  ),
 );
