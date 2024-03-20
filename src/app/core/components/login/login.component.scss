@@ -9,6 +9,7 @@
     box-shadow: var(--boxShadow-m-mid);
     align-items: center;
     .login_screen_handler {
+      user-select: none;
       font-size: var(--fontSize-t2-1);
       cursor: pointer;
     }
@@ -92,18 +93,18 @@
 }
 
 .toggle.transparent {
-  padding: 1px;
+  padding: 0;
   border-radius: 30px;
   overflow: hidden;
   width: 43px;
   height: 22px;
   box-shadow: var(--boxShadow-s-mid);
 
-  label.toggle-item {
+  span.toggle-item {
     height: 30px;
     cursor: pointer;
     position: relative;
-    padding-left: 3px;
+    padding-left: 4px;
 
     &:before {
       content: '';
@@ -118,8 +119,8 @@
       transform: translateX(0);
     }
   }
-  input[type='checkbox']:checked + label.toggle-item:before {
-    transform: translateX(115%);
+  input[type='checkbox']:checked + span.toggle-item:before {
+    transform: translateX(120%);
   }
 }
 
@@ -130,7 +131,7 @@
 }
 
 // mobile style
-@media screen and (max-width: '500px') {
+.mobile_screen {
   .mobile_font {
     font-size: 0.8rem;
   }
@@ -140,7 +141,7 @@
       div {
         height: 273px;
         background-size: cover;
-        background-position: 0 305px;
+        background-position: bottom 10px right 0;
         box-shadow: var(--boxShadow-xs);
         border-radius: var(--borderRadius-xxxl);
         width: 336px;
@@ -156,9 +157,11 @@
       padding: 0 1rem;
       max-width: var(--width-Sz22);
       position: absolute;
-      bottom: 153px;
+      bottom: 50%;
       width: 329px;
-      left: 23px;
+      max-width: 100%;
+      left: 50%;
+      transform: translate(-50%, 60%);
       .form-container {
         padding: var(--spacing-s5);
         box-shadow: var(--boxShadow-l);

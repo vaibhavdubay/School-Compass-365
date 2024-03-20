@@ -1,31 +1,25 @@
-<section class="section">
+<section class="section" [class.mobile_screen]="screenObserver.isMobile">
   <div class="header d-flex justify-content-between">
     <h4 [class.mobile_font]="screenObserver.isMobile">School Compass</h4>
     @if (!isAdmin) {
-    <div class="login_screen_handler d-inline-flex align-items-center">
+    <div
+      (click)="isTeacher = !isTeacher"
+      (keydown.enter)="isTeacher = !isTeacher"
+      tabindex="0"
+      class="login_screen_handler d-inline-flex align-items-center"
+    >
       <span
-        (click)="isTeacher = false"
-        tabindex="0"
-        (keydown.enter)="isTeacher = false"
         [class.mobile_font]="screenObserver.isMobile"
         [ngStyle]="{ color: !isTeacher ? 'var(--primary-550)' : 'black' }"
         >Student</span
       >
       <div class="toggle-wrapper">
         <div class="toggle transparent">
-          <input
-            hidden
-            id="transparent"
-            type="checkbox"
-            [(ngModel)]="isTeacher"
-          />
+          <input hidden type="checkbox" [(ngModel)]="isTeacher" />
           <span class="toggle-item"> </span>
         </div>
       </div>
       <span
-        (click)="isTeacher = true"
-        tabindex="1"
-        (keydown.enter)="isTeacher = false"
         [class.mobile_font]="screenObserver.isMobile"
         [ngStyle]="{ color: isTeacher ? 'var(--primary-550)' : 'black' }"
         >Teacher
@@ -96,10 +90,10 @@
   } @else {
   <div class="container d-flex align-items-center justify-content-center">
     <div class="row h-100 w-100 py-4 w-75 justify-content-center">
-      <div class="col-md-6 image_baner d-flex justify-content-end pt-3">
+      <div class="p-0 image_baner d-flex justify-content-center">
         <div [class]="isTeacher ? 'teachers-section' : 'student-section'"></div>
       </div>
-      <div class="col-md-6 form_section d-flex align-items-center">
+      <div class="p-0 col-md-6 form_section d-flex align-items-center">
         <div class="form-container p-4 w-100" [formGroup]="loginForm">
           <div class="h4 mb-3">Login</div>
           <div class="input-container mb-3">
