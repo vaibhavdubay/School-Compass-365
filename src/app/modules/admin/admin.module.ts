@@ -18,8 +18,4 @@ import { AdminService } from './services/admin.service';
   ],
   providers: [AdminService],
 })
-export class AdminModule {
-  constructor() {
-    console.log('AdminModule');
-  }
-}
+export class AdminModule {}

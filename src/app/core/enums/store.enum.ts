@@ -1,5 +1,6 @@
 export enum STORE_FEATURES {
-  SCHOOL = 'SchoolState',
+  STUDENT = 'StudentState',
+  TEACHER = 'TeacherState',
   ADMIN = 'AdminState',
   SHARED = 'SharedState',
 }
