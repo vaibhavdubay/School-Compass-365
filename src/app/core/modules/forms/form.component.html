@@ -1,0 +1,7 @@
+@for(formElement of formConfig; track i; let i = $index) {
+@if(formElement.element.key){
+<sc-form-element
+  [formElement]="formElement"
+  [control]="$any(formGroup.get(formElement.element.key))"
+></sc-form-element>
+} }

@@ -1,0 +1,38 @@
+@switch (formElement.elementType) { @case ('checkbox') {
+<sc-checkbox-element
+  [element]="formElement.element"
+  [control]="control"
+></sc-checkbox-element>
+} @case ('date') {
+<sc-date-element
+  [element]="formElement.element"
+  [control]="control"
+></sc-date-element>
+} @case ('radio') {
+<sc-radio-element
+  [element]="formElement.element"
+  [control]="control"
+></sc-radio-element>
+} @case ('select') {
+<sc-select-element
+  [element]="formElement.element"
+  [control]="control"
+></sc-select-element>
+} @case ('text') {
+<sc-text-element
+  [element]="formElement.element"
+  [control]="control"
+></sc-text-element>
+} @case ('textarea') {
+<sc-textarea-element
+  [element]="formElement.element"
+  [control]="control"
+></sc-textarea-element>
+} @case ('button') {
+<sc-button-element [element]="formElement.element"></sc-button-element>
+} @case ('label') {
+<sc-label-element [element]="formElement.element"></sc-label-element>
+} @case ('button-group') { @for(buttonElement of formElement.element.buttons;
+track $index){
+<sc-button-element [element]="buttonElement.element"></sc-button-element>
+} } }

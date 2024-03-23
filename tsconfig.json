@@ -7,6 +7,7 @@
       "@sc-modules/*": ["src/app/modules/*"],
       "@sc-models/*": ["src/app/core/models/*.model"],
       "@sc-enums/*": ["src/app/core/enums/*.enum"],
+      "@sc-forms/*": ["src/app/core/modules/forms/*"],
       "@sc-environment": ["src/environments/environment"],
       "@sc-shared/*": ["src/app/shared/*"],
     },

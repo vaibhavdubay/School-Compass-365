@@ -1,0 +1,10 @@
+<mat-radio-group
+  [formControl]="control"
+  [disabled]="element.disabled || false"
+  [required]="element.required || false"
+  [hidden]="element.hidden || false"
+>
+  @for (option of element.options; track $index) {
+  <mat-radio-button [value]="option.key"> {{ option.label }} </mat-radio-button>
+  }
+</mat-radio-group>

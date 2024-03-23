@@ -1,0 +1,11 @@
+<mat-form-field>
+  <mat-label>{{ element.label }}</mat-label>
+  <textarea
+    matInput
+    [placeholder]="element.placeholder || ''"
+    [required]="element.required || false"
+    [readonly]="element.readonly || false"
+    [hidden]="element.hidden || false"
+    [formControl]="control"
+  ></textarea>
+</mat-form-field>
