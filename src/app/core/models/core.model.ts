@@ -103,10 +103,13 @@ export interface NavItem {
 }
 
 type User = AdminUser | StudentProfile | TeacherProfile;
+export type LoggedInUser = (AdminUser | StudentProfile | TeacherProfile) & {
+  school: SchoolProfile;
+};
 
 export interface LoginResponse {
   accessToken: string;
-  user: User;
+  user: LoggedInUser;
 }
 
 export interface HttpOptions {
@@ -134,4 +137,11 @@ export interface HttpOptions {
         includeHeaders?: string[];
       }
     | boolean;
+}
+
+export type Nullable<T> = { [K in keyof T]: T[K] | null };
+
+export interface HttpErrorObject {
+  statusCode: number;
+  message: string;
 }

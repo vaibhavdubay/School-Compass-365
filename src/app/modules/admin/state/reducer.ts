@@ -1,11 +1,11 @@
 import { createReducer } from '@ngrx/store';
-import { AdminUser } from '@sc-models/core';
+import { AdminUser, Nullable } from '@sc-models/core';
 
 export interface AdminState {
-  adminUser: AdminUser | null;
+  adminUser: AdminUser;
 }
 
-export const initialState: AdminState = {
+export const initialState: Nullable<AdminState> = {
   adminUser: null,
 };
 

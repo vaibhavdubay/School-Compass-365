@@ -13,14 +13,13 @@ export class ScreenSizeObserver implements OnDestroy {
   isTablet: boolean = false;
   isDesktop: boolean = false;
   private displayNameMap: { [k: string]: ScreenBreakpoint } = {
-    [Breakpoints.Handset]: 'Handset',
-    [Breakpoints.Tablet]: 'Tablet',
-    [Breakpoints.Web]: 'Web',
+    [Breakpoints.XSmall]: 'Handset',
+    [Breakpoints.Small]: 'Tablet',
   };
 
   constructor(breakpointObserver: BreakpointObserver) {
     breakpointObserver
-      .observe([Breakpoints.Handset, Breakpoints.Tablet, Breakpoints.Web])
+      .observe([Breakpoints.XSmall, Breakpoints.Small])
       .pipe(takeUntil(this.destroyed))
       .subscribe((result) => {
         Object.keys(result.breakpoints)
@@ -33,7 +32,7 @@ export class ScreenSizeObserver implements OnDestroy {
           });
         this.isMobile = this.currentScreenSize === 'Handset';
         this.isTablet = this.currentScreenSize === 'Tablet';
-        this.isDesktop = ['Web', 'Unknown'].includes(this.currentScreenSize);
+        this.isDesktop = ['Unknown'].includes(this.currentScreenSize);
       });
   }
 

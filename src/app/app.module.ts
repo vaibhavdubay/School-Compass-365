@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { httpInterceptor } from './core/interceptor/http.interceptor';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { SsrCookieService } from 'ngx-cookie-service-ssr';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,6 +30,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
   providers: [
+    SsrCookieService,
     provideClientHydration(),
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([httpInterceptor])),

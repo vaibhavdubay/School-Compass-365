@@ -13,6 +13,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
+import { STORE_FEATURES } from '@sc-enums/store';
+import { SharedStoreReducer } from './store/reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { SharedStoreEffect } from './store/effect';
 
 @NgModule({
   declarations: [LoginComponent, SideNavComponent],
@@ -29,6 +34,8 @@ import { RouterModule } from '@angular/router';
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
+    EffectsModule.forFeature([SharedStoreEffect]),
+    StoreModule.forFeature(STORE_FEATURES.SHARED, SharedStoreReducer),
   ],
   exports: [SideNavComponent],
 })

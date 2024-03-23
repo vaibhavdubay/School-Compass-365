@@ -19,7 +19,7 @@
 }
 
 .router-link-active {
-  background-color: white;
+  background-color: #f7f7f7;
 }
 .nav_list {
   column-gap: 0.6rem;
@@ -34,5 +34,5 @@
 }
 .mat-mdc-list-base {
   height: calc(100vh - (10vh));
-  background-color: var(--primary-550);
+  background-color: white;
 }
