@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { SharedStoreService } from 'src/app/core/service/shared-store.service';
+import { CoreModule } from '../../../core/core.module';
 
 @Component({
   selector: 'sc-admin-dashboard',
   standalone: true,
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.scss',
+  imports: [CoreModule],
 })
 export class AdminDashboardComponent {
   constructor(private sharedStoreService: SharedStoreService) {

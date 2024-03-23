@@ -5,6 +5,7 @@ import { Role } from '@sc-enums/role';
 import { Router } from '@angular/router';
 import { SharedStoreService } from 'src/app/core/service/shared-store.service';
 import { logInActions } from 'src/app/core/store/action';
+import { selectLoggedInUser } from '../../store/selector';
 
 @Component({
   selector: 'sc-login',
@@ -40,6 +41,7 @@ export class LoginComponent {
     this.sharedStore.dispatch(
       logInActions.logIn({ role: this.role, logDto: this.loginForm.value }),
     );
+    this.sharedStore.select(selectLoggedInUser).subscribe(console.log);
   }
 
   get role() {

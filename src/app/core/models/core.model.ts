@@ -94,6 +94,15 @@ export interface LoginDto {
   password: string;
 }
 
+export interface NavItem {
+  icon?: string;
+  label: string;
+  privileges?: Role[];
+  routerLink: string[];
+  children?: NavItem[];
+}
+
+type User = AdminUser | StudentProfile | TeacherProfile;
 export type LoggedInUser = (AdminUser | StudentProfile | TeacherProfile) & {
   school: SchoolProfile;
 };
