@@ -9,6 +9,6 @@ import { SharedStoreService } from 'src/app/core/service/shared-store.service';
 })
 export class AdminDashboardComponent {
   constructor(private sharedStoreService: SharedStoreService) {
-    sharedStoreService.loggedInUser$.subscribe(console.log);
+    sharedStoreService.loggedInUser$.subscribe((user) => console.log(user));
   }
 }
