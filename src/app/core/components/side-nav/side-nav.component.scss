@@ -4,6 +4,7 @@
 
 .sidenav {
   width: 200px;
+  border: 0 !important;
 }
 
 .sidenav .mat-toolbar {
@@ -20,6 +21,8 @@
 
 .router-link-active {
   background-color: #f7f7f7;
+  box-shadow: inset 1px 0px #0000000d, inset 0px 1px #0000000d,
+    inset 0px -1px #0000000d;
 }
 .nav_list {
   column-gap: 0.6rem;

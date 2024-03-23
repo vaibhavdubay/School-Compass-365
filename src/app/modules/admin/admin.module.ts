@@ -7,10 +7,12 @@ import { AdminReducer } from './state/reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AdminEffects } from './state/effect';
 import { AdminService } from './services/admin.service';
+import { CoreModule } from 'src/app/core/core.module';
 
 @NgModule({
   declarations: [],
   imports: [
+    CoreModule,
     CommonModule,
     AdminRoutingModule,
     StoreModule.forFeature(STORE_FEATURES.ADMIN, AdminReducer),
