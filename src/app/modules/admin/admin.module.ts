@@ -8,13 +8,18 @@ import { EffectsModule } from '@ngrx/effects';
 import { AdminEffects } from './state/effect';
 import { AdminService } from './services/admin.service';
 import { CoreModule } from 'src/app/core/core.module';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { FormsModule } from '@sc-forms/forms.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [],
+  declarations: [AdminDashboardComponent],
   imports: [
     CoreModule,
+    FormsModule,
     CommonModule,
     AdminRoutingModule,
+    ReactiveFormsModule,
     StoreModule.forFeature(STORE_FEATURES.ADMIN, AdminReducer),
     EffectsModule.forFeature([AdminEffects]),
   ],

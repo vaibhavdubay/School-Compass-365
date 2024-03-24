@@ -10,7 +10,6 @@ import { CoreModule } from './core/core.module';
 import { LayoutModule } from '@angular/cdk/layout';
 import { AppRoutingModule } from './app-routing.module';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { httpInterceptor } from './core/interceptor/http.interceptor';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -20,11 +19,9 @@ import { SsrCookieService } from 'ngx-cookie-service-ssr';
   declarations: [AppComponent],
   imports: [
     CoreModule,
-    FormsModule,
     LayoutModule,
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule,
     StoreModule.forRoot(),
     EffectsModule.forRoot(),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),

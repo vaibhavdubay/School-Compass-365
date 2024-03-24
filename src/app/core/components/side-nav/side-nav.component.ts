@@ -11,43 +11,7 @@ import { NavItem } from '@sc-models/core';
 })
 export class SideNavComponent {
   private breakpointObserver = inject(BreakpointObserver);
-  @Input() naveItem: NavItem[] = [
-    {
-      icon: 'person',
-      label: 'Admin',
-      routerLink: ['/admin'],
-    },
-    {
-      icon: 'person',
-      label: 'Admin',
-      routerLink: ['/admin1'],
-    },
-    {
-      icon: 'person',
-      label: 'Admin',
-      routerLink: ['/admin2'],
-    },
-    {
-      icon: 'person',
-      label: 'Admin',
-      routerLink: ['/admin3'],
-    },
-    {
-      icon: 'person',
-      label: 'Admin',
-      routerLink: ['/admin4'],
-    },
-    {
-      icon: 'person',
-      label: 'Admin',
-      routerLink: ['/admin5'],
-    },
-    {
-      icon: 'person',
-      label: 'Admin',
-      routerLink: ['/admin6'],
-    },
-  ];
+  @Input({ required: true }) naveItem: NavItem[] = [];
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)

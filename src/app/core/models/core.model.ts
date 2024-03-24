@@ -103,7 +103,7 @@ export interface NavItem {
 }
 
 type User = AdminUser | StudentProfile | TeacherProfile;
-export type LoggedInUser = (AdminUser | StudentProfile | TeacherProfile) & {
+export type LoggedInUser = User & {
   school: SchoolProfile;
 };
 

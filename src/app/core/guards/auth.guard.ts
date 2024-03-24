@@ -1,10 +1,10 @@
 import { inject } from '@angular/core';
 import { CanMatchFn } from '@angular/router';
-import { SsrCookieService } from 'ngx-cookie-service-ssr';
+import { CookieService } from '../service/cookie.service';
 
 export const authGuard: CanMatchFn = () => {
-  const cookieService = inject(SsrCookieService);
-  const authToken = cookieService.get('authorization');
+  const cookies = inject(CookieService);
+  const authToken = cookies.cookies('authorization');
   if (!authToken) return false;
   const data = JSON.parse(atob(authToken.split('.')?.[1]) || '{}');
   if (data?.exp) {

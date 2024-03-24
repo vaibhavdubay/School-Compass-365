@@ -1,10 +1,11 @@
-import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { SsrCookieService } from 'ngx-cookie-service-ssr';
+import { HttpInterceptorFn } from '@angular/common/http';
+import { CookieService } from '../service/cookie.service';
 
 export const httpInterceptor: HttpInterceptorFn = (req, next) => {
-  const cookieService = inject(SsrCookieService);
-  const authToken = cookieService.get('authorization');
+  const cookieService = inject(CookieService);
+  const authToken = cookieService.cookies('authorization');
+  // if (!cookieService.isBrowser) return EMPTY;
   if (authToken) {
     const authReq = req.clone({
       setHeaders: { Authorization: `Bearer ${authToken}` },
