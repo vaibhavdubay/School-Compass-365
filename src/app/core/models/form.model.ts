@@ -65,7 +65,7 @@ export type TextInput = Element & {
   placeholder?: string;
   validateAs?: '' | 'email' | 'password';
   validationPattern?: string | RegExp;
-  validationMessage?: string;
+  hint?: string;
 };
 export type TextAreaInput = Element & {
   placeholder?: string;

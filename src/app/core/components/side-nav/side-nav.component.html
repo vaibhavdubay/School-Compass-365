@@ -14,7 +14,6 @@
         mat-list-item
         [routerLink]="item.routerLink"
         [class]="i === 2 ? 'router-link-active' : null"
-        routerLinkActive="router-link-active"
       >
         <div class="d-flex align-items-center nav_list">
           <span class="material-symbols-outlined">
@@ -26,7 +25,6 @@
           </span>
         </div>
       </a>
-
       }
     </mat-nav-list>
   </mat-sidenav>
@@ -44,7 +42,8 @@
       }
       <span>School-Compass-365-fe</span>
     </mat-toolbar>
-    <!-- Add Content Here -->
-    <ng-content></ng-content>
+    <main class="px-4">
+      <ng-content></ng-content>
+    </main>
   </mat-sidenav-content>
 </mat-sidenav-container>

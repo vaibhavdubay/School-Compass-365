@@ -21,14 +21,26 @@ export class AdminDashboardComponent {
         key: 'firstName',
         required: true,
         label: 'First Name',
+        css_class: 'col-md-3',
       },
     },
     {
       elementType: 'text',
       element: {
         key: 'lastName',
+        css_class: 'col-md-3',
         disabled: true,
         label: 'Last Name',
+      },
+    },
+    {
+      elementType: 'text',
+      element: {
+        key: 'email',
+        css_class: 'col-md-3',
+        readonly: true,
+        value: 'sirvaibhavdubay@gmail.com',
+        label: 'Email',
       },
     },
   ];
