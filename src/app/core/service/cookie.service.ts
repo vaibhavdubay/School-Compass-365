@@ -1,7 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, Optional, PLATFORM_ID } from '@angular/core';
 import { Request } from 'express';
-import { SsrCookieService } from 'ngx-cookie-service-ssr';
+import { CookieService as cookieService } from 'ngx-cookie-service';
 
 @Injectable({ providedIn: 'root' })
 export class CookieService {
@@ -11,7 +11,7 @@ export class CookieService {
   constructor(
     @Inject(PLATFORM_ID) platformId: Object,
     @Optional() @Inject('REQUEST') req: Request,
-    private cookieService: SsrCookieService,
+    private cookieService: cookieService,
   ) {
     const serverCookies: string = req?.headers?.cookie || '';
     if (serverCookies) {

@@ -13,7 +13,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { httpInterceptor } from './core/interceptor/http.interceptor';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { SsrCookieService } from 'ngx-cookie-service-ssr';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,7 +27,7 @@ import { SsrCookieService } from 'ngx-cookie-service-ssr';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
   providers: [
-    SsrCookieService,
+    CookieService,
     provideClientHydration(),
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([httpInterceptor])),

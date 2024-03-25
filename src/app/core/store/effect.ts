@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectLoggedInUser } from './selector';
-import { SsrCookieService } from 'ngx-cookie-service-ssr';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable()
 export class SharedStoreEffect {
@@ -16,7 +16,7 @@ export class SharedStoreEffect {
     private apiService: ApiService,
     private router: Router,
     private store: Store,
-    private cookieService: SsrCookieService,
+    private cookieService: CookieService,
   ) {}
 
   logIn = createEffect(() => {
