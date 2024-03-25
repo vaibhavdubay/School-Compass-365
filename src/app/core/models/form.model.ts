@@ -35,36 +35,43 @@ export type ButtonGroupElement = {
 export type Element = {
   key: string;
   label: string;
+  cssClass?: string;
+  hidden?: boolean;
+  hint?: string;
+};
+
+type CoreInputElement = {
   disabled?: boolean;
   readonly?: boolean;
   required?: boolean;
-  cssClass?: string;
-  hidden?: boolean;
   value?: string;
   valueFn?: (form: {
     [k: string]: string | boolean | object | undefined;
   }) => string;
-  hint?: string;
 };
-export type Checkbox = Element & {
-  checked?: boolean;
-};
-export type DateInput = Element & {
-  placeholder?: string;
-  min?: string;
-  max?: string;
-};
-export type Radio = Element & {
-  options?: ListOptions;
-};
-export type Select = Element & {
-  allowMultiple?: boolean;
-  autoComplete?: boolean;
-  value?: string;
-  placeholder?: string;
-  selectedValues?: ListOptions;
-  options: ListOptions;
-};
+export type Checkbox = Element &
+  CoreInputElement & {
+    checked?: boolean;
+  };
+export type DateInput = Element &
+  CoreInputElement & {
+    placeholder?: string;
+    min?: string;
+    max?: string;
+  };
+export type Radio = Element &
+  CoreInputElement & {
+    options?: ListOptions;
+  };
+export type Select = Element &
+  CoreInputElement & {
+    allowMultiple?: boolean;
+    autoComplete?: boolean;
+    value?: string;
+    placeholder?: string;
+    selectedValues?: ListOptions;
+    options: ListOptions;
+  };
 
 export type InputValidators =
   | 'text'
@@ -76,19 +83,21 @@ export type InputValidators =
   | 'confirmPassword'
   | 'pattern';
 
-export type TextInput = Element & {
-  placeholder?: string;
-  validationPattern?: string | RegExp;
-  validateAs: InputValidators;
-  pattern?: string | RegExp;
-  minLength?: number;
-  maxLength?: number;
-  min?: number;
-  max?: number;
-};
-export type TextAreaInput = Element & {
-  placeholder?: string;
-};
+export type TextInput = Element &
+  CoreInputElement & {
+    placeholder?: string;
+    validationPattern?: string | RegExp;
+    validateAs: InputValidators;
+    pattern?: string | RegExp;
+    minLength?: number;
+    maxLength?: number;
+    min?: number;
+    max?: number;
+  };
+export type TextAreaInput = Element &
+  CoreInputElement & {
+    placeholder?: string;
+  };
 export type Button<F = (event: MouseEvent) => void> = Element & {
   type?: 'button' | 'submit' | 'reset';
   onClick?: F;
