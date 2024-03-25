@@ -16,7 +16,10 @@ import { FormComponent } from './form.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
-import { MatRippleModule } from '@angular/material/core';
+import {
+  MatRippleModule,
+  provideNativeDateAdapter,
+} from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -56,6 +59,7 @@ import { InputFormattingDirective } from './text-element/input-formatting.direct
     F_Module,
     ReactiveFormsModule,
   ],
+  providers: [provideNativeDateAdapter()],
   exports: [FormComponent],
 })
 export class FormsModule {}

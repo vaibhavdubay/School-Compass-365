@@ -41,6 +41,13 @@ export class AdminDashboardComponent {
       },
     },
     {
+      elementType: 'date',
+      element: {
+        key: 'date',
+        label: 'Date',
+      },
+    },
+    {
       elementType: 'button-group',
       element: {
         key: 'submit',

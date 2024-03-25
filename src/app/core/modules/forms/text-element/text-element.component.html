@@ -1,4 +1,6 @@
-<mat-form-field style="width: 100%">
+<mat-form-field
+  [style]="element.width ? { width: element.width } : { width: '100%' }"
+>
   <mat-label>{{ element.label }}</mat-label>
   @if ( ['text', 'email', 'password',
   'confirmPassword'].includes(element.validateAs)) {
@@ -31,5 +33,7 @@
     [hidden]="element.hidden || false"
     [formControl]="control"
   />
+  } @if(element.hint){
+  <mat-hint>{{ element.hint }}</mat-hint>
   }
 </mat-form-field>

@@ -1,4 +1,6 @@
-<mat-form-field>
+<mat-form-field
+  [style]="element.width ? { width: element.width } : { width: '100%' }"
+>
   <mat-label>{{ element.label }}</mat-label>
   @if(element.autoComplete){
   <input
@@ -38,5 +40,7 @@
     <mat-option [value]="option.key">{{ option.label }}</mat-option>
     }
   </mat-select>
+  } @if(element.hint){
+  <mat-hint>{{ element.hint }}</mat-hint>
   }
 </mat-form-field>

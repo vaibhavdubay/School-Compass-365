@@ -4,8 +4,14 @@ import {
   Input,
   OnChanges,
   Output,
+  SimpleChanges,
 } from '@angular/core';
-import { ButtonElement, FormElement, InputElement } from '@sc-models/form';
+import {
+  ButtonElement,
+  DateElement,
+  FormElement,
+  InputElement,
+} from '@sc-models/form';
 import {
   AbstractControl,
   FormBuilder,
@@ -22,6 +28,10 @@ import {
 })
 export class FormComponent<T = { [k: string]: string }> implements OnChanges {
   @Input({ required: true }) formConfig: FormElement[] = [];
+  @Input() dateFilters: { [k: string]: Date[] } = {};
+  @Input() customDateClasses: {
+    [k: string]: { [className: string]: Date[] };
+  } = {};
   @Output() buttonClick = new EventEmitter<{
     key: string;
     element: ButtonElement;
@@ -41,74 +51,93 @@ export class FormComponent<T = { [k: string]: string }> implements OnChanges {
 
   constructor(private fb: FormBuilder) {}
 
-  ngOnChanges(): void {
-    const inputElements = this.formConfig.filter((element) =>
-      this.inputElements.includes(element.elementType),
-    ) as InputElement[];
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['formConfig']) {
+      const inputElements = this.formConfig.filter((element) =>
+        this.inputElements.includes(element.elementType),
+      ) as InputElement[];
 
-    inputElements
-      .filter(
-        (elem) => !Object.keys(this.formGroup.value).includes(elem.element.key),
-      )
-      .forEach((formElement) => {
-        this.formGroup.addControl(
-          formElement.element.key as string & keyof T,
-          this.fb.control(formElement.element.value || ''),
-        );
-        if (formElement.elementType === 'text') {
-          const element = formElement.element;
-          if (
-            element.validateAs === 'email' ||
-            element.validateAs === 'password' ||
-            element.validateAs === 'confirmPassword'
-          ) {
-            const passwordPattern = new RegExp(
-              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i,
-            );
-            const emailPattern = new RegExp(
-              /^\w+[+.\w-]*@([\w-]+\.)*\w+[\w-]*\.([+.\w-]{2,}|\d+)$/i,
-            );
-            this.formGroup
-              .get(element.key)
-              ?.addValidators(
-                Validators.pattern(
-                  element.validateAs === 'email'
-                    ? emailPattern
-                    : passwordPattern,
-                ),
+      inputElements
+        .filter(
+          (elem) =>
+            !Object.keys(this.formGroup.value).includes(elem.element.key),
+        )
+        .forEach((formElement) => {
+          this.formGroup.addControl(
+            formElement.element.key as string & keyof T,
+            this.fb.control(formElement.element.value || ''),
+          );
+          if (formElement.elementType === 'text') {
+            const element = formElement.element;
+            if (
+              element.validateAs === 'email' ||
+              element.validateAs === 'password' ||
+              element.validateAs === 'confirmPassword'
+            ) {
+              const passwordPattern = new RegExp(
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i,
               );
-          }
-        }
-      });
-
-    const inputsWithValueFn = inputElements.filter(
-      (element) => !!element.element.valueFn,
-    );
-    if (inputsWithValueFn.length) {
-      this.formGroup.valueChanges.subscribe(() => {
-        inputsWithValueFn.forEach((element) => {
-          if (element.element?.valueFn) {
-            element.element.value = element.element?.valueFn(
-              this.formGroup.value,
-            );
-            console.log(element.element, this.formGroup.value);
+              const emailPattern = new RegExp(
+                /^\w+[+.\w-]*@([\w-]+\.)*\w+[\w-]*\.([+.\w-]{2,}|\d+)$/i,
+              );
+              this.formGroup
+                .get(element.key)
+                ?.addValidators(
+                  Validators.pattern(
+                    element.validateAs === 'email'
+                      ? emailPattern
+                      : passwordPattern,
+                  ),
+                );
+            }
           }
         });
+
+      const inputsWithValueFn = inputElements.filter(
+        (element) => !!element.element.valueFn,
+      );
+      if (inputsWithValueFn.length) {
+        this.formGroup.valueChanges.subscribe(() => {
+          inputsWithValueFn.forEach((element) => {
+            if (element.element?.valueFn) {
+              element.element.value = element.element?.valueFn(
+                this.formGroup.value,
+              );
+              console.log(element.element, this.formGroup.value);
+            }
+          });
+        });
+      }
+      const confirmPassword = inputElements.find(
+        (elem) =>
+          elem.elementType == 'text' &&
+          elem.element.validateAs == 'confirmPassword',
+      )?.element;
+      const password = inputElements.find(
+        (elem) =>
+          elem.elementType == 'text' && elem.element.validateAs == 'password',
+      )?.element;
+      if (password && confirmPassword) {
+        this.formGroup.addValidators(
+          this.passwordMatchValidator(password.key, confirmPassword.key),
+        );
+      }
+    }
+    if (changes['dateFilter']) {
+      Object.keys(this.dateFilters).forEach((key) => {
+        const date = this.formConfig.find(
+          (elem) => elem.elementType === 'date' && elem.element.key === key,
+        ) as DateElement;
+        date.element.filteredDates = this.dateFilters[key];
       });
     }
-    const confirmPassword = inputElements.find(
-      (elem) =>
-        elem.elementType == 'text' &&
-        elem.element.validateAs == 'confirmPassword',
-    )?.element;
-    const password = inputElements.find(
-      (elem) =>
-        elem.elementType == 'text' && elem.element.validateAs == 'password',
-    )?.element;
-    if (password && confirmPassword) {
-      this.formGroup.addValidators(
-        this.passwordMatchValidator(password.key, confirmPassword.key),
-      );
+    if (changes['customDateClasses']) {
+      Object.keys(this.customDateClasses).forEach((key) => {
+        const date = this.formConfig.find(
+          (elem) => elem.elementType === 'date' && elem.element.key === key,
+        ) as DateElement;
+        date.element.customClasses = this.customDateClasses[key];
+      });
     }
   }
   private passwordMatchValidator(

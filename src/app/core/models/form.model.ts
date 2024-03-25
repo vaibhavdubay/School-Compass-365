@@ -57,6 +57,8 @@ export type Checkbox = Element &
 export type DateInput = Element &
   CoreInputElement & {
     placeholder?: string;
+    filteredDates?: Date[];
+    customClasses?: { [className: string]: Date[] };
     min?: string;
     max?: string;
   };
@@ -107,7 +109,7 @@ export type Button<F = (event: MouseEvent) => void> = Element & {
   href?: string;
   title?: string;
 };
-export type Label = Element;
+export type Label = Omit<Element, 'disabled'>;
 export type ButtonGroup = Element & {
   display?: 'row' | 'column';
   buttons: ButtonElement[];
