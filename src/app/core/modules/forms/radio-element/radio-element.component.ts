@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Radio } from '@sc-models/form';
 
@@ -7,12 +7,16 @@ import { Radio } from '@sc-models/form';
   templateUrl: './radio-element.component.html',
   styleUrl: './radio-element.component.scss',
 })
-export class RadioElementComponent implements AfterViewInit {
+export class RadioElementComponent implements OnChanges {
   @Input({ required: true }) element!: Radio;
   @Input({ required: true }) control!: FormControl;
-  ngAfterViewInit() {
-    this.control.valueChanges.subscribe((value) => {
-      this.element.value = value;
-    });
+
+  ngOnChanges() {
+    if (this.element.disabled) {
+      this.control.disable();
+    } else {
+      this.control.enable();
+    }
+    this.control.setValue(this.element.value);
   }
 }

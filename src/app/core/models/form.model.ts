@@ -38,9 +38,13 @@ export type Element = {
   disabled?: boolean;
   readonly?: boolean;
   required?: boolean;
-  css_class?: string;
+  cssClass?: string;
   hidden?: boolean;
   value?: string;
+  valueFn?: (form: {
+    [k: string]: string | boolean | object | undefined;
+  }) => string;
+  hint?: string;
 };
 export type Checkbox = Element & {
   checked?: boolean;
@@ -61,11 +65,26 @@ export type Select = Element & {
   selectedValues?: ListOptions;
   options: ListOptions;
 };
+
+export type InputValidators =
+  | 'text'
+  | 'email'
+  | 'password'
+  | 'number'
+  | 'currency'
+  | 'decimal'
+  | 'confirmPassword'
+  | 'pattern';
+
 export type TextInput = Element & {
   placeholder?: string;
-  validateAs?: '' | 'email' | 'password';
   validationPattern?: string | RegExp;
-  hint?: string;
+  validateAs: InputValidators;
+  pattern?: string | RegExp;
+  minLength?: number;
+  maxLength?: number;
+  min?: number;
+  max?: number;
 };
 export type TextAreaInput = Element & {
   placeholder?: string;

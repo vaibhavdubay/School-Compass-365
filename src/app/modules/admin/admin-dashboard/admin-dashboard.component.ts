@@ -15,17 +15,18 @@ export class AdminDashboardComponent {
       elementType: 'text',
       element: {
         key: 'firstName',
+        validateAs: 'text',
         required: true,
         label: 'First Name',
-        css_class: 'col-md-3',
+        cssClass: 'col-md-4',
       },
     },
     {
       elementType: 'text',
       element: {
         key: 'lastName',
-        css_class: 'col-md-3',
-        disabled: true,
+        validateAs: 'text',
+        cssClass: 'col-md-4',
         label: 'Last Name',
       },
     },
@@ -33,8 +34,8 @@ export class AdminDashboardComponent {
       elementType: 'text',
       element: {
         key: 'email',
-        css_class: 'col-md-3',
-        readonly: true,
+        validateAs: 'email',
+        cssClass: 'col-md-4',
         value: 'sirvaibhavdubay@gmail.com',
         label: 'Email',
       },
@@ -46,6 +47,7 @@ export class AdminDashboardComponent {
   @ViewChild('form') formComponent!: FormComponent<{
     firstName: string;
     lastName: string;
+    email: string;
   }>;
 
   get FormGroup() {
@@ -54,5 +56,6 @@ export class AdminDashboardComponent {
 
   constructor(private sharedStoreService: SharedStoreService) {
     sharedStoreService.loggedInUser$.subscribe((user) => console.log(user));
+    this.FormGroup;
   }
 }

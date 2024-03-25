@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Checkbox } from '@sc-models/form';
 
@@ -7,13 +7,17 @@ import { Checkbox } from '@sc-models/form';
   templateUrl: './checkbox-element.component.html',
   styleUrl: './checkbox-element.component.scss',
 })
-export class CheckboxElementComponent implements AfterViewInit {
+export class CheckboxElementComponent implements OnChanges {
   @Input({ required: true }) element!: Checkbox;
   @Input({ required: true }) control!: FormControl;
   constructor() {}
-  ngAfterViewInit() {
-    this.control.valueChanges.subscribe((value) => {
-      this.element.value = value;
-    });
+
+  ngOnChanges() {
+    if (this.element.disabled) {
+      this.control.disable();
+    } else {
+      this.control.enable();
+    }
+    this.control.setValue(this.element.value);
   }
 }

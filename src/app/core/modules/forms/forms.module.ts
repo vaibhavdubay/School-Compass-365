@@ -24,6 +24,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { InputFormattingDirective } from './input-formatting.directive';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     RadioElementComponent,
     ButtonElementComponent,
     LabelElementComponent,
+    InputFormattingDirective,
   ],
   imports: [
     CommonModule,

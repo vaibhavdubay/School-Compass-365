@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { TextAreaInput } from '@sc-models/form';
 
@@ -7,14 +7,16 @@ import { TextAreaInput } from '@sc-models/form';
   templateUrl: './textarea-element.component.html',
   styleUrl: './textarea-element.component.scss',
 })
-export class TextareaElementComponent implements AfterViewInit {
+export class TextareaElementComponent implements OnChanges {
   @Input({ required: true }) element!: TextAreaInput;
   @Input({ required: true }) control!: FormControl;
 
-  constructor() {}
-  ngAfterViewInit() {
-    this.control.valueChanges.subscribe((value) => {
-      this.element.value = value;
-    });
+  ngOnChanges() {
+    if (this.element.disabled) {
+      this.control.disable();
+    } else {
+      this.control.enable();
+    }
+    this.control.setValue(this.element.value);
   }
 }

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { TextInput } from '@sc-models/form';
 
@@ -7,14 +7,16 @@ import { TextInput } from '@sc-models/form';
   templateUrl: './text-element.component.html',
   styleUrl: './text-element.component.scss',
 })
-export class TextElementComponent implements AfterViewInit {
+export class TextElementComponent implements OnChanges {
   @Input({ required: true }) element!: TextInput;
   @Input({ required: true }) control!: FormControl;
 
-  constructor() {}
-  ngAfterViewInit() {
-    this.control.valueChanges.subscribe((value) => {
-      this.element.value = value;
-    });
+  ngOnChanges() {
+    if (this.element.disabled) {
+      this.control.disable();
+    } else {
+      this.control.enable();
+    }
+    this.control.setValue(this.element.value);
   }
 }

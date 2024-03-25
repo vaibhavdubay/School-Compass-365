@@ -32,7 +32,12 @@
 <sc-button-element [element]="formElement.element"></sc-button-element>
 } @case ('label') {
 <sc-label-element [element]="formElement.element"></sc-label-element>
-} @case ('button-group') { @for(buttonElement of formElement.element.buttons;
-track $index){
-<sc-button-element [element]="buttonElement.element"></sc-button-element>
-} } }
+} @case ('button-group') {
+<div class="row">
+  @for(buttonElement of formElement.element.buttons; track $index){
+  <div [class]="buttonElement.element.cssClass || 'col-md-6'">
+    <sc-button-element [element]="buttonElement.element"></sc-button-element>
+  </div>
+  }
+</div>
+} }
