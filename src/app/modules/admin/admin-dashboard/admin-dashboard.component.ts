@@ -40,6 +40,38 @@ export class AdminDashboardComponent {
         label: 'Email',
       },
     },
+    {
+      elementType: 'button-group',
+      element: {
+        key: 'submit',
+        cssClass: 'col-md-12 text-center',
+        buttons: [
+          {
+            elementType: 'button',
+            element: {
+              key: 'submit',
+              type: 'submit',
+              cssClass: 'col',
+              theme: 'raised',
+              color: 'primary',
+              label: 'Submit',
+            },
+          },
+          {
+            elementType: 'button',
+            element: {
+              key: 'reset',
+              theme: 'raised',
+              cssClass: 'col',
+              type: 'reset',
+              color: 'accent',
+              label: 'Reset',
+            },
+          },
+        ],
+        label: 'Submit',
+      },
+    },
   ];
 
   navConfig = sideNavConfig;

@@ -36,12 +36,13 @@ export type Element = {
   key: string;
   label: string;
   cssClass?: string;
+  width?: string;
   hidden?: boolean;
   hint?: string;
+  disabled?: boolean;
 };
 
 type CoreInputElement = {
-  disabled?: boolean;
   readonly?: boolean;
   required?: boolean;
   value?: string;
@@ -100,13 +101,15 @@ export type TextAreaInput = Element &
   };
 export type Button<F = (event: MouseEvent) => void> = Element & {
   type?: 'button' | 'submit' | 'reset';
+  theme?: 'basic' | 'raised' | 'stroked' | 'flat' | 'icon' | 'fab' | 'mini_fab';
+  color?: 'basic' | 'primary' | 'accent' | 'warn' | 'link';
   onClick?: F;
   href?: string;
   title?: string;
 };
 export type Label = Element;
 export type ButtonGroup = Element & {
-  display: 'row' | 'column';
+  display?: 'row' | 'column';
   buttons: ButtonElement[];
 };
 export type ListOptions = { key: string; label: string }[];

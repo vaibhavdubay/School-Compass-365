@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Button } from '@sc-models/form';
 
 @Component({
@@ -8,4 +8,5 @@ import { Button } from '@sc-models/form';
 })
 export class ButtonElementComponent {
   @Input({ required: true }) element!: Button;
+  @Output() clicked: EventEmitter<void> = new EventEmitter();
 }

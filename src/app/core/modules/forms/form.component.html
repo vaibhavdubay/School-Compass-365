@@ -6,6 +6,7 @@
       <div [class]="formElement.element.cssClass || 'col-md-6'">
         <sc-form-element
           [formElement]="formElement"
+          (btnClick)="buttonClick.emit($event)"
           [control]="$any(formGroup.get(formElement.element.key))"
         ></sc-form-element>
       </div>

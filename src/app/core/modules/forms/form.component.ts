@@ -1,5 +1,11 @@
-import { Component, Input, OnChanges } from '@angular/core';
-import { FormElement, InputElement } from '@sc-models/form';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+} from '@angular/core';
+import { ButtonElement, FormElement, InputElement } from '@sc-models/form';
 import {
   AbstractControl,
   FormBuilder,
@@ -16,6 +22,10 @@ import {
 })
 export class FormComponent<T = { [k: string]: string }> implements OnChanges {
   @Input({ required: true }) formConfig: FormElement[] = [];
+  @Output() buttonClick = new EventEmitter<{
+    key: string;
+    element: ButtonElement;
+  }>();
   private inputElements = [
     'checkbox',
     'date',
@@ -101,7 +111,7 @@ export class FormComponent<T = { [k: string]: string }> implements OnChanges {
       );
     }
   }
-  passwordMatchValidator(
+  private passwordMatchValidator(
     mainControl: string,
     secondControl: string,
   ): ValidatorFn {

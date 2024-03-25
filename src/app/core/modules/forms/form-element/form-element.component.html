@@ -29,14 +29,40 @@
   [control]="control"
 ></sc-textarea-element>
 } @case ('button') {
-<sc-button-element [element]="formElement.element"></sc-button-element>
+<sc-button-element
+  [element]="formElement.element"
+  (clicked)="
+    btnClick.emit({
+      key: formElement.element.key,
+      element: formElement
+    })
+  "
+></sc-button-element>
 } @case ('label') {
 <sc-label-element [element]="formElement.element"></sc-label-element>
 } @case ('button-group') {
-<div class="row">
+<div
+  [class]="
+    'row ' +
+    (formElement.element.display === 'column'
+      ? 'flex-column align-items-center'
+      : '')
+  "
+  [style]="
+    formElement.element.width ? { width: formElement.element.width } : null
+  "
+>
   @for(buttonElement of formElement.element.buttons; track $index){
   <div [class]="buttonElement.element.cssClass || 'col-md-6'">
-    <sc-button-element [element]="buttonElement.element"></sc-button-element>
+    <sc-button-element
+      [element]="buttonElement.element"
+      (clicked)="
+        btnClick.emit({
+          key: buttonElement.element.key,
+          element: buttonElement
+        })
+      "
+    ></sc-button-element>
   </div>
   }
 </div>

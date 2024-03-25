@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { FormElement } from '@sc-models/form';
+import { ButtonElement, FormElement } from '@sc-models/form';
 
 @Component({
   selector: 'sc-form-element',
@@ -10,4 +10,8 @@ import { FormElement } from '@sc-models/form';
 export class FormElementComponent {
   @Input({ required: true }) formElement!: FormElement;
   @Input({ required: true }) control!: FormControl;
+  @Output() btnClick = new EventEmitter<{
+    key: string;
+    element: ButtonElement;
+  }>();
 }
