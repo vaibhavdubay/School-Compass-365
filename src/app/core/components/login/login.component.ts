@@ -5,6 +5,7 @@ import { Role } from '@sc-enums/role';
 import { Router } from '@angular/router';
 import { SharedStoreService } from 'src/app/core/service/shared-store.service';
 import { logInActions } from 'src/app/core/store/action';
+import { CookieService } from '../../service/cookie.service';
 
 @Component({
   selector: 'sc-login',
@@ -20,9 +21,15 @@ export class LoginComponent {
   constructor(
     public readonly screenObserver: ScreenSizeObserver,
     private sharedStore: SharedStoreService,
+    private cookieService: CookieService,
     private fb: FormBuilder,
     router: Router,
   ) {
+    const token = cookieService.cookies('authorization');
+    if (token) {
+      const data = JSON.parse(atob(token.split('.')?.[1]) || '{}');
+      router.navigate([data.role]);
+    }
     if (router.url.startsWith('/admin')) {
       this.isAdmin = true;
     }

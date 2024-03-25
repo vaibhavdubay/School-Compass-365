@@ -16,5 +16,6 @@ export const logInActions = createActionGroup({
     'Log In': props<{ role: Role; logDto: LoginDto }>(),
     'Log In Success': props<{ response: LoginResponse }>(),
     'Log In Failure': emptyProps(),
+    'Log Out': emptyProps(),
   },
 });
