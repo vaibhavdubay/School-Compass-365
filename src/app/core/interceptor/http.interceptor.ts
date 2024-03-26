@@ -4,11 +4,11 @@ import { CookieService } from '../service/cookie.service';
 
 export const httpInterceptor: HttpInterceptorFn = (req, next) => {
   const cookieService = inject(CookieService);
-  const authToken = cookieService.cookies('authorization');
+  const authToken = cookieService.cookie['authorization'];
   // if (!cookieService.isBrowser) return EMPTY;
   if (authToken) {
     const authReq = req.clone({
-      setHeaders: { Authorization: `Bearer ${authToken}` },
+      setHeaders: { authorization: `Bearer ${authToken}` },
     });
 
     return next(authReq);

@@ -26,4 +26,7 @@ export const SharedStoreReducer = createReducer(
       loggedInUser: action.response,
     }),
   ),
+  on(logInActions.logOut, () => ({
+    ...initialState,
+  })),
 );

@@ -3,6 +3,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { NavItem } from '@sc-models/core';
+import { SharedStoreService } from '../../service/shared-store.service';
+import { logInActions } from '../../store/action';
 
 @Component({
   selector: 'sc-side-nav',
@@ -11,6 +13,7 @@ import { NavItem } from '@sc-models/core';
 })
 export class SideNavComponent {
   private breakpointObserver = inject(BreakpointObserver);
+  constructor(private sharedStore: SharedStoreService) {}
   @Input({ required: true }) naveItem: NavItem[] = [];
 
   isHandset$: Observable<boolean> = this.breakpointObserver
@@ -19,4 +22,7 @@ export class SideNavComponent {
       map((result) => result.matches),
       shareReplay(),
     );
+  logOut() {
+    this.sharedStore.dispatch(logInActions.logOut());
+  }
 }

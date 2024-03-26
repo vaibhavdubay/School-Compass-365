@@ -4,7 +4,7 @@ import { CookieService } from '../service/cookie.service';
 
 export const authGuard: CanMatchFn = () => {
   const cookies = inject(CookieService);
-  const authToken = cookies.cookies('authorization');
+  const authToken = cookies.cookie['authorization'];
   if (!authToken) return false;
   const data = JSON.parse(atob(authToken.split('.')?.[1]) || '{}');
   if (data?.exp) {

@@ -25,18 +25,19 @@ export class LoginComponent {
     private fb: FormBuilder,
     router: Router,
   ) {
-    const token = cookieService.cookies('authorization');
-    if (token) {
-      const data = JSON.parse(atob(token.split('.')?.[1]) || '{}');
-      router.navigate([data.role]);
-    }
-    if (router.url.startsWith('/admin')) {
-      this.isAdmin = true;
-    }
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
     });
+    const token = cookieService.cookie['authorization'];
+    if (token) {
+      const data = JSON.parse(atob(token.split('.')?.[1]) || '{}');
+      router.navigate([data.role]);
+    } else {
+      if (router.url.startsWith('/admin')) {
+        this.isAdmin = true;
+      }
+    }
   }
 
   togglePasswordVisibility() {

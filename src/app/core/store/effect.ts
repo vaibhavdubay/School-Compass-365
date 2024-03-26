@@ -37,7 +37,7 @@ export class SharedStoreEffect {
         tap(({ response }) => {
           const role = response.user.role;
           this.router.navigate([role, 'dashboard']);
-          this.cookieService.set('authorization', response.accessToken, {
+          this.cookieService.set('authorization', `${response.accessToken}`, {
             expires: 500,
             sameSite: 'Strict',
             secure: true,
@@ -63,16 +63,30 @@ export class SharedStoreEffect {
     );
   });
 
-  userProfileFailure = createEffect(
+  userProfileFailure = createEffect(() => {
+    return this.action$.pipe(
+      ofType(logInActions.userProfileFailure),
+      tap(() => {
+        if (typeof window !== 'undefined') {
+          localStorage.clear();
+          sessionStorage.clear();
+        }
+        this.cookieService.deleteAll();
+        this.router.navigate(['']);
+      }),
+    );
+  });
+
+  logOut = createEffect(
     () => {
       return this.action$.pipe(
-        ofType(logInActions.userProfileFailure),
+        ofType(logInActions.logOut),
         tap(() => {
           if (typeof window !== 'undefined') {
             localStorage.clear();
             sessionStorage.clear();
           }
-          this.cookieService.deleteAll();
+          document.cookie = '';
           this.router.navigate(['']);
         }),
       );

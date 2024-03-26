@@ -40,7 +40,18 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       }
-      <span>School-Compass-365-fe</span>
+      <div class="d-flex w-100 justify-content-between">
+        <div>School-Compass-365-fe</div>
+        <div [matMenuTriggerFor]="menu">
+          <mat-icon>account_circle</mat-icon>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="logOut()">
+              <mat-icon>logout</mat-icon>
+              <span>Log-out</span>
+            </button>
+          </mat-menu>
+        </div>
+      </div>
     </mat-toolbar>
     <main class="px-4">
       <ng-content></ng-content>
