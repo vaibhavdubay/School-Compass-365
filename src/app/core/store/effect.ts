@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectLoggedInUser } from './selector';
-import { CookieService } from 'ngx-cookie-service';
+import { CookieService } from '../service/cookie.service';
 
 @Injectable()
 export class SharedStoreEffect {
@@ -63,19 +63,22 @@ export class SharedStoreEffect {
     );
   });
 
-  userProfileFailure = createEffect(() => {
-    return this.action$.pipe(
-      ofType(logInActions.userProfileFailure),
-      tap(() => {
-        if (typeof window !== 'undefined') {
-          localStorage.clear();
-          sessionStorage.clear();
-        }
-        this.cookieService.deleteAll();
-        this.router.navigate(['']);
-      }),
-    );
-  });
+  userProfileFailure = createEffect(
+    () => {
+      return this.action$.pipe(
+        ofType(logInActions.userProfileFailure),
+        tap(() => {
+          if (typeof window !== 'undefined') {
+            localStorage.clear();
+            sessionStorage.clear();
+          }
+          this.cookieService.deleteAll();
+          this.router.navigate(['']);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
 
   logOut = createEffect(
     () => {

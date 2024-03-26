@@ -29,7 +29,7 @@ export class LoginComponent {
       username: ['', Validators.required],
       password: ['', Validators.required],
     });
-    const token = cookieService.cookie['authorization'];
+    const token = cookieService.get('authorization');
     if (token) {
       const data = JSON.parse(atob(token.split('.')?.[1]) || '{}');
       router.navigate([data.role]);

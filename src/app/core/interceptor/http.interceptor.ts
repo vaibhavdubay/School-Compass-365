@@ -4,7 +4,7 @@ import { CookieService } from '../service/cookie.service';
 
 export const httpInterceptor: HttpInterceptorFn = (req, next) => {
   const cookieService = inject(CookieService);
-  const authToken = cookieService.cookie['authorization'];
+  const authToken = cookieService.get('authorization');
   // if (!cookieService.isBrowser) return EMPTY;
   if (authToken) {
     const authReq = req.clone({
