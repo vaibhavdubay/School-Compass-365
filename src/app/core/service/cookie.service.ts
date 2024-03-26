@@ -126,7 +126,10 @@ export class CookieService {
     const sameSite = options.sameSite ? `; SameSite=${options.sameSite}` : '';
 
     // Validate sameSite value (if provided)
-    if (sameSite && !['Lax', 'Strict', 'None'].includes(sameSite)) {
+    if (
+      options.sameSite &&
+      !['Lax', 'Strict', 'None'].includes(options.sameSite)
+    ) {
       throw new Error(
         'Invalid sameSite option. Must be "Lax", "Strict", or "None".',
       );

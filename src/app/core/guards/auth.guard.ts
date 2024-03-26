@@ -10,7 +10,9 @@ export const authGuard: CanMatchFn = () => {
   if (data?.exp) {
     const exp = new Date(data.exp * 1000);
     const now = new Date();
-    return exp > now;
+    const expired = exp <= now;
+    if (expired) cookies.delete('authorization');
+    return !expired;
   }
   return false;
 };

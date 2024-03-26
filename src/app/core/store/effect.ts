@@ -89,7 +89,7 @@ export class SharedStoreEffect {
             localStorage.clear();
             sessionStorage.clear();
           }
-          document.cookie = '';
+          this.cookieService.deleteAll();
           this.router.navigate(['']);
         }),
       );
