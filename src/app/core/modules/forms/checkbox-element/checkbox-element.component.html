@@ -8,4 +8,8 @@
 </mat-checkbox>
 @if(element.hint){
 <mat-hint>{{ element.hint }}</mat-hint>
+} @if(control.errors){
+<mat-error>
+  <sc-error [element]="element" [errors]="control.errors"></sc-error>
+</mat-error>
 }

@@ -28,6 +28,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { InputFormattingDirective } from './text-element/input-formatting.directive';
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { InputFormattingDirective } from './text-element/input-formatting.direct
     ButtonElementComponent,
     LabelElementComponent,
     InputFormattingDirective,
+    ErrorComponent,
   ],
   imports: [
     CommonModule,

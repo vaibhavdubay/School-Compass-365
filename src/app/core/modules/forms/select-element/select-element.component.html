@@ -40,6 +40,10 @@
     <mat-option [value]="option.key">{{ option.label }}</mat-option>
     }
   </mat-select>
+  } @if(control.errors){
+  <mat-error>
+    <sc-error [element]="element" [errors]="control.errors"></sc-error>
+  </mat-error>
   } @if(element.hint){
   <mat-hint>{{ element.hint }}</mat-hint>
   }

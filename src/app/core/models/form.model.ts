@@ -100,6 +100,8 @@ export type TextInput = Element &
 export type TextAreaInput = Element &
   CoreInputElement & {
     placeholder?: string;
+    minLength?: number;
+    maxLength?: number;
   };
 export type Button<F = (event: MouseEvent) => void> = Element & {
   type?: 'button' | 'submit' | 'reset';

@@ -8,7 +8,11 @@
     [formControl]="control"
     [matDatepickerFilter]="filter"
   />
-  @if(element.hint){
+  @if(control.errors){
+  <mat-error>
+    <sc-error [element]="element" [errors]="control.errors"></sc-error>
+  </mat-error>
+  } @if(element.hint){
   <mat-hint>{{ element.hint }}</mat-hint>
   } @if(!element.disabled){
   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>

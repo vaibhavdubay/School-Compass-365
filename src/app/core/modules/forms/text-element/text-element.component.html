@@ -33,6 +33,16 @@
     [hidden]="element.hidden || false"
     [formControl]="control"
   />
+  } @if(control.errors){
+  <mat-error>
+    <sc-error
+      [element]="element"
+      [errors]="control.errors"
+      [min]="element.min"
+      [max]="element.max"
+      [minLength]="element.minLength"
+    ></sc-error>
+  </mat-error>
   } @if(element.hint){
   <mat-hint>{{ element.hint }}</mat-hint>
   }
