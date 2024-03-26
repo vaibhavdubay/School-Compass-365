@@ -1,4 +1,6 @@
-<mat-form-field>
+<mat-form-field
+  [style]="element.width ? { width: element.width } : { width: '100%' }"
+>
   <mat-label>{{ element.label }}</mat-label>
   <textarea
     matInput
@@ -8,4 +10,7 @@
     [hidden]="element.hidden || false"
     [formControl]="control"
   ></textarea>
+  @if(element.hint){
+  <mat-hint>{{ element.hint }}</mat-hint>
+  }
 </mat-form-field>
