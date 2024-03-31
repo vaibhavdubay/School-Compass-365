@@ -1,0 +1,12 @@
+<mat-radio-group
+  [formControl]="control"
+  [required]="element.required || false"
+  [style]="element.width ? { width: element.width } : { width: '100%' }"
+  [hidden]="element.hidden || false"
+>
+  @for (option of element.options; track $index) {
+  <mat-radio-button [value]="option.key"> {{ option.label }} </mat-radio-button>
+  } @if(element.hint){
+  <mat-hint>{{ element.hint }}</mat-hint>
+  }
+</mat-radio-group>

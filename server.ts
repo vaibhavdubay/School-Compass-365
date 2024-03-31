@@ -1,9 +1,9 @@
 import { APP_BASE_HREF } from '@angular/common';
 import { CommonEngine } from '@angular/ssr';
-import express from 'express';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 import AppServerModule from './src/main.server';
+import express from 'express';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -18,11 +18,36 @@ export function app(): express.Express {
   server.set('views', browserDistFolder);
 
   // Example Express Rest API endpoints
+
+  server.use('/admin/login/*', async (req, res, next) => {
+    try {
+      const id = atob((req.params as string[])?.['0']) || '';
+      const response = await fetch(
+        `http://localhost:3000/api/admin/login/${id}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      if (!response.ok) {
+        return res.redirect('/login');
+      } else {
+        next();
+      }
+    } catch (err) {
+      return res.redirect('/login');
+    }
+  });
   // server.get('/api/**', (req, res) => { });
   // Serve static files from /browser
-  server.get('*.*', express.static(browserDistFolder, {
-    maxAge: '1y'
-  }));
+  server.get(
+    '*.*',
+    express.static(browserDistFolder, {
+      maxAge: '1y',
+    }),
+  );
 
   // All regular routes use the Angular engine
   server.get('*', (req, res, next) => {

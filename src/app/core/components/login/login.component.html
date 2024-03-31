@@ -1,0 +1,154 @@
+<section class="section" [class.mobile_screen]="screenObserver.isMobile">
+  <div class="header d-flex justify-content-between">
+    <h4 [class.mobile_font]="screenObserver.isMobile">School Compass</h4>
+    @if (!isAdmin) {
+    <div
+      (click)="isTeacher = !isTeacher"
+      (keydown.enter)="isTeacher = !isTeacher"
+      tabindex="0"
+      class="login_screen_handler d-inline-flex align-items-center"
+    >
+      <span
+        [class.mobile_font]="screenObserver.isMobile"
+        [ngStyle]="{ color: !isTeacher ? 'var(--primary-550)' : 'black' }"
+        >Student</span
+      >
+      <div class="toggle-wrapper">
+        <div class="toggle transparent">
+          <input hidden type="checkbox" [(ngModel)]="isTeacher" />
+          <span class="toggle-item"> </span>
+        </div>
+      </div>
+      <span
+        [class.mobile_font]="screenObserver.isMobile"
+        [ngStyle]="{ color: isTeacher ? 'var(--primary-550)' : 'black' }"
+        >Teacher
+      </span>
+    </div>
+    }
+  </div>
+  @if (!screenObserver.isMobile) {
+  <div class="container-fluid d-flex align-items-center justify-content-center">
+    <div class="row h-100 py-4 w-75 justify-content-center">
+      <div
+        class="col-md-6 image_baner d-flex align-items-center justify-content-end"
+      >
+        <div [class]="isTeacher ? 'teachers-section' : 'student-section'"></div>
+      </div>
+      <div class="col-md-6 form_section d-flex align-items-center">
+        <div class="form-container p-4 w-100" [formGroup]="loginForm">
+          <div class="h4 mb-3">Login</div>
+          <div class="input-container mb-3">
+            <div class="prefix-icon d-flex align-items-center">
+              <span class="material-symbols-outlined"> person </span>
+            </div>
+            <input
+              autocomplete="off"
+              [ariaAutoComplete]="'off'"
+              tabindex="3"
+              formControlName="username"
+              matInput
+              placeholder="Username"
+            />
+          </div>
+          <div class="input-container mb-3">
+            <div class="prefix-icon d-flex align-items-center">
+              <span class="material-symbols-outlined"> key_vertical </span>
+            </div>
+            <input
+              autocomplete="off"
+              [ariaAutoComplete]="'off'"
+              matInput
+              tabindex="4"
+              formControlName="password"
+              [type]="hidePassword ? 'password' : 'text'"
+              placeholder="Password"
+            />
+            <div class="suffix-icon pt-1">
+              <span
+                class="material-symbols-outlined"
+                (click)="togglePasswordVisibility()"
+                (keydown.enter)="togglePasswordVisibility()"
+                tabindex="5"
+                >{{ hidePassword ? 'visibility_off' : 'visibility' }}</span
+              >
+            </div>
+          </div>
+          <div class="w-100 mb-3 mobile_font">Forget Password?</div>
+          <div
+            class="w-100 mt-4 login_button text-center"
+            (click)="login()"
+            tabindex="6"
+            (keydown.enter)="login()"
+          >
+            Login
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  } @else {
+  <div class="container d-flex align-items-center justify-content-center">
+    <div class="row h-100 w-100 py-4 w-75 justify-content-center">
+      <div class="p-0 image_baner d-flex justify-content-center">
+        <div [class]="isTeacher ? 'teachers-section' : 'student-section'"></div>
+      </div>
+      <div class="p-0 col-md-6 form_section d-flex align-items-center">
+        <div class="form-container p-4 w-100" [formGroup]="loginForm">
+          <div class="h4 mb-3">Login</div>
+          <div class="input-container mb-3">
+            <div class="prefix-icon d-flex align-items-center">
+              <span class="material-symbols-outlined"> person </span>
+            </div>
+            <input
+              autocomplete="off"
+              [ariaAutoComplete]="'off'"
+              matInput
+              tabindex="3"
+              formControlName="username"
+              placeholder="Username"
+            />
+          </div>
+          <div class="input-container mb-3">
+            <div class="prefix-icon d-flex align-items-center">
+              <span class="material-symbols-outlined"> key_vertical </span>
+            </div>
+            <input
+              autocomplete="off"
+              [ariaAutoComplete]="'off'"
+              matInput
+              (keydown.enter)="login()"
+              tabindex="4"
+              [type]="hidePassword ? 'password' : 'text'"
+              formControlName="password"
+              placeholder="Password"
+            />
+            <div class="suffix-icon pt-1">
+              <span
+                class="material-symbols-outlined"
+                tabindex="5"
+                (click)="togglePasswordVisibility()"
+                (keydown.enter)="togglePasswordVisibility()"
+                >{{ hidePassword ? 'visibility_off' : 'visibility' }}</span
+              >
+            </div>
+          </div>
+          <div class="w-100 mb-3 mobile_font">Forget Password?</div>
+          <div
+            class="w-100 mt-4 login_button text-center"
+            (click)="login()"
+            tabindex="6"
+            (keydown.enter)="login()"
+          >
+            Login
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+
+  <div class="footer d-flex justify-content-center align-items-center">
+    <small> &copy; 2024 School Compass 365. All rights reserved</small>
+  </div>
+</section>
