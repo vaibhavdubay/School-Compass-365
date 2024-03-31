@@ -12,6 +12,7 @@ import { logInActions } from '../../store/action';
   styleUrl: './side-nav.component.scss',
 })
 export class SideNavComponent {
+  profile: any;
   private breakpointObserver = inject(BreakpointObserver);
   constructor(private sharedStore: SharedStoreService) {}
   @Input({ required: true }) naveItem: NavItem[] = [];
@@ -22,6 +23,14 @@ export class SideNavComponent {
       map((result) => result.matches),
       shareReplay(),
     );
+
+  ngOnInit() {
+    this.profile = this.sharedStore.loggedInUser$.subscribe((res) => {
+      this.profile = res;
+      console.log(res);
+    });
+  }
+
   logOut() {
     this.sharedStore.dispatch(logInActions.logOut());
   }

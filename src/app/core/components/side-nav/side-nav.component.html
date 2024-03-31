@@ -42,8 +42,28 @@
       }
       <div class="d-flex w-100 justify-content-between">
         <div>School-Compass-365-fe</div>
-        <div [matMenuTriggerFor]="menu">
-          <mat-icon>account_circle</mat-icon>
+        <div
+          class="profile_container d-flex px-2 pr-0 py-1 justify-content-end"
+          [matMenuTriggerFor]="menu"
+        >
+          <div class="profile text-end d-flex flex-column">
+            <div class="profile_name">
+              {{ profile.firstName }} {{ profile.lastName }}
+            </div>
+            <div class="profile_email">{{ profile.email }}</div>
+          </div>
+          <div class="d-flex align-items-center justify-content-center">
+            <img
+              style="height: 24px"
+              [src]="
+                profile?.avatar
+                  ? profile?.avatar
+                  : 'assets/images/avatar_1.webp'
+              "
+              alt="user profile "
+            />
+            <!-- <mat-icon>account_circle</mat-icon> -->
+          </div>
           <mat-menu #menu="matMenu">
             <button mat-menu-item (click)="logOut()">
               <mat-icon>logout</mat-icon>
