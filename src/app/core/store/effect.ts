@@ -38,7 +38,7 @@ export class SharedStoreEffect {
           const role = response.user.role;
           this.router.navigate([role, 'dashboard']);
           this.cookieService.set('authorization', `${response.accessToken}`, {
-            expires: 500,
+            expires: 86400,
             sameSite: 'Strict',
             secure: true,
             path: '/',

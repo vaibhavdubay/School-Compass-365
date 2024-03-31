@@ -9,14 +9,14 @@ import { AdminEffects } from './state/effect';
 import { AdminService } from './services/admin.service';
 import { CoreModule } from 'src/app/core/core.module';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
-import { FormsModule } from '@sc-forms/forms.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TableModule } from 'src/app/core/modules/table/table.module';
 
 @NgModule({
   declarations: [AdminDashboardComponent],
   imports: [
     CoreModule,
-    FormsModule,
+    TableModule,
     CommonModule,
     AdminRoutingModule,
     ReactiveFormsModule,

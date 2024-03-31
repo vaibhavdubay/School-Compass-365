@@ -3,6 +3,26 @@ import { SharedStoreService } from 'src/app/core/service/shared-store.service';
 import { FormConfig } from '@sc-models/form';
 import { FormComponent } from '@sc-forms/form.component';
 import { sideNavConfig } from '../constants/admin.constant';
+import { TableConfig } from '@sc-models/table';
+
+export interface PeriodicElement {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+}
+const ELEMENT_DATA: PeriodicElement[] = [
+  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
+  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
+  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
+  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
+  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
+  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
+  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
+  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
+  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
+  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
+];
 
 @Component({
   selector: 'sc-admin-dashboard',
@@ -80,8 +100,76 @@ export class AdminDashboardComponent {
       },
     },
   ];
+  tableData = ELEMENT_DATA;
+  tableConfig: TableConfig<PeriodicElement> = {
+    columns: [
+      {
+        columnDef: 'position',
+        header: 'Index',
+      },
+      {
+        columnDef: 'name',
+        header: 'Name',
+        cell: (element: PeriodicElement) =>
+          `${element.name} (${element.symbol})`,
+      },
+      {
+        columnDef: 'weight',
+        header: 'Weight',
+        formElement: {
+          elementType: 'button-group',
+          element: {
+            display: 'row',
+            buttons: [
+              {
+                elementType: 'button',
+                element: {
+                  key: 'view',
+                  label: 'visibility',
+                  type: 'button',
+                  theme: 'icon',
+                },
+              },
+              {
+                elementType: 'button',
+                element: {
+                  key: 'edit',
+                  label: 'edit',
+                  type: 'button',
+                  theme: 'icon',
+                },
+              },
+
+              {
+                elementType: 'button',
+                element: {
+                  key: 'delete',
+                  label: 'delete',
+                  type: 'button',
+                  theme: 'icon',
+                },
+              },
+            ],
+            key: 'actions',
+            label: 'actions',
+          },
+        },
+      },
+    ],
+    pagination: {
+      pageSizeOptions: [5, 10, 20, 30],
+    },
+    sort: {
+      column: 'name',
+      direction: 'asc',
+    },
+  };
 
   navConfig = sideNavConfig;
+
+  getButtonClick(event: any) {
+    console.log(event);
+  }
 
   @ViewChild('form') formComponent!: FormComponent<{
     firstName: string;

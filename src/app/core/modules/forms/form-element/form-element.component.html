@@ -46,14 +46,14 @@
     'row ' +
     (formElement.element.display === 'column'
       ? 'flex-column align-items-center'
-      : '')
+      : 'flex-row align-items-center justify-content-center')
   "
   [style]="
     formElement.element.width ? { width: formElement.element.width } : null
   "
 >
   @for(buttonElement of formElement.element.buttons; track $index){
-  <div [class]="buttonElement.element.cssClass || 'col-md-6'">
+  <div [class]="buttonElement.element.cssClass || 'col'">
     <sc-button-element
       [element]="buttonElement.element"
       (clicked)="
@@ -66,4 +66,4 @@
   </div>
   }
 </div>
-} }
+}}

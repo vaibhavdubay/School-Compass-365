@@ -62,6 +62,6 @@ import { ErrorComponent } from './error/error.component';
     ReactiveFormsModule,
   ],
   providers: [provideNativeDateAdapter()],
-  exports: [FormComponent],
+  exports: [FormComponent, FormElementComponent],
 })
 export class FormsModule {}
