@@ -1,69 +1,64 @@
-@switch (formElement.elementType) { @case ('checkbox') {
-<sc-checkbox-element
-  [element]="formElement.element"
-  [control]="control"
-></sc-checkbox-element>
-} @case ('date') {
-<sc-date-element
-  [element]="formElement.element"
-  [control]="control"
-></sc-date-element>
-} @case ('radio') {
-<sc-radio-element
-  [element]="formElement.element"
-  [control]="control"
-></sc-radio-element>
-} @case ('select') {
-<sc-select-element
-  [element]="formElement.element"
-  [control]="control"
-></sc-select-element>
-} @case ('text') {
-<sc-text-element
-  [element]="formElement.element"
-  [control]="control"
-></sc-text-element>
-} @case ('textarea') {
-<sc-textarea-element
-  [element]="formElement.element"
-  [control]="control"
-></sc-textarea-element>
-} @case ('button') {
-<sc-button-element
-  [element]="formElement.element"
-  (clicked)="
-    btnClick.emit({
-      key: formElement.element.key,
-      element: formElement
-    })
-  "
-></sc-button-element>
-} @case ('label') {
-<sc-label-element [element]="formElement.element"></sc-label-element>
-} @case ('button-group') {
-<div
-  [class]="
-    'row ' +
-    (formElement.element.display === 'column'
-      ? 'flex-column align-items-center'
-      : 'flex-row align-items-center justify-content-center')
-  "
-  [style]="
-    formElement.element.width ? { width: formElement.element.width } : null
-  "
->
-  @for(buttonElement of formElement.element.buttons; track $index){
-  <div [class]="buttonElement.element.cssClass || 'col'">
+@let element = formElement();
+@switch (element.elementType) {
+  @case ('checkbox') {
+    <sc-checkbox-element [element]="element.element" [control]="control()"></sc-checkbox-element>
+  }
+  @case ('date') {
+    <sc-date-element [element]="element.element" [control]="control()"></sc-date-element>
+  }
+  @case ('radio') {
+    <sc-radio-element [element]="element.element" [control]="control()"></sc-radio-element>
+  }
+  @case ('select') {
+    @let options =
+      dynamicListOptions() && dynamicListOptions()[element.element.key]
+        ? (dynamicListOptions()[element.element.key] | async)
+        : element.element.options;
+    <sc-select-element [options]="options ?? []" [element]="element.element" [control]="control()"></sc-select-element>
+  }
+  @case ('text') {
+    <sc-text-element [element]="element.element" [control]="control()"></sc-text-element>
+  }
+  @case ('textarea') {
+    <sc-textarea-element [element]="element.element" [control]="control()"></sc-textarea-element>
+  }
+  @case ('button') {
     <sc-button-element
-      [element]="buttonElement.element"
+      [element]="element.element"
       (clicked)="
         btnClick.emit({
-          key: buttonElement.element.key,
-          element: buttonElement
+          key: element.element.key,
+          element: element,
         })
       "
     ></sc-button-element>
-  </div>
   }
-</div>
-}}
+  @case ('label') {
+    <sc-label-element [element]="element.element"></sc-label-element>
+  }
+  @case ('button-group') {
+    <div
+      [class]="
+        'row ' +
+        (element.element.display === 'column'
+          ? 'flex-column align-items-center'
+          : 'align-items-center justify-content-center flex-row')
+      "
+      [style]="element.element.width ? { width: element.element.width } : null"
+    >
+      @for (buttonElement of element.element.buttons; track $index) {
+        <div [class]="buttonElement.element.cssClass || 'col'">
+          <sc-button-element
+            [element]="buttonElement.element"
+            (clicked)="
+              btnClick.emit({
+                key: buttonElement.element.key,
+                element: buttonElement,
+              })
+            "
+          ></sc-button-element>
+        </div>
+      }
+    </div>
+  }
+}

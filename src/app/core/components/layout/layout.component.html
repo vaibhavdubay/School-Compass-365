@@ -1,0 +1,140 @@
+@let _profile = profile | async;
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    [class.mobile_width]="screenObserver.isMobile"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+    <div class="d-flex flex-column align-items-center justify-content-center text-center">
+        <img
+          style="height: 4rem; margin: 1rem 0 0.5rem; width: 4rem; border-radius: 50%"
+          [src]="_profile?.schoolProfile?.logoUrl ? _profile?.schoolProfile?.logoUrl : 'assets/images/avatar_1.webp'"
+          [alt]="_profile?.schoolProfile?.name"
+        />
+      <div [class.mobile_padding]="screenObserver.isMobile">
+        <h6 class="school_name title">
+          {{ _profile?.schoolProfile?.name }}
+        </h6>
+        <span class="school_address sub_title">
+          {{ _profile?.schoolProfile?.town }},
+          {{ _profile?.schoolProfile?.city }}
+          @if (_profile?.schoolProfile?.state) {
+            ({{ states[_profile?.schoolProfile?.state || ''] }})
+          }
+        </span>
+        <div>
+          <a class="editOrViewSchoolProfile" routerLink="./school-profile">Edit School Profile</a>
+        </div>
+      </div>
+    </div>
+    <div class="seperator my-2"></div>
+
+    <sc-menu [navItems]="navItems()"></sc-menu>
+    @if (screenObserver.isMobile) {
+      <div class="seperator my-2"></div>
+    }
+
+    <div [ngStyle]="{ display: screenObserver.isMobile ? 'initial' : 'none' }">
+      <mat-nav-list class="p-0">
+        <a mat-list-item>
+          <div class="d-flex align-items-center nav_list">
+            <span class="material-symbols-outlined"> Logout </span>
+
+            <span class="pr-2"> Log Out </span>
+          </div>
+        </a>
+        <a mat-list-item>
+          <div class="d-flex align-items-center nav_list justify-content-between">
+            <div class="d-flex">
+              <span class="material-symbols-outlined"> dark_mode </span>
+              <span class="pr-2"> Night Mode </span>
+            </div>
+            <span class="pr-2">
+              <mat-slide-toggle></mat-slide-toggle>
+            </span>
+          </div>
+        </a>
+      </mat-nav-list>
+      <div class="seperator my-2"></div>
+      <div class="d-flex profile_option">
+        <div class="col-2 d-flex align-items-center justify-content-center">
+          <span class="profile_name">
+            {{ _profile?.loggedInUser?.name?.slice(0, 1) }}
+          </span>
+        </div>
+        <div class="col-10">
+          <div class="d-flex justify-content-between py-3">
+            <b class="px-3">
+              {{ _profile?.loggedInUser?.name }}
+            </b>
+            <mat-icon>edit</mat-icon>
+          </div>
+          <div class="d-flex justify-content-between">
+            <span class="px-3">
+              {{ _profile?.loggedInUser?.email }}
+            </span>
+            <mat-icon>settings</mat-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar [class.mobile_bgColor]="screenObserver.isMobile">
+      @if (isHandset$ | async) {
+        <button type="button" aria-label="Toggle sidenav" class="d-flex" mat-icon-button (click)="drawer.toggle()">
+          <mat-icon aria-label="Side nav toggle icon" class="toggle">menu</mat-icon>
+        </button>
+      }
+      <div class="d-flex w-100 justify-content-between">
+        @if (!screenObserver.isMobile) {
+          <div class="d-flex align-items-center layout_title">
+            {{ title$ | async }}
+          </div>
+          <div class="profile_container d-flex justify-content-end p-1" [matMenuTriggerFor]="menu">
+            <div class="profile d-flex flex-column text-end">
+              <div class="profile_name">
+                {{ _profile?.loggedInUser?.name }}
+              </div>
+              <div class="profile_email">
+                {{ _profile?.loggedInUser?.email }}
+              </div>
+            </div>
+            <div class="avtar_container d-flex justify-content-center">
+              <img
+                [src]="
+                  _profile?.loggedInUser?.profileImageUrl
+                    ? _profile?.loggedInUser?.profileImageUrl
+                    : 'assets/images/avatar_1.webp'
+                "
+                #profileImage
+                (error)="profileImage.src = 'assets/images/avatar_1.webp'"
+                alt="user profile "
+              />
+            </div>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="logOut()">
+                <mat-icon>logout</mat-icon>
+                <span>Log-out</span>
+              </button>
+            </mat-menu>
+          </div>
+        } @else {
+          <div></div>
+          <div class="profile_icon">
+            <div>
+              {{ _profile?.loggedInUser?.name?.slice(0, 1) }}
+            </div>
+          </div>
+        }
+      </div>
+    </mat-toolbar>
+    <main class="px-md-4 px-2">
+      <ng-content></ng-content>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

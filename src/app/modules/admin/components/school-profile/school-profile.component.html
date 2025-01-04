@@ -1,0 +1,104 @@
+<section class="school_info_container d-flex justify-content-center flex-wrap py-4">
+  <div class="col-md-6 d-flex flex-column align-items-center justify-content-center pb-4 text-center">
+    <input type="file" hidden #school_logo (change)="uploadImage(school_logo)">
+    <div class="school_logo" (click)="school_logo.click()">
+      <img
+        style="height: 8rem; width: 8rem"
+        [src]="schoolProfile?.logoUrl ? schoolProfile?.logoUrl : 'assets/images/avatar_1.webp'"
+        [alt]="schoolProfile?.name"
+      />
+    </div>
+    <div [ngStyle]="{ width: '100%', maxWidth: '260px' }">
+      <h5 class="school_name title">{{ schoolProfile?.name }}</h5>
+      <span class="school_address sub_title">
+        {{ schoolProfile?.town }},
+        {{ schoolProfile?.city }}
+        @if (schoolProfile?.state) {
+          ({{ states[schoolProfile?.state || ''] }})
+        }
+      </span>
+      <div class="school_academic">
+        {{ schoolProfile?.currentAcademicYear?.academicYear }}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 align-items-center d-flex flex-column">
+    <div style="max-width: 320px" class="align-items-center d-flex flex-column">
+      <div class="row">
+        <mat-label>School DISE Code</mat-label>
+        <mat-form-field appearance="fill" class="col-12">
+          <input matInput [value]="schoolProfile?.schoolDISECode" disabled />
+        </mat-form-field>
+        <mat-label>School Registration Code</mat-label>
+        <mat-form-field appearance="fill" class="col-12">
+          <input matInput [value]="schoolProfile?.schoolCode" disabled />
+        </mat-form-field>
+      </div>
+      <button mat-raised-button class="complete_Academic_year">
+        <mat-icon>event_available</mat-icon>
+        Complete Academic Year
+      </button>
+    </div>
+  </div>
+</section>
+
+<mat-tab-group class="mat_tab_group">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      Address Details
+    </ng-template>
+    <sc-form [formConfig]="formConfig" #form [dynamicListOptions]="dynamicOptions"></sc-form>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      Classes
+    </ng-template>
+
+    <div
+      cdkDropListGroup
+      class="d-flex justify-content-between flex-wrap py-2"
+      [ngStyle]="{ padding: screenObserver.isMobile ? '0px' : '3rem' }"
+    >
+      <div class="class-container col-md-6" [ngStyle]="{ width: screenObserver.isMobile ? '100%' : '45%' }">
+        <h4>Available class list</h4>
+
+        <div
+          cdkDropList
+          [cdkDropListData]="items"
+          class="list-container"
+          cdkDropListSortingDisabled
+          (cdkDropListDropped)="drop($event)"
+        >
+          @for (item of items; track item) {
+            <div class="class-list" cdkDrag>{{ item.className }}</div>
+          }
+        </div>
+      </div>
+
+      <div class="class-container col-md-6" [ngStyle]="{ width: screenObserver.isMobile ? '100%' : '45%' }">
+        <h4>Selected class list preview</h4>
+
+        <div cdkDropList [cdkDropListData]="basket" class="list-container" (cdkDropListDropped)="drop($event)">
+          @for (item of basket; track item) {
+            <div class="class-list" cdkDrag>{{ item.className }}</div>
+          }
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab disabled="true">
+    <ng-template mat-tab-label>
+      Transportation
+    </ng-template>
+
+    Content 3
+  </mat-tab>
+</mat-tab-group>
+
+<div class="col-md-12 justify-content-end d-flex py-4 text-center">
+  <button mat-flat-button color="basic" class="mx-2">Cancel</button>
+  <button mat-flat-button color="primary" (click)="updateSchoolProfile()">Continue</button>
+</div>

@@ -1,98 +1,106 @@
-@switch (element.theme) { @case ('raised') {
-<button
-  mat-raised-button
-  [color]="element.color || 'basic'"
-  [hidden]="element.hidden"
-  [class]="element.cssClass"
-  [type]="element.type"
-  [style]="element.width ? { width: element.width } : null"
-  [disabled]="element.disabled"
-  (click)="(element.onClick); clicked.emit()"
->
-  {{ element.label }}
-</button>
-} @case ('stroked') {
-<button
-  mat-stroked-button
-  [color]="element.color || 'basic'"
-  [hidden]="element.hidden"
-  [class]="element.cssClass"
-  [type]="element.type"
-  [style]="element.width ? { width: element.width } : { width: '100%' }"
-  [disabled]="element.disabled"
-  (click)="(element.onClick); clicked.emit()"
->
-  {{ element.label }}
-</button>
-} @case ('flat') {
-<button
-  mat-flat-button
-  [color]="element.color || 'basic'"
-  [hidden]="element.hidden"
-  [class]="element.cssClass"
-  [type]="element.type"
-  [style]="element.width ? { width: element.width } : { width: '100%' }"
-  [disabled]="element.disabled"
-  (click)="(element.onClick); clicked.emit()"
->
-  {{ element.label }}
-</button>
-} @case ('icon') {
-<button
-  mat-icon-button
-  [color]="element.color || 'basic'"
-  [hidden]="element.hidden"
-  [class]="element.cssClass"
-  [type]="element.type"
-  [style]="element.width ? { width: element.width } : { width: '100%' }"
-  [disabled]="element.disabled"
-  (click)="(element.onClick); clicked.emit()"
->
-  <mat-icon>
-    {{ element.label }}
-  </mat-icon>
-</button>
-} @case ('fab') {
-<button
-  mat-fab
-  [color]="element.color || 'basic'"
-  [hidden]="element.hidden"
-  [class]="element.cssClass"
-  [type]="element.type"
-  [style]="element.width ? { width: element.width } : { width: '100%' }"
-  [disabled]="element.disabled"
-  (click)="(element.onClick); clicked.emit()"
->
-  <mat-icon>
-    {{ element.label }}
-  </mat-icon>
-</button>
-}@case ('mini_fab') {
-<button
-  mat-mini-fab
-  [color]="element.color || 'basic'"
-  [hidden]="element.hidden"
-  [class]="element.cssClass"
-  [type]="element.type"
-  [style]="element.width ? { width: element.width } : { width: '100%' }"
-  [disabled]="element.disabled"
-  (click)="(element.onClick); clicked.emit()"
->
-  <mat-icon>
-    {{ element.label }}
-  </mat-icon>
-</button>
-} @default {
-<button
-  mat-button
-  [color]="element.color || 'basic'"
-  [hidden]="element.hidden"
-  [class]="element.cssClass"
-  [type]="element.type"
-  [style]="element.width ? { width: element.width } : { width: '100%' }"
-  [disabled]="element.disabled"
-  (click)="(element.onClick); clicked.emit()"
->
-  {{ element.label }}
-</button>
-}}
+@switch (element().theme) {
+  @case ('raised') {
+    <button
+      mat-raised-button
+      [color]="element().color || 'basic'"
+      [hidden]="element().hidden"
+      [class]="element().cssClass"
+      [type]="element().type"
+      [style]="element().width ? { width: element().width } : null"
+      [disabled]="element().disabled"
+      (click)="element().onClick; clicked.emit()"
+    >
+      {{ element().label }}
+    </button>
+  }
+  @case ('stroked') {
+    <button
+      mat-stroked-button
+      [color]="element().color || 'basic'"
+      [hidden]="element().hidden"
+      [class]="element().cssClass"
+      [type]="element().type"
+      [style]="element().width ? { width: element().width } : { width: '100%' }"
+      [disabled]="element().disabled"
+      (click)="element().onClick; clicked.emit()"
+    >
+      {{ element().label }}
+    </button>
+  }
+  @case ('flat') {
+    <button
+      mat-flat-button
+      [color]="element().color || 'basic'"
+      [hidden]="element().hidden"
+      [class]="element().cssClass"
+      [type]="element().type"
+      [style]="element().width ? { width: element().width } : { width: '100%' }"
+      [disabled]="element().disabled"
+      (click)="element().onClick; clicked.emit()"
+    >
+      {{ element().label }}
+    </button>
+  }
+  @case ('icon') {
+    <button
+      mat-icon-button
+      [color]="element().color || 'basic'"
+      [hidden]="element().hidden"
+      [class]="element().cssClass"
+      [type]="element().type"
+      [style]="element().width ? { width: element().width } : { width: '100%' }"
+      [disabled]="element().disabled"
+      (click)="element().onClick; clicked.emit()"
+    >
+      <mat-icon>
+        {{ element().label }}
+      </mat-icon>
+    </button>
+  }
+  @case ('fab') {
+    <button
+      mat-fab
+      [color]="element().color || 'basic'"
+      [hidden]="element().hidden"
+      [class]="element().cssClass"
+      [type]="element().type"
+      [style]="element().width ? { width: element().width } : { width: '100%' }"
+      [disabled]="element().disabled"
+      (click)="element().onClick; clicked.emit()"
+    >
+      <mat-icon>
+        {{ element().label }}
+      </mat-icon>
+    </button>
+  }
+  @case ('mini_fab') {
+    <button
+      mat-mini-fab
+      [color]="element().color || 'basic'"
+      [hidden]="element().hidden"
+      [class]="element().cssClass"
+      [type]="element().type"
+      [style]="element().width ? { width: element().width } : { width: '100%' }"
+      [disabled]="element().disabled"
+      (click)="element().onClick; clicked.emit()"
+    >
+      <mat-icon>
+        {{ element().label }}
+      </mat-icon>
+    </button>
+  }
+  @default {
+    <button
+      mat-button
+      [color]="element().color || 'basic'"
+      [hidden]="element().hidden"
+      [class]="element().cssClass"
+      [type]="element().type"
+      [style]="element().width ? { width: element().width } : { width: '100%' }"
+      [disabled]="element().disabled"
+      (click)="element().onClick; clicked.emit()"
+    >
+      {{ element().label }}
+    </button>
+  }
+}

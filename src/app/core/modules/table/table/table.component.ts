@@ -1,12 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnChanges, SimpleChanges, ViewChild, inject, input, output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -17,14 +9,17 @@ import { TableConfig } from '@sc-models/table';
   selector: 'sc-table',
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
+  standalone: false,
 })
 export class TableComponent<T = object> implements OnChanges {
-  @Input() config: TableConfig<T> = {
-    columns: [],
-  };
-  @Input() data: T[] = [];
+  private readonly fb = inject(FormBuilder);
 
-  @Output() buttonClick = new EventEmitter<{
+  readonly config = input<TableConfig<T>>({
+    columns: [],
+  });
+  readonly data = input<T[]>([]);
+
+  readonly buttonClick = output<{
     key: string;
     row: T;
   }>();
@@ -42,7 +37,7 @@ export class TableComponent<T = object> implements OnChanges {
     return this._sort;
   }
   public set sort(value: MatSort) {
-    const sort = this.config.sort;
+    const sort = this.config().sort;
     value.disabled = !sort;
     if (sort && !this._sort) {
       sort.column && (value.active = sort.column);
@@ -60,13 +55,11 @@ export class TableComponent<T = object> implements OnChanges {
   public dataSource = new MatTableDataSource<T>([]);
   public displayedColumns: (string | keyof T)[] = [];
 
-  constructor(private fb: FormBuilder) {}
-
   ngOnChanges(changes: SimpleChanges) {
     if (changes['config']) {
-      this.displayedColumns = this.config.columns.map((c) => c.columnDef);
-      const formElements = this.config.columns
-        .filter((c) => !!c.formElement)
+      this.displayedColumns = this.config().columns.map((c) => c.columnDef);
+      const formElements = this.config()
+        .columns.filter((c) => !!c.formElement)
         .map((c) => c.formElement);
 
       formElements.forEach((formElement) => {
@@ -78,15 +71,12 @@ export class TableComponent<T = object> implements OnChanges {
           formElement?.elementType == 'radio' ||
           formElement?.elementType == 'textarea'
         ) {
-          this.formGroup.addControl(
-            formElement.element.key as string,
-            this.fb.control(formElement.element.value || ''),
-          );
+          this.formGroup.addControl(formElement.element.key, this.fb.control(formElement.element.value ?? ''));
         }
       });
     }
     if (changes['data']) {
-      this.dataSource = new MatTableDataSource(this.data);
+      this.dataSource = new MatTableDataSource(this.data());
     }
   }
 }

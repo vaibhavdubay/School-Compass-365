@@ -4,83 +4,97 @@ import { BLOOD_GROUP } from '@sc-enums/bloodGroup';
 import { GENDER } from '@sc-enums/gender';
 import { Role } from '@sc-enums/role';
 
+export interface AcademicYear {
+  id: string;
+  academicYear: string;
+  current: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface AdminUser {
-  _id: string;
+  id: string;
   schoolId: string;
   firstName: string;
   lastName: string;
+  gender: GENDER;
   email: string;
-  password: string;
-  role: Role;
-  userName: string;
   phoneNumber: string;
+  profileImageUrl: string;
   createdAt: Date;
-  updateAt: Date;
+  updatedAt: Date;
 }
 
 export interface SchoolProfile {
-  _id: string;
+  id: string;
   name: string;
   establishedYear: number;
   address1: string;
   address2: string;
+  academicYears: AcademicYear[];
+  logoUrl: string;
+  currentAcademicYear: AcademicYear;
   city: string;
+  town: string;
   state: string;
-  pincode: string;
+  pincode: number;
   schoolDISECode: string;
   schoolCode: string;
-  classes: string[];
+  classes: Class[];
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface TeacherProfile {
-  _id: string;
+  id: string;
+  gender: GENDER;
   schoolId: string;
   firstName: string;
   lastName: string;
   email: string;
-  password: string;
-  role: Role;
-  userName: string;
   phoneNumber: string;
-  createdAt: Date;
-  updateAt: Date;
+  academicYears: AcademicYear[];
+  profileImageUrl: string;
   subjects: string[];
   years_of_experience: number;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface StudentProfile {
-  _id: string;
+  id: string;
   schoolId: string;
-  class: string;
+  class: Class;
   classSection: string;
   firstName: string;
   lastName: string;
   email: string;
-  password: string;
-  role: Role;
-  userName: string;
-  createdAt: Date;
   phoneNumber: string;
-  updateAt: Date;
   pen: string;
   academicStatus: ACADEMIC_STATUS;
   dateOfBirth: Date;
   gender: GENDER;
   bloodGroup: BLOOD_GROUP;
-  parents_guardians: Parents_Guardians[];
+  profileImageUrl: string;
+  academicYears: AcademicYear[];
+  parentsGuardians: ParentOrGuardian[];
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-export interface Parents_Guardians {
+export interface ParentOrGuardian {
+  id: string;
   name: string;
-  relationship: string;
-  contact_info: {
-    email: string;
-    phone: string;
-  };
+  gender: GENDER;
+  relations: string;
+  contactEmail: string;
+  contactPhone: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface Class {
-  _id: string;
+  id: string;
   className: string;
   nextClass: string;
   order: number;
@@ -92,6 +106,7 @@ export interface Class {
 export interface LoginDto {
   username: string;
   password: string;
+  remember: boolean;
 }
 
 export interface NavItem {
@@ -102,14 +117,45 @@ export interface NavItem {
   children?: NavItem[];
 }
 
-type User = AdminUser | StudentProfile | TeacherProfile;
-export type LoggedInUser = User & {
+export type LoggedInUser = UserProfile & {
+  user: User;
   school: SchoolProfile;
 };
 
+export type UserProfile = AdminUser & StudentProfile & TeacherProfile;
+
+export class Address {
+  town?: string;
+  pincode?: string;
+  district?: string;
+  stateName?: string;
+}
+
+export enum AddressSearchKey {
+  PINCODE = 'pincode',
+  DISTRICT = 'district',
+  STATE_NAME = 'stateName',
+  TOWN = 'town'
+}
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  userName: string;
+  password: string;
+  role: Role;
+  profileImageUrl: string;
+  changePassword: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface LoginResponse {
-  accessToken: string;
-  user: LoggedInUser;
+  token: {
+    accessToken: string;
+    expiresIn: number;
+  };
+  userProfile: LoggedInUser;
 }
 
 export interface HttpOptions {
@@ -123,11 +169,7 @@ export interface HttpOptions {
   params?:
     | HttpParams
     | {
-        [param: string]:
-          | string
-          | number
-          | boolean
-          | ReadonlyArray<string | number | boolean>;
+        [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;
       };
   reportProgress?: boolean;
   responseType?: 'json';

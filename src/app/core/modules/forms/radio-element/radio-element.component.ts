@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, OnChanges, input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Radio } from '@sc-models/form';
 
@@ -6,17 +6,19 @@ import { Radio } from '@sc-models/form';
   selector: 'sc-radio-element',
   templateUrl: './radio-element.component.html',
   styleUrl: './radio-element.component.scss',
+  standalone: false,
 })
 export class RadioElementComponent implements OnChanges {
-  @Input({ required: true }) element!: Radio;
-  @Input({ required: true }) control!: FormControl;
+  readonly element = input.required<Radio>();
+  readonly control = input.required<FormControl>();
 
   ngOnChanges() {
-    if (this.element.disabled) {
-      this.control.disable();
+    const element = this.element();
+    if (element.disabled) {
+      this.control().disable();
     } else {
-      this.control.enable();
+      this.control().enable();
     }
-    this.control.setValue(this.element.value);
+    this.control().setValue(element.value);
   }
 }

@@ -1,26 +1,21 @@
-<mat-form-field
-  [style]="element.width ? { width: element.width } : { width: '100%' }"
->
-  <mat-label>{{ element.label }}</mat-label>
+<mat-label>{{ element().label }}</mat-label>
+<mat-form-field [style]="element().width ? { width: element().width } : { width: '100%' }">
   <textarea
     matInput
-    [minlength]="element.minLength || null"
-    [maxlength]="element.maxLength || null"
-    [placeholder]="element.placeholder || ''"
-    [required]="element.required || false"
-    [readonly]="element.readonly || false"
-    [hidden]="element.hidden || false"
-    [formControl]="control"
+    [minlength]="element().minLength || null"
+    [maxlength]="element().maxLength || null"
+    [placeholder]="element().placeholder || ''"
+    [required]="element().required || false"
+    [readonly]="element().readonly || false"
+    [hidden]="element().hidden || false"
+    [formControl]="control()"
   ></textarea>
-  @if(control.errors){
-  <mat-error>
-    <sc-error
-      [element]="element"
-      [errors]="control.errors"
-      [minLength]="element.minLength"
-    ></sc-error>
-  </mat-error>
-  } @if(element.hint){
-  <mat-hint>{{ element.hint }}</mat-hint>
+  @if (control().errors) {
+    <mat-error>
+      <sc-error [element]="element()" [errors]="control().errors" [minLength]="element().minLength"></sc-error>
+    </mat-error>
+  }
+  @if (element().hint) {
+    <mat-hint>{{ element().hint }}</mat-hint>
   }
 </mat-form-field>

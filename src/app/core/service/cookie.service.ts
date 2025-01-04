@@ -1,4 +1,4 @@
-import { Inject, Injectable, Optional } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Request } from 'express';
 
 @Injectable({ providedIn: 'root' })
@@ -6,7 +6,9 @@ export class CookieService {
   isBrowser: boolean = false;
   private serverCookies!: { [k: string]: string };
 
-  constructor(@Optional() @Inject('REQUEST') req: Request) {
+  constructor() {
+    const req = inject<Request>('REQUEST' as any, { optional: true });
+
     const serverCookies: string = req?.headers?.cookie || '';
     if (serverCookies) {
       this.serverCookies = this.parseCookies(serverCookies);
@@ -32,9 +34,7 @@ export class CookieService {
    * @returns {Object} An object containing all the cookies
    */
   getAll(): { [name: string]: string } {
-    const cookies = this.isBrowser
-      ? this.parseCookies(document.cookie)
-      : this.serverCookies;
+    const cookies = this.isBrowser ? this.parseCookies(document.cookie) : this.serverCookies;
     return cookies || {};
   }
 
@@ -92,9 +92,7 @@ export class CookieService {
   set(name: string, value: string, options: CookieOptions = {}): void {
     // Validate name and value
     if (!name || !/^[^;\s=\\]+$/.test(name)) {
-      throw new Error(
-        'Invalid cookie name. Must be a non-empty string without special characters (except =, ;, \\).',
-      );
+      throw new Error('Invalid cookie name. Must be a non-empty string without special characters (except =, ;, \\).');
     }
     if (!value) {
       throw new Error('Invalid cookie value. Must be a string.');
@@ -113,9 +111,7 @@ export class CookieService {
       } else if (options.expires instanceof Date) {
         expires = `; expires=${options.expires.toUTCString()}`;
       } else {
-        throw new Error(
-          'Invalid expires option. Must be a number (seconds) or a Date object.',
-        );
+        throw new Error('Invalid expires option. Must be a number (seconds) or a Date object.');
       }
     }
 
@@ -126,17 +122,12 @@ export class CookieService {
     const sameSite = options.sameSite ? `; SameSite=${options.sameSite}` : '';
 
     // Validate sameSite value (if provided)
-    if (
-      options.sameSite &&
-      !['Lax', 'Strict', 'None'].includes(options.sameSite)
-    ) {
-      throw new Error(
-        'Invalid sameSite option. Must be "Lax", "Strict", or "None".',
-      );
+    if (options.sameSite && !['Lax', 'Strict', 'None'].includes(options.sameSite)) {
+      throw new Error('Invalid sameSite option. Must be "Lax", "Strict", or "None".');
     }
-
+    const cookie = `${name}=${value}${expires}${path}${domain}${secure}${sameSite}`;
     // Construct and set the cookie
-    document.cookie = `${name}=${value}${expires}${path}${domain}${secure}${sameSite}`;
+    document.cookie = cookie;
   }
 }
 

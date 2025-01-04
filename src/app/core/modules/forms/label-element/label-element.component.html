@@ -1,8 +1,8 @@
 <span
-  [class]="element.cssClass"
-  [style]="element.width ? { width: element.width } : null"
-  [title]="element.hint"
-  [hidden]="element.hidden"
+  [class]="element().cssClass"
+  [style]="element().width ? { width: element().width } : null"
+  [title]="element().hint"
+  [hidden]="element().hidden"
 >
-  {{ element.label }}
+  {{ element().label }}
 </span>

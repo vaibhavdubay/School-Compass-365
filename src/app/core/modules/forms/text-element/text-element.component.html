@@ -1,49 +1,44 @@
-<mat-form-field
-  [style]="element.width ? { width: element.width } : { width: '100%' }"
->
-  <mat-label>{{ element.label }}</mat-label>
-  @if ( ['text', 'email', 'password',
-  'confirmPassword'].includes(element.validateAs)) {
-  <input
-    matInput
-    [type]="
-      element.validateAs === 'confirmPassword' ? 'password' : element.validateAs
-    "
-    [minlength]="element.minLength || null"
-    [maxlength]="element.maxLength || null"
-    [placeholder]="element.placeholder || ''"
-    [required]="element.required || false"
-    [value]="element.value || ''"
-    [readonly]="element.readonly || false"
-    [hidden]="element.hidden || false"
-    [formControl]="control"
-  />
+<mat-label>{{ element().label }}</mat-label>
+<mat-form-field [style]="element().width ? { width: element().width } : { width: '100%' }">
+  @if (['text', 'email', 'password', 'confirmPassword'].includes(element().validateAs)) {
+    <input
+      matInput
+      [type]="element().validateAs === 'confirmPassword' ? 'password' : element().validateAs"
+      [minlength]="element().minLength || null"
+      [maxlength]="element().maxLength || null"
+      [placeholder]="element().placeholder || ''"
+      [required]="element().required || false"
+      [value]="element().value || ''"
+      [readonly]="element().readonly || false"
+      [hidden]="element().hidden || false"
+      [formControl]="control()"
+    />
   } @else {
-  <input
-    matInput
-    [scFormatting]="element.validateAs"
-    [pattern]="element.pattern || ''"
-    [type]="'text'"
-    [min]="element.min || null"
-    [max]="element.max || null"
-    [placeholder]="element.placeholder || ''"
-    [required]="element.required || false"
-    [value]="element.value || ''"
-    [readonly]="element.readonly || false"
-    [hidden]="element.hidden || false"
-    [formControl]="control"
-  />
-  } @if(control.errors){
+    <input
+      matInput
+      [scFormatting]="element().validateAs"
+      [pattern]="element().pattern || ''"
+      [type]="'text'"
+      [min]="element().min || null"
+      [max]="element().max || null"
+      [placeholder]="element().placeholder || ''"
+      [required]="element().required || false"
+      [value]="element().value || ''"
+      [readonly]="element().readonly || false"
+      [hidden]="element().hidden || false"
+      [formControl]="control()"
+    />
+  }
   <mat-error>
     <sc-error
-      [element]="element"
-      [errors]="control.errors"
-      [min]="element.min"
-      [max]="element.max"
-      [minLength]="element.minLength"
+      [element]="element()"
+      [errors]="control().errors || {}"
+      [min]="element().min"
+      [max]="element().max"
+      [minLength]="element().minLength"
     ></sc-error>
   </mat-error>
-  } @if(element.hint){
-  <mat-hint>{{ element.hint }}</mat-hint>
+  @if (element().hint) {
+    <mat-hint>{{ element().hint }}</mat-hint>
   }
 </mat-form-field>

@@ -1,13 +1,9 @@
+import { Observable } from 'rxjs';
+
 export type FormConfig = FormElement[];
 export type FormElement = InputElement | UiElement;
 
-export type InputElement =
-  | CheckboxElement
-  | DateElement
-  | RadioElement
-  | SelectElement
-  | TextElement
-  | TextAreaElement;
+export type InputElement = CheckboxElement | DateElement | RadioElement | SelectElement | TextElement | TextAreaElement;
 export type UiElement = ButtonElement | LabelElement | ButtonGroupElement;
 
 export type CheckboxElement = { elementType: 'checkbox'; element: Checkbox };
@@ -46,9 +42,7 @@ type CoreInputElement = {
   readonly?: boolean;
   required?: boolean;
   value?: string;
-  valueFn?: (form: {
-    [k: string]: string | boolean | object | undefined;
-  }) => string;
+  valueFn?: (form: { [k: string]: string | boolean | object | undefined }) => string;
 };
 export type Checkbox = Element &
   CoreInputElement & {
@@ -116,4 +110,15 @@ export type ButtonGroup = Element & {
   display?: 'row' | 'column';
   buttons: ButtonElement[];
 };
-export type ListOptions = { key: string; label: string }[];
+export type ListOptions = ListOption[];
+export type DynamicListOptions<T extends string | number | symbol = string> = {
+  [K in T]?: Observable<ListOptions>;
+};
+export class ListOption {
+  key: string;
+  label: string;
+  constructor(label: string, key?: string) {
+    this.key = key || label;
+    this.label = label;
+  }
+}

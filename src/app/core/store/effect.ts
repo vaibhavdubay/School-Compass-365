@@ -1,68 +1,84 @@
-import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
-import { logInActions } from './action';
-import { catchError, filter, map, of, switchMap, tap } from 'rxjs';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { logInActions, addressActions } from './action';
+import { catchError, filter, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ApiService } from '../service/http.service';
-import { LoggedInUser, LoginResponse } from '@sc-models/core';
-import { Injectable } from '@angular/core';
+import { Address, AddressSearchKey, LoggedInUser, LoginResponse, UserProfile } from '@sc-models/core';
+import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { selectLoggedInUser } from './selector';
 import { CookieService } from '../service/cookie.service';
+import { initAdminState } from '@sc-modules/admin/state/action';
+import { Role } from '@sc-enums/role';
+import { initStudentState } from '@sc-modules/students/state/action';
+import { initTeacherState } from '@sc-modules/teachers/state/action';
+import { selectAddress, selectAddressStates, selectLoggedInUser } from './selector';
+import { apiRoutes } from '../constants/api.constants';
+import { states } from '../constants/states.constant';
 
 @Injectable()
 export class SharedStoreEffect {
-  constructor(
-    private action$: Actions,
-    private apiService: ApiService,
-    private router: Router,
-    private store: Store,
-    private cookieService: CookieService,
-  ) {}
+  private readonly action$ = inject(Actions);
+  private readonly apiService = inject(ApiService);
+  private readonly router = inject(Router);
+  private readonly store = inject(Store);
+  private readonly cookieService = inject(CookieService);
 
+  // #region Login
   logIn = createEffect(() => {
     return this.action$.pipe(
       ofType(logInActions.logIn),
-      switchMap(({ role, logDto }) =>
-        this.apiService
-          .post<LoginResponse>(`/auth/${role}/login`, logDto)
-          .pipe(map((response) => logInActions.logInSuccess({ response }))),
+      switchMap(({ logDto }) =>
+        this.apiService.post<LoginResponse>(apiRoutes.auth.signin, logDto).pipe(
+          map((apiResponse) => {
+            const expires = new Date(apiResponse.token.expiresIn * 1000);
+            this.cookieService.set('authorization', `${apiResponse.token.accessToken}`, {
+              expires,
+              sameSite: 'Strict',
+              secure: true,
+              path: '/',
+            });
+            return logInActions.logInSuccess({ response: apiResponse });
+          }),
+        ),
       ),
     );
   });
+  logInSuccess = createEffect(() => {
+    return this.action$.pipe(
+      ofType(logInActions.logInSuccess),
+      map(({ response }) => {
+        const { user, school, ...userProfile } = response.userProfile;
+        const role = user.role;
+        this.router.navigate([role, 'dashboard']);
+        return this.handleFeatureState(user.role, userProfile);
+      }),
+    );
+  });
+  // #endregion Login
 
-  logInSuccess = createEffect(
-    () => {
-      return this.action$.pipe(
-        ofType(logInActions.logInSuccess),
-        tap(({ response }) => {
-          const role = response.user.role;
-          this.router.navigate([role, 'dashboard']);
-          this.cookieService.set('authorization', `${response.accessToken}`, {
-            expires: 86400,
-            sameSite: 'Strict',
-            secure: true,
-            path: '/',
-          });
-        }),
-      );
-    },
-    { dispatch: false },
-  );
-
+  // #region User profile
   userProfile = createEffect(() => {
     return this.action$.pipe(
       ofType(logInActions.userProfile),
-      concatLatestFrom(() => this.store.select(selectLoggedInUser)),
+      withLatestFrom(this.store.select(selectLoggedInUser)),
       filter((action) => !action[1]),
       switchMap(() =>
-        this.apiService.get<LoggedInUser>(`/auth/user-profile`).pipe(
+        this.apiService.get<LoggedInUser>(apiRoutes.auth.profile).pipe(
           map((response) => logInActions.userProfileSuccess({ response })),
           catchError((error) => of(logInActions.userProfileFailure({ error }))),
         ),
       ),
     );
   });
-
+  userProfileSuccess = createEffect(() => {
+    return this.action$.pipe(
+      ofType(logInActions.userProfileSuccess),
+      map(({ response }) => {
+        const { user, school, ...userProfile } = response;
+        return this.handleFeatureState(user.role, userProfile);
+      }),
+    );
+  });
   userProfileFailure = createEffect(
     () => {
       return this.action$.pipe(
@@ -79,7 +95,59 @@ export class SharedStoreEffect {
     },
     { dispatch: false },
   );
+  // #endregion User Profile
 
+  // #region Address
+  address = createEffect(
+    () => {
+      return this.action$.pipe(
+        ofType(addressActions.loadStates),
+        withLatestFrom(this.store.select(selectAddressStates)),
+        filter((action) => !action[1].length),
+        map(() =>
+          addressActions.loadStatesSuccess({ states: Object.keys(states) }),
+        ),
+      );
+    },
+  );
+  districts = createEffect(
+    () => {
+      return this.action$.pipe(
+        ofType(addressActions.loadDistricts),
+        withLatestFrom(this.store.select(selectAddress)),
+        filter(([action, addresses]) => !Object.keys(addresses?.[action.state] || {})?.length),
+        switchMap(([action]) =>
+          this.apiService
+            .get<string[]>(apiRoutes.address.addressKey(AddressSearchKey.DISTRICT), { params: { stateName: action.state } })
+            .pipe(
+              map((districts) => addressActions.loadDistrictsSuccess({ state: action.state, districts })),
+              catchError((error) => of(addressActions.loadDistrictsFailure({ error }))),
+            ),
+        ),
+      );
+    },
+  );
+  pincodes = createEffect(
+    () => {
+      return this.action$.pipe(
+        ofType(addressActions.loadPincodes),
+        withLatestFrom(this.store.select(selectAddress)),
+        filter(([action, addresses]) => !(Object.keys(addresses[action.state]?.[action.district] || {}))?.length),
+        switchMap(([action]) =>
+          this.apiService.get<Address[]>(apiRoutes.address.completeAddress, {
+            params: { stateName: action.state, district: action.district },
+          }).pipe(
+            map((addresses) => addressActions.loadPincodesSuccess({ state: action.state, district: action.district, addresses })),
+            catchError((error) => of(addressActions.loadPincodesFailure({ error })))
+          )
+        )
+      );
+    },
+  );
+  
+  // #endregion Address
+
+  // #region Logout
   logOut = createEffect(
     () => {
       return this.action$.pipe(
@@ -96,4 +164,18 @@ export class SharedStoreEffect {
     },
     { dispatch: false },
   );
+  // #endregion Logout
+
+  // #region Helpers
+  private handleFeatureState(role: Role, userProfile: UserProfile) {
+    switch (role) {
+      case Role.ADMIN:
+        return initAdminState({ adminProfile: userProfile });
+      case Role.TEACHER:
+        return initTeacherState({ teacherProfile: userProfile });
+      case Role.STUDENT:
+        return initStudentState({ studentProfile: userProfile });
+    }
+  }
+  // #endregion Helpers
 }

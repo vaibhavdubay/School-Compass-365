@@ -1,71 +1,53 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
-import {
-  ButtonElement,
-  DateElement,
-  FormElement,
-  InputElement,
-} from '@sc-models/form';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  ValidationErrors,
-  ValidatorFn,
-  Validators,
-} from '@angular/forms';
+import { Component, OnChanges, SimpleChanges, inject, input, output } from '@angular/core';
+import { ButtonElement, DateElement, DynamicListOptions, FormElement, InputElement } from '@sc-models/form';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
   selector: 'sc-form',
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss',
+  standalone: false,
 })
 export class FormComponent<T = { [k: string]: string }> implements OnChanges {
-  @Input({ required: true }) formConfig: FormElement[] = [];
-  @Input() dateFilters: { [k: string]: Date[] } = {};
-  @Input() customDateClasses: {
-    [k: string]: { [className: string]: Date[] };
-  } = {};
-  @Output() buttonClick = new EventEmitter<{
+  private readonly fb = inject(FormBuilder);
+
+  readonly formConfig = input.required<FormElement[]>();
+  readonly dateFilters = input<{
+    [k: string]: Date[];
+  }>({});
+  readonly customDateClasses = input<{
+    [k: string]: {
+      [className: string]: Date[];
+    };
+  }>({});
+
+  readonly dynamicListOptions = input<DynamicListOptions>({});
+  readonly buttonClick = output<{
     key: string;
     element: ButtonElement;
   }>();
-  private inputElements = [
-    'checkbox',
-    'date',
-    'radio',
-    'select',
-    'text',
-    'textarea',
-  ];
+  private readonly inputElements = ['checkbox', 'date', 'radio', 'select', 'text', 'textarea'];
 
   formGroup = new FormGroup({}) as unknown as FormGroup<{
     [K in keyof T]: AbstractControl;
   }>;
 
-  constructor(private fb: FormBuilder) {}
+  set formValue(value: Partial<T>) {
+    this.formGroup.patchValue(value as any);
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['formConfig']) {
-      const inputElements = this.formConfig.filter((element) =>
+      const inputElements = this.formConfig().filter((element) =>
         this.inputElements.includes(element.elementType),
       ) as InputElement[];
 
       inputElements
-        .filter(
-          (elem) =>
-            !Object.keys(this.formGroup.value).includes(elem.element.key),
-        )
+        .filter((elem) => !Object.keys(this.formGroup.value).includes(elem.element.key))
         .forEach((formElement) => {
           this.formGroup.addControl(
             formElement.element.key as string & keyof T,
-            this.fb.control(formElement.element.value || ''),
+            this.fb.control(formElement.element.value ?? ''),
           );
           if (formElement.elementType === 'text') {
             const element = formElement.element;
@@ -77,73 +59,53 @@ export class FormComponent<T = { [k: string]: string }> implements OnChanges {
               const passwordPattern = new RegExp(
                 /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i,
               );
-              const emailPattern = new RegExp(
-                /^\w+[+.\w-]*@([\w-]+\.)*\w+[\w-]*\.([+.\w-]{2,}|\d+)$/i,
-              );
+              const emailPattern = new RegExp(/^\w+[+.\w-]*@([\w-]+\.)*\w+[\w-]*\.([+.\w-]{2,}|\d+)$/i);
               this.formGroup
                 .get(element.key)
-                ?.addValidators(
-                  Validators.pattern(
-                    element.validateAs === 'email'
-                      ? emailPattern
-                      : passwordPattern,
-                  ),
-                );
+                ?.addValidators(Validators.pattern(element.validateAs === 'email' ? emailPattern : passwordPattern));
             }
           }
         });
 
-      const inputsWithValueFn = inputElements.filter(
-        (element) => !!element.element.valueFn,
-      );
+      const inputsWithValueFn = inputElements.filter((element) => !!element.element.valueFn);
       if (inputsWithValueFn.length) {
         this.formGroup.valueChanges.subscribe(() => {
           inputsWithValueFn.forEach((element) => {
             if (element.element?.valueFn) {
-              element.element.value = element.element?.valueFn(
-                this.formGroup.value,
-              );
+              element.element.value = element.element?.valueFn(this.formGroup.value);
               console.log(element.element, this.formGroup.value);
             }
           });
         });
       }
       const confirmPassword = inputElements.find(
-        (elem) =>
-          elem.elementType == 'text' &&
-          elem.element.validateAs == 'confirmPassword',
+        (elem) => elem.elementType == 'text' && elem.element.validateAs == 'confirmPassword',
       )?.element;
       const password = inputElements.find(
-        (elem) =>
-          elem.elementType == 'text' && elem.element.validateAs == 'password',
+        (elem) => elem.elementType == 'text' && elem.element.validateAs == 'password',
       )?.element;
       if (password && confirmPassword) {
-        this.formGroup.addValidators(
-          this.passwordMatchValidator(password.key, confirmPassword.key),
-        );
+        this.formGroup.addValidators(this.passwordMatchValidator(password.key, confirmPassword.key));
       }
     }
     if (changes['dateFilter']) {
-      Object.keys(this.dateFilters).forEach((key) => {
-        const date = this.formConfig.find(
+      Object.keys(this.dateFilters()).forEach((key) => {
+        const date = this.formConfig().find(
           (elem) => elem.elementType === 'date' && elem.element.key === key,
         ) as DateElement;
-        date.element.filteredDates = this.dateFilters[key];
+        date.element.filteredDates = this.dateFilters()[key];
       });
     }
     if (changes['customDateClasses']) {
-      Object.keys(this.customDateClasses).forEach((key) => {
-        const date = this.formConfig.find(
+      Object.keys(this.customDateClasses()).forEach((key) => {
+        const date = this.formConfig().find(
           (elem) => elem.elementType === 'date' && elem.element.key === key,
         ) as DateElement;
-        date.element.customClasses = this.customDateClasses[key];
+        date.element.customClasses = this.customDateClasses()[key];
       });
     }
   }
-  private passwordMatchValidator(
-    mainControl: string,
-    secondControl: string,
-  ): ValidatorFn {
+  private passwordMatchValidator(mainControl: string, secondControl: string): ValidatorFn {
     return (formGroup: AbstractControl): ValidationErrors | null => {
       const passwordControl = formGroup.get(mainControl);
       const confirmPasswordControl = formGroup.get(secondControl);
@@ -154,10 +116,7 @@ export class FormComponent<T = { [k: string]: string }> implements OnChanges {
       }
 
       // Handle existing errors on confirmPassword
-      if (
-        confirmPasswordControl.errors &&
-        !confirmPasswordControl.errors['mustMatch']
-      ) {
+      if (confirmPasswordControl.errors && !confirmPasswordControl.errors['mustMatch']) {
         return null; // Return if another validator already found an error
       }
 

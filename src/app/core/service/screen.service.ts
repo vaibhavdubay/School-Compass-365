@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Subject, takeUntil } from 'rxjs';
 type ScreenBreakpoint = 'Unknown' | 'Handset' | 'Tablet' | 'Web';
@@ -17,7 +17,9 @@ export class ScreenSizeObserver implements OnDestroy {
     [Breakpoints.Small]: 'Tablet',
   };
 
-  constructor(breakpointObserver: BreakpointObserver) {
+  constructor() {
+    const breakpointObserver = inject(BreakpointObserver);
+
     breakpointObserver
       .observe([Breakpoints.XSmall, Breakpoints.Small])
       .pipe(takeUntil(this.destroyed))
@@ -25,9 +27,7 @@ export class ScreenSizeObserver implements OnDestroy {
         Object.keys(result.breakpoints)
           .filter((q) => result.breakpoints[q])
           .forEach((query) => {
-            const key = Object.keys(this.displayNameMap).find((k) =>
-              k.includes(query),
-            );
+            const key = Object.keys(this.displayNameMap).find((k) => k.includes(query));
             this.currentScreenSize = key ? this.displayNameMap[key] : 'Unknown';
           });
         this.isMobile = this.currentScreenSize === 'Handset';

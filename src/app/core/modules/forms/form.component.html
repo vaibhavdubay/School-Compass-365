@@ -1,16 +1,18 @@
 <section>
   <div class="form-container p-4">
     <div class="row justify-content-between">
-      @for(formElement of formConfig; track i; let i = $index) {
-      @if(formElement.element.key){
-      <div [class]="formElement.element.cssClass || 'col-md-6'">
-        <sc-form-element
-          [formElement]="formElement"
-          (btnClick)="buttonClick.emit($event)"
-          [control]="$any(formGroup.get(formElement.element.key))"
-        ></sc-form-element>
-      </div>
-      }}
+      @for (formElement of formConfig(); track i; let i = $index) {
+        @if (formElement.element.key) {
+          <div [class]="formElement.element.cssClass || 'col-md-6'">
+            <sc-form-element
+              [formElement]="formElement"
+              [dynamicListOptions]="dynamicListOptions()"
+              (btnClick)="buttonClick.emit($event)"
+              [control]="$any(formGroup.get(formElement.element.key))"
+            ></sc-form-element>
+          </div>
+        }
+      }
     </div>
   </div>
 </section>

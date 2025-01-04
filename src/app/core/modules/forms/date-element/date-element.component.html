@@ -1,25 +1,16 @@
-<mat-form-field
-  [style]="element.width ? { width: element.width } : { width: '100%' }"
->
-  <mat-label>{{ element.label }}</mat-label>
-  <input
-    matInput
-    [matDatepicker]="picker"
-    [formControl]="control"
-    [matDatepickerFilter]="filter"
-  />
-  @if(control.errors){
-  <mat-error>
-    <sc-error [element]="element" [errors]="control.errors"></sc-error>
-  </mat-error>
-  } @if(element.hint){
-  <mat-hint>{{ element.hint }}</mat-hint>
-  } @if(!element.disabled){
-  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+<mat-label>{{ element().label }}</mat-label>
+<mat-form-field [style]="element().width ? { width: element().width } : { width: '100%' }">
+  <input matInput [matDatepicker]="picker" [formControl]="control()" [matDatepickerFilter]="filter" />
+  @if (control().errors) {
+    <mat-error>
+      <sc-error [element]="element()" [errors]="control().errors"></sc-error>
+    </mat-error>
   }
-  <mat-datepicker
-    [dateClass]="dateClass"
-    [touchUi]="screenObserver.isMobile || null"
-    #picker
-  ></mat-datepicker>
+  @if (element().hint) {
+    <mat-hint>{{ element().hint }}</mat-hint>
+  }
+  @if (!element().disabled) {
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  }
+  <mat-datepicker [dateClass]="dateClass" [touchUi]="screenObserver.isMobile || null" #picker></mat-datepicker>
 </mat-form-field>

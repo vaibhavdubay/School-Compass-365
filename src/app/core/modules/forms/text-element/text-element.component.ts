@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, OnChanges, input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { TextInput } from '@sc-models/form';
 
@@ -6,17 +6,19 @@ import { TextInput } from '@sc-models/form';
   selector: 'sc-text-element',
   templateUrl: './text-element.component.html',
   styleUrl: './text-element.component.scss',
+  standalone: false,
 })
 export class TextElementComponent implements OnChanges {
-  @Input({ required: true }) element!: TextInput;
-  @Input({ required: true }) control!: FormControl;
+  readonly element = input.required<TextInput>();
+  readonly control = input.required<FormControl>();
 
   ngOnChanges() {
-    if (this.element.disabled) {
-      this.control.disable();
+    const element = this.element();
+    if (element.disabled) {
+      this.control().disable();
     } else {
-      this.control.enable();
+      this.control().enable();
     }
-    this.control.setValue(this.element.value);
+    this.control().setValue(element.value);
   }
 }

@@ -5,29 +5,21 @@ import { authGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'admin/login/:id', component: LoginComponent },
   {
     path: '',
     canMatch: [authGuard],
     children: [
       {
         path: 'admin',
-        loadChildren: () =>
-          import('@sc-modules/admin/admin.module').then((m) => m.AdminModule),
+        loadChildren: () => import('@sc-admin/admin.module').then((m) => m.AdminModule),
       },
       {
         path: 'student',
-        loadChildren: () =>
-          import('@sc-modules/students/students.module').then(
-            (m) => m.StudentsModule,
-          ),
+        loadChildren: () => import('@sc-student/students.module').then((m) => m.StudentsModule),
       },
       {
         path: 'teacher',
-        loadChildren: () =>
-          import('@sc-modules/teachers/teachers.module').then(
-            (m) => m.TeachersModule,
-          ),
+        loadChildren: () => import('@sc-teacher/teachers.module').then((m) => m.TeachersModule),
       },
     ],
   },

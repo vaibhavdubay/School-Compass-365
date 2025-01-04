@@ -5,6 +5,9 @@
     "outDir": "./dist/out-tsc",
     "paths": {
       "@sc-modules/*": ["src/app/modules/*"],
+      "@sc-admin/*": ["src/app/modules/admin/*"],
+      "@sc-teacher/*": ["src/app/modules/teachers/*"],
+      "@sc-student/*": ["src/app/modules/students/*"],
       "@sc-models/*": ["src/app/core/models/*.model"],
       "@sc-enums/*": ["src/app/core/enums/*.enum"],
       "@sc-forms/*": ["src/app/core/modules/forms/*"],
