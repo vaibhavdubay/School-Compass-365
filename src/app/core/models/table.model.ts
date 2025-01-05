@@ -5,11 +5,17 @@ export interface TableConfig<T = { [k: string]: string }> {
   columns: TableColumn<T>[];
   sort?: TableSort<T>;
   pagination?: TablePagination;
+  filter?: TableFilter<T>;
 }
 export interface TableSort<T = { [k: string]: string }> {
   column?: keyof T;
   direction?: SortDirection;
   disableClear?: boolean;
+}
+
+export interface TableFilter<T = { [k: string]: string }> {
+  applyColumnLevelFilter?: boolean;
+  placeholder?: string;
 }
 
 export interface TablePagination {

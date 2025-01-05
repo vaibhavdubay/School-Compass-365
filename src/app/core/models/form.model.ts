@@ -30,7 +30,7 @@ export type ButtonGroupElement = {
 
 export type Element = {
   key: string;
-  label: string;
+  label?: string;
   cssClass?: string;
   width?: string;
   hidden?: boolean;

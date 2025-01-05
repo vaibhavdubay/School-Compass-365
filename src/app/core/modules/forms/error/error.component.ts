@@ -20,10 +20,10 @@ export class ErrorComponent {
     Object.keys(errors || {}).forEach((error) => {
       switch (error) {
         case 'required':
-          this.message = errorMessages.required(this.element().label);
+          this.message = errorMessages.required(this.element()?.label ?? '');
           break;
         case 'minLength':
-          this.message = errorMessages.minlength(this.element().label, this.minLength() ?? 0);
+          this.message = errorMessages.minlength(this.element().label ?? '', this.minLength() ?? 0);
           break;
         case 'pattern':
           this.message =
@@ -33,10 +33,10 @@ export class ErrorComponent {
           this.message = errorMessages.email;
           break;
         case 'min':
-          this.message = errorMessages.min(this.element().label, this.min() ?? 0);
+          this.message = errorMessages.min(this.element().label ?? '', this.min() ?? 0);
           break;
         case 'max':
-          this.message = errorMessages.max(this.element().label, this.max() ?? 0);
+          this.message = errorMessages.max(this.element().label ?? '', this.max() ?? 0);
           break;
         case 'matDatepickerMin':
           this.message = errorMessages.matDatepickerMin;

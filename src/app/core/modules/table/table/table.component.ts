@@ -14,15 +14,10 @@ import { TableConfig } from '@sc-models/table';
 export class TableComponent<T = { [k: string]: string }> implements OnChanges {
   private readonly fb = inject(FormBuilder);
 
-  readonly config = input<TableConfig<T>>({
-    columns: [],
-  });
+  readonly config = input<TableConfig<T>>({ columns: [] });
   readonly data = input<T[]>([]);
 
-  readonly buttonClick = output<{
-    key: string;
-    row: T;
-  }>();
+  readonly buttonClick = output<{ key: string; row: T }>();
 
   @ViewChild(MatPaginator, { static: true }) public get paginator(): MatPaginator {
     return this._paginator;
@@ -51,6 +46,9 @@ export class TableComponent<T = { [k: string]: string }> implements OnChanges {
   private _sort!: MatSort;
   private _paginator!: MatPaginator;
 
+  public filterForm = new FormGroup({
+    search: new FormControl(),
+  })
   public formGroup = new FormGroup<{ [k: string]: FormControl }>({});
   public dataSource = new MatTableDataSource<T>(this.data());
   public displayedColumns: (string | keyof T)[] = [];

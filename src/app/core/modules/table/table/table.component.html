@@ -1,3 +1,21 @@
+<div class="row justify-content-between">
+  @if(config().filter) {
+    <div class="col" [formGroup]="filterForm">
+      <sc-form-element
+        [control]="filterForm.controls['search']"
+        [formElement]="{ 
+          elementType: 'text',
+          element: {
+            key: 'search',
+            validateAs: 'text',
+            placeholder: 'Search...',
+          }
+         }"
+      ></sc-form-element>
+    </div>
+  }
+  <ng-content select="[action-handler]"></ng-content>
+</div>
 <section class="table-container">
   <table mat-table matSort [dataSource]="dataSource">
     @for (column of config().columns; track column) {
