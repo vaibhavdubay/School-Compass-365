@@ -1,9 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ApiService } from 'src/app/core/service/http.service';
-import { classes as classAction, school as schoolActions } from './action';
+import { classes as classAction, school as schoolActions, teachersAction } from './action';
 import { catchError, filter, map, of, switchMap, withLatestFrom } from 'rxjs';
-import { Class, SchoolProfile } from '@sc-models/core';
+import { Class, SchoolProfile, TeacherProfile } from '@sc-models/core';
 import { apiRoutes } from 'src/app/core/constants/api.constants';
 import { selectClasses } from './selector';
 import { AdminService } from '../services/admin.service';
@@ -23,6 +23,19 @@ export class AdminEffects {
         this.apiService.get<Class[]>(apiRoutes.class.get).pipe(
           map((classes) => classAction.getAllSuccess({ classes })),
           catchError((err) => of(classAction.getAllFailure({ error: err }))),
+        ),
+      ),
+    );
+  });
+  getAllTeachers$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(teachersAction.getAllTeachers),
+      withLatestFrom(this.store.select(selectClasses)),
+      filter(([_, classes]) => !classes?.length),
+      switchMap(() =>
+        this.apiService.get<TeacherProfile[]>(apiRoutes.teachers.get).pipe(
+          map((teachers) => teachersAction.getAllTeachersSuccess({ teachers })),
+          catchError((err) => of(teachersAction.getAllTeachersFailure({ error: err }))),
         ),
       ),
     );

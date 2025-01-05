@@ -1,9 +1,9 @@
 <section class="table-container">
   <table mat-table matSort [dataSource]="dataSource">
     @for (column of config().columns; track column) {
-      <ng-container [matColumnDef]="column.columnDef">
+      <ng-container [matColumnDef]="$any(column.columnDef)">
         @if (!column.formElement) {
-          <th mat-header-cell *matHeaderCellDef [mat-sort-header]="column.columnDef">
+          <th mat-header-cell *matHeaderCellDef [mat-sort-header]="$any(column.columnDef)">
             {{ column.header }}
           </th>
         } @else {
@@ -26,9 +26,12 @@
     }
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell py-3 text-center text-bold" [attr.colspan]="displayedColumns.length">No record found</td>
+    </tr>
   </table>
   <mat-divider></mat-divider>
-  @if (config().pagination) {
+  @if (config().pagination && data().length) {
     <mat-paginator
       [pageSize]="config().pagination?.pageSize || 10"
       [disabled]="config().pagination?.disabled"

@@ -7,3 +7,4 @@ const selectAdminState = createFeatureSelector<AdminState>(STORE_FEATURES.ADMIN)
 export const selectAdminUser = createSelector(selectAdminState, (state) => state.adminUser);
 
 export const selectClasses = createSelector(selectAdminState, (state) => state.classes);
+export const selectTeachers = createSelector(selectAdminState, (state) => state.teachers);

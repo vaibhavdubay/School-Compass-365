@@ -17,4 +17,10 @@ export const apiRoutes = {
   school: {
     update: (id: string) => `/school/${id}`,
   },
+  teachers: {
+    get: '/teacher',
+    getById: (id: string) => `/teachers/${id}`,
+    update: (id: string) => `/teachers/${id}`,
+    delete: (id: string) => `/teachers/${id}`,
+  }
 };

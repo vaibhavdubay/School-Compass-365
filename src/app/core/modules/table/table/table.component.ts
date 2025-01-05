@@ -11,7 +11,7 @@ import { TableConfig } from '@sc-models/table';
   styleUrl: './table.component.scss',
   standalone: false,
 })
-export class TableComponent<T = object> implements OnChanges {
+export class TableComponent<T = { [k: string]: string }> implements OnChanges {
   private readonly fb = inject(FormBuilder);
 
   readonly config = input<TableConfig<T>>({
@@ -24,7 +24,7 @@ export class TableComponent<T = object> implements OnChanges {
     row: T;
   }>();
 
-  @ViewChild(MatPaginator) public get paginator(): MatPaginator {
+  @ViewChild(MatPaginator, { static: true }) public get paginator(): MatPaginator {
     return this._paginator;
   }
   public set paginator(value: MatPaginator) {
@@ -32,7 +32,7 @@ export class TableComponent<T = object> implements OnChanges {
     this._paginator = value;
   }
 
-  @ViewChild(MatSort)
+  @ViewChild(MatSort, { static: true })
   public get sort(): MatSort {
     return this._sort;
   }
@@ -40,7 +40,7 @@ export class TableComponent<T = object> implements OnChanges {
     const sort = this.config().sort;
     value.disabled = !sort;
     if (sort && !this._sort) {
-      sort.column && (value.active = sort.column);
+      sort.column && (value.active = sort.column as string);
       sort.direction && (value.direction = sort.direction);
       sort.disableClear && (value.disableClear = sort.disableClear);
     }
@@ -52,7 +52,7 @@ export class TableComponent<T = object> implements OnChanges {
   private _paginator!: MatPaginator;
 
   public formGroup = new FormGroup<{ [k: string]: FormControl }>({});
-  public dataSource = new MatTableDataSource<T>([]);
+  public dataSource = new MatTableDataSource<T>(this.data());
   public displayedColumns: (string | keyof T)[] = [];
 
   ngOnChanges(changes: SimpleChanges) {

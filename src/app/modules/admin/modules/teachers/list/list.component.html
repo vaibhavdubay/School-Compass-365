@@ -1,0 +1,5 @@
+@let teachers = teachers$ | async;
+@if(teachers) {
+    <sc-table [data]="teachers" [config]="tableConfig">
+    </sc-table>
+}

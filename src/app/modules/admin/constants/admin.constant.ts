@@ -1,5 +1,6 @@
-import { NavItem } from '@sc-models/core';
+import { NavItem, TeacherProfile } from '@sc-models/core';
 import { FormConfig } from '@sc-models/form';
+import { TableConfig } from '@sc-models/table';
 
 export const sideNavConfig: NavItem[] = [
   {
@@ -127,3 +128,33 @@ export const schoolFormConfig: FormConfig = [
     },
   },
 ];
+
+export const teachersTableConfig: TableConfig<TeacherProfile> = {
+  columns: [
+    {
+      columnDef: 'firstName',
+      cell: (row: TeacherProfile) => `${row.firstName} ${row.lastName}`,
+      header: 'Name',
+    },
+    {
+      columnDef: 'email',
+      header: 'Email',
+    },
+    {
+      columnDef: 'phoneNumber',
+      header: 'Phone',
+    },
+    {
+      columnDef: 'createdAt',
+      cell: (row: TeacherProfile) => new Date(row.createdAt).toLocaleString(),
+      header: 'Joining Date',
+    },
+  ],
+  pagination: {
+    pageSizeOptions: [10, 25, 50, 100],
+  },
+  sort: {
+    direction: 'asc',
+    column: 'firstName',
+  },
+};
