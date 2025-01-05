@@ -17,12 +17,10 @@ export class SideNavComponent {
   constructor(private sharedStore: SharedStoreService) {}
   @Input({ required: true }) naveItem: NavItem[] = [];
 
-  isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
-    .pipe(
-      map((result) => result.matches),
-      shareReplay(),
-    );
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+    map((result) => result.matches),
+    shareReplay(),
+  );
 
   ngOnInit() {
     this.profile = this.sharedStore.loggedInUser$.subscribe((res) => {

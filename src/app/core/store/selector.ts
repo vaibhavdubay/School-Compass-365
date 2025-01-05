@@ -15,8 +15,7 @@ export const selectLoggedInUserWithSchool = createSelector(selectSharedState, ({
 export const selectAddress = createSelector(selectSharedState, (state) => state.addressHelper);
 export const selectAddressStates = createSelector(selectSharedState, (state) => Object.keys(state.addressHelper || {}));
 export const selectAddressDistricts = (stateName: string) =>
-  createSelector(selectSharedState, (state) => Object.keys(state.addressHelper?.[stateName] || {})
-);
+  createSelector(selectSharedState, (state) => Object.keys(state.addressHelper?.[stateName] || {}));
 export const selectAddressPincodes = (stateName: string, districtName: string, town?: string) =>
   createSelector(selectSharedState, (state) => {
     const towns = state.addressHelper?.[stateName]?.[districtName] || [];

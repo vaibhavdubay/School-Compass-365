@@ -42,8 +42,8 @@ mat-icon.toggle {
   width: 30px;
   height: 30px;
   border-radius: var(--borderRadius-xxxl);
-  background-color: var(--color-background);
-  box-shadow: var(--boxShadow-s);
+  background-color: var(--primary-550);
+  border: var(--border-light);
   img {
     height: 100%;
   }
@@ -57,11 +57,11 @@ mat-icon.toggle {
   color: rgba(black, 0.65);
   line-height: 1.2;
   min-width: var(--width-Sz20);
-  box-shadow: var(--boxShadow-s);
+  border: var(--border-light);
   border-radius: var(--borderRadius-xxxl);
 
   &:hover {
-    box-shadow: var(--boxShadow-xl-mid);
+    box-shadow: var(--boxShadow-s-mid);
   }
 
   .profile {
@@ -88,16 +88,16 @@ mat-icon.toggle {
 }
 
 .layout_title {
-  font-size: 1.1rem;
+  font-size: 1.1em;
   font-weight: 600;
   color: var(--neutral-700);
 }
 
 .editOrViewSchoolProfile {
-  font-size: 0.8rem;
-  color: #0090ff;
+  font-size: 0.8em;
+  color: var(--primary-500);
   padding-bottom: 1px;
-  border-bottom: 1px solid #0090ff;
+  border-bottom: 1px solid var(--primary-500);
 }
 
 // mobile style
@@ -109,11 +109,22 @@ mat-icon.toggle {
 .mobile_padding {
   padding: 0px 5rem;
 }
+.close_mobile_menu {
+  top: 0;
+  right: 0;
+  font-size: 1.5rem;
+  height: 2rem;
+  width: 2rem;
+}
 
 .profile_option {
-  mat-icon {
+  .user_profile_actions{
+    color: var(--primary-550);
     cursor: pointer;
-    color: #379ae6ff;
+    mat-icon {
+      width: 20px;
+      font-size: 1.1em;
+    }
   }
 
   .profile_name {
@@ -150,3 +161,36 @@ mat-icon.toggle {
   height: 40px !important;
 }
 
+::ng-deep {
+  .nav_options_menu.mat-mdc-menu-panel {
+    margin: 8px 9px;
+    box-shadow: var(--boxShadow-m);
+    border-radius: var(--borderRadius-l);
+    min-width: 260px;
+    font-size: 1rem;
+    .profile_name {
+      height: 48px;
+      background: var(--primary-550);
+      width: 48px;
+      font-size: 1.3em;
+      border-radius: var(--borderRadius-100-percent);
+    }
+    .profile_info {
+      b {
+        font-size: 14px;
+        line-height: 22px;
+        color: var(--neutral-900);
+      }
+      span {
+        font-size: 12px;
+        line-height: 20px;
+        color: var(--neutral-500);
+      }
+    }
+    .nav_list {
+      .material-symbols-outlined {
+        font-size: 1.6em !important;
+      }
+    }
+  }
+}

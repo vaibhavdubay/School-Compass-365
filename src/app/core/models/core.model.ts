@@ -113,7 +113,8 @@ export interface NavItem {
   icon?: string;
   label: string;
   privileges?: Role[];
-  routerLink: string[];
+  routerLink?: string[];
+  eventFunction?: Function;
   children?: NavItem[];
 }
 
@@ -123,6 +124,19 @@ export type LoggedInUser = UserProfile & {
 };
 
 export type UserProfile = AdminUser & StudentProfile & TeacherProfile;
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  userName: string;
+  password: string;
+  profileImageUrl: string;
+  role: Role;
+  changePassword: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 export class Address {
   town?: string;
@@ -135,21 +149,8 @@ export enum AddressSearchKey {
   PINCODE = 'pincode',
   DISTRICT = 'district',
   STATE_NAME = 'stateName',
-  TOWN = 'town'
+  TOWN = 'town',
 }
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  userName: string;
-  password: string;
-  role: Role;
-  profileImageUrl: string;
-  changePassword: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
 export interface LoginResponse {
   token: {
     accessToken: string;

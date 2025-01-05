@@ -15,7 +15,7 @@ export const classes = createActionGroup({
 export const school = createActionGroup({
   source: 'School',
   events: {
-    'Update School': props<{ school: Partial<(SchoolProfile & {image?: File})> }>(),
+    'Update School': props<{ school: Partial<SchoolProfile & { image?: File }> }>(),
     'Update School Success': props<{ school: SchoolProfile }>(),
     'Update School Failure': props<{ error: HttpErrorObject }>(),
   },

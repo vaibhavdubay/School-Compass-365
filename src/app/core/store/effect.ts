@@ -98,53 +98,51 @@ export class SharedStoreEffect {
   // #endregion User Profile
 
   // #region Address
-  address = createEffect(
-    () => {
-      return this.action$.pipe(
-        ofType(addressActions.loadStates),
-        withLatestFrom(this.store.select(selectAddressStates)),
-        filter((action) => !action[1].length),
-        map(() =>
-          addressActions.loadStatesSuccess({ states: Object.keys(states) }),
-        ),
-      );
-    },
-  );
-  districts = createEffect(
-    () => {
-      return this.action$.pipe(
-        ofType(addressActions.loadDistricts),
-        withLatestFrom(this.store.select(selectAddress)),
-        filter(([action, addresses]) => !Object.keys(addresses?.[action.state] || {})?.length),
-        switchMap(([action]) =>
-          this.apiService
-            .get<string[]>(apiRoutes.address.addressKey(AddressSearchKey.DISTRICT), { params: { stateName: action.state } })
-            .pipe(
-              map((districts) => addressActions.loadDistrictsSuccess({ state: action.state, districts })),
-              catchError((error) => of(addressActions.loadDistrictsFailure({ error }))),
-            ),
-        ),
-      );
-    },
-  );
-  pincodes = createEffect(
-    () => {
-      return this.action$.pipe(
-        ofType(addressActions.loadPincodes),
-        withLatestFrom(this.store.select(selectAddress)),
-        filter(([action, addresses]) => !(Object.keys(addresses[action.state]?.[action.district] || {}))?.length),
-        switchMap(([action]) =>
-          this.apiService.get<Address[]>(apiRoutes.address.completeAddress, {
+  address = createEffect(() => {
+    return this.action$.pipe(
+      ofType(addressActions.loadStates),
+      withLatestFrom(this.store.select(selectAddressStates)),
+      filter((action) => !action[1].length),
+      map(() => addressActions.loadStatesSuccess({ states: Object.keys(states) })),
+    );
+  });
+  districts = createEffect(() => {
+    return this.action$.pipe(
+      ofType(addressActions.loadDistricts),
+      withLatestFrom(this.store.select(selectAddress)),
+      filter(([action, addresses]) => !Object.keys(addresses?.[action.state] || {})?.length),
+      switchMap(([action]) =>
+        this.apiService
+          .get<
+            string[]
+          >(apiRoutes.address.addressKey(AddressSearchKey.DISTRICT), { params: { stateName: action.state } })
+          .pipe(
+            map((districts) => addressActions.loadDistrictsSuccess({ state: action.state, districts })),
+            catchError((error) => of(addressActions.loadDistrictsFailure({ error }))),
+          ),
+      ),
+    );
+  });
+  pincodes = createEffect(() => {
+    return this.action$.pipe(
+      ofType(addressActions.loadPincodes),
+      withLatestFrom(this.store.select(selectAddress)),
+      filter(([action, addresses]) => !Object.keys(addresses[action.state]?.[action.district] || {})?.length),
+      switchMap(([action]) =>
+        this.apiService
+          .get<Address[]>(apiRoutes.address.completeAddress, {
             params: { stateName: action.state, district: action.district },
-          }).pipe(
-            map((addresses) => addressActions.loadPincodesSuccess({ state: action.state, district: action.district, addresses })),
-            catchError((error) => of(addressActions.loadPincodesFailure({ error })))
-          )
-        )
-      );
-    },
-  );
-  
+          })
+          .pipe(
+            map((addresses) =>
+              addressActions.loadPincodesSuccess({ state: action.state, district: action.district, addresses }),
+            ),
+            catchError((error) => of(addressActions.loadPincodesFailure({ error }))),
+          ),
+      ),
+    );
+  });
+
   // #endregion Address
 
   // #region Logout

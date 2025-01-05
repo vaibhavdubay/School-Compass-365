@@ -2,7 +2,15 @@ import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { StoreService } from 'src/app/core/service/store.service';
 import { SharedState } from '../store/reducer';
-import { selectAddressDistricts, selectAddressPincodes, selectAddressStates, selectAddressTowns, selectLoggedInUser, selectLoggedInUserWithSchool, selectSchoolProfile } from '../store/selector';
+import {
+  selectAddressDistricts,
+  selectAddressPincodes,
+  selectAddressStates,
+  selectAddressTowns,
+  selectLoggedInUser,
+  selectLoggedInUserWithSchool,
+  selectSchoolProfile,
+} from '../store/selector';
 import { addressActions, logInActions } from '../store/action';
 import { filter } from 'rxjs';
 

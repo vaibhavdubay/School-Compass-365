@@ -34,14 +34,14 @@
   ::-webkit-scrollbar-thumb {
     background: var(--neutral-500);
   }
-  
+
   ::-webkit-scrollbar-thumb:hover {
     background: var(--neutral-600);
   }
 
   ::-webkit-scrollbar {
     width: 5px;
-  }  
+  }
 }
 
 .list-container {
@@ -51,7 +51,6 @@
   height: 100%;
   border-radius: 7px;
   overflow-y: auto;
-
 }
 
 .class-list {

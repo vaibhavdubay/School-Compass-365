@@ -22,7 +22,9 @@
 
 .router-link-active {
   background-color: #f7f7f7;
-  box-shadow: inset 1px 0px #0000000d, inset 0px 1px #0000000d,
+  box-shadow:
+    inset 1px 0px #0000000d,
+    inset 0px 1px #0000000d,
     inset 0px -1px #0000000d;
 }
 .nav_list {

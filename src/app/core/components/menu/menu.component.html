@@ -1,6 +1,11 @@
 <mat-nav-list class="pt-0">
   @for (navItem of navItems(); track $index) {
-    <a mat-list-item [routerLink]="navItem.routerLink" [routerLinkActive]="'router-link-active'">
+    <a
+      mat-list-item
+      [routerLink]="navItem.routerLink"
+      (click)="navItem.eventFunction ? navItem.eventFunction() : null"
+      [routerLinkActive]="'router-link-active'"
+    >
       <div class="d-flex align-items-center nav_list">
         <span class="material-symbols-outlined">
           {{ navItem.icon }}

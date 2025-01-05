@@ -100,7 +100,7 @@ div.mat-mdc-select-panel {
   white-space: nowrap;
 }
 .mat-mdc-unelevated-button.mat-primary:not(:disabled) {
-  background-color: var(--primary-550)
+  background-color: var(--primary-550);
 }
 .mdc-tab--active .mdc-tab__text-label {
   font-weight: bolder;
@@ -116,7 +116,6 @@ mat-label {
   color: #000000a0;
   font-size: 0.8em;
 }
-
 
 .school_name {
   color: var(--neutral-900);
