@@ -1,6 +1,6 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { logInActions, addressActions } from './action';
-import { catchError, filter, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
+import { catchError, exhaustMap, filter, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ApiService } from '../service/http.service';
 import { Address, AddressSearchKey, LoggedInUser, LoginResponse, UserProfile } from '@sc-models/core';
 import { Injectable, inject } from '@angular/core';
@@ -62,7 +62,7 @@ export class SharedStoreEffect {
       ofType(logInActions.userProfile),
       withLatestFrom(this.store.select(selectLoggedInUser)),
       filter((action) => !action[1]),
-      switchMap(() =>
+      exhaustMap(() =>
         this.apiService.get<LoggedInUser>(apiRoutes.auth.profile).pipe(
           map((response) => logInActions.userProfileSuccess({ response })),
           catchError((error) => of(logInActions.userProfileFailure({ error }))),
