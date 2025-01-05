@@ -1,11 +1,11 @@
 section.admin_card {
   border-radius: var(--borderRadius-l);
   overflow: hidden;
-  box-shadow: var(--boxShadow-m-mid);
+  box-shadow: var(--boxShadow-m);
   position: relative;
   min-height: 250px;
   max-width: 550px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: var(--color-white);
   background-position: center;
   background-size: 150px;
   background-repeat: no-repeat;
@@ -13,7 +13,7 @@ section.admin_card {
     z-index: 1;
   }
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -23,7 +23,44 @@ section.admin_card {
     z-index: 0;
     background: white;
   }
+  .admin_profile_image {
+    position: relative;
+    margin: 0px 0 12px;
+    border-radius: 50%;
+    border-radius: 50%;
+    mat-icon {
+      position: absolute;
+      right: 0;
+      height: 1.4em;
+      width: 1.4em;
+      font-size: 1.3em;
+      border-radius: 50%;
+      color: var(--primary-550);
+      box-shadow: var(--boxShadow-s-mid);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--color-white);
+    }
+    &:hover:not(:has(mat-icon))::after {
+      overflow: hidden;
+      border-radius: 50%;
+      content: 'add_a_photo';
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 2rem;
+      height: 100%;
+      width: 100%;
+      font-family: 'Material Symbols Outlined';
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+  }
 }
 .card_details {
-    font-family: auto;
+  font-family: auto;
 }

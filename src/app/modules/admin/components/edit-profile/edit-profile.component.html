@@ -2,7 +2,7 @@
 @let schoolProfile = schoolProfile$ | async;
 @let adminUser = adminUser$ | async;
 
-<section class="row justify-content-around">
+<section class="row justify-content-around mt-4">
   <section
     class="admin_card d-flex justify-content-center align-items-center flex-wrap flex-wrap p-3"
     [ngStyle]="{
@@ -15,13 +15,23 @@
     </div>
     <div class="col-sm-5 d-flex flex-column rounded-3xl align-items-center justify-content-center pb-4 pt-2 text-center">
       <input type="file" hidden #admin_logo (change)="uploadImage(admin_logo)" />
-      <div class="admin_logo" (click)="admin_logo.click()">
-        <img
-          class="mx-2"
-          style="height: 8rem; width: 8rem; border-radius: 50%;"
-          [src]="loggedInUser?.profileImageUrl ? loggedInUser?.profileImageUrl : 'assets/images/avatar_1.webp'"
-          [alt]="loggedInUser?.name"
-        />
+      <div class="admin_profile_image" (click)="admin_logo.click()">
+        @if (imagePath) {
+          @if (image) {
+            <mat-icon (click)="saveChanges($any(adminUser), $event)"> cloud_upload </mat-icon>
+          }
+          <img
+            style="height: 8rem; width: 8rem; border-radius: 50%;"
+            [src]="imagePath"
+            [alt]="loggedInUser?.name"
+          />
+        } @else {
+          <img
+            style="height: 8rem; width: 8rem; border-radius: 50%;"
+            [src]="loggedInUser?.profileImageUrl ? loggedInUser?.profileImageUrl : 'assets/images/avatar_1.webp'"
+            [alt]="loggedInUser?.name"
+          />
+        }
       </div>
     </div>
     <div class="col-7 pt-2">
@@ -44,6 +54,6 @@
     </section>
   </section>
   <section class="col mx-2" style="max-width: 500px;">
-    <sc-form [formConfig]="formConfig" ></sc-form>
+    <sc-form [formConfig]="formConfig" #form (buttonClick)="updatePassword()" ></sc-form>
   </section>
 </section>

@@ -7,6 +7,12 @@ export const apiRoutes = {
     sendOtp: `/auth/send-otp`,
     resetPassword: `/auth/reset-password`,
   },
+  admin: {
+    update: (id: string) => `/admin/${id}`,
+  },
+  users: {
+    update: (id: string) => `/users/${id}`,
+  },
   address: {
     completeAddress: `/address-helper`,
     addressKey: (key: AddressSearchKey) => `/address-helper/${key}`,
