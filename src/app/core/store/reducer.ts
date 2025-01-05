@@ -4,7 +4,7 @@ import { logInActions, addressActions } from './action';
 
 export interface AddressState {
   [state: string]: {
-    [district: string]:  Address[];
+    [district: string]: Address[];
   };
 }
 
@@ -30,7 +30,7 @@ export const initialState: Nullable<SharedState> = {
 
 export const SharedStoreReducer = createReducer(
   initialState,
-// #region Login
+  // #region Login
   on(logInActions.logInSuccess, (state, action) => ({
     ...state,
     loggedInUser: {
@@ -50,9 +50,9 @@ export const SharedStoreReducer = createReducer(
     addressHelper: state.addressHelper || {},
   })),
 
-// #endregion Login
+  // #endregion Login
 
-// #region Address
+  // #region Address
   on(addressActions.loadStates, (state) => ({ ...state, fetchingStates: true })),
   on(addressActions.loadStatesSuccess, (state, { states }) => {
     const addressHelper = { ...state.addressHelper };
@@ -63,7 +63,7 @@ export const SharedStoreReducer = createReducer(
   }),
   on(addressActions.loadStatesFailure, (state) => ({
     ...state,
-    fetchingStates: false
+    fetchingStates: false,
   })),
 
   on(addressActions.loadDistricts, (state) => ({ ...state, fetchingDistricts: true })),
@@ -79,7 +79,7 @@ export const SharedStoreReducer = createReducer(
   }),
   on(addressActions.loadDistrictsFailure, (state) => ({
     ...state,
-    fetchingDistricts: false
+    fetchingDistricts: false,
   })),
 
   on(addressActions.loadPincodes, (state) => ({ ...state, fetchingPincodes: true })),
@@ -93,14 +93,14 @@ export const SharedStoreReducer = createReducer(
   }),
   on(addressActions.loadPincodesFailure, (state) => ({
     ...state,
-    fetchingPincodes: false
+    fetchingPincodes: false,
   })),
 
-// #endregion Address
+  // #endregion Address
 
-// #region Logout
+  // #region Logout
   on(logInActions.logOut, () => ({
     ...initialState,
   })),
-// #endregion Logout
+  // #endregion Logout
 );

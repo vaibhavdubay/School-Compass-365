@@ -18,19 +18,19 @@ export class ApiService {
   }
   put<Res = object>(url: string, data: unknown, options: HttpOptions = {}) {
     let body = data;
-    if(typeof body == 'object' && !Array.isArray(body)) {
-      const hasFile = Object.values(body as any).some((v)=> v instanceof File);
-      if(hasFile) {
+    if (typeof body == 'object' && !Array.isArray(body)) {
+      const hasFile = Object.values(body as any).some((v) => v instanceof File);
+      if (hasFile) {
         const formData = new FormData();
-        Object.entries(body as any).forEach(([k,v]) => {
-          if(v instanceof File) {
+        Object.entries(body as any).forEach(([k, v]) => {
+          if (v instanceof File) {
             formData.append(k, v);
-          } else if(typeof v === 'object') {
+          } else if (typeof v === 'object') {
             formData.append(k, JSON.stringify(v));
           } else {
             formData.append(k, (v as any).toString());
           }
-        })
+        });
         body = formData;
       }
     }

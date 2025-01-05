@@ -113,7 +113,8 @@ export interface NavItem {
   icon?: string;
   label: string;
   privileges?: Role[];
-  routerLink: string[];
+  routerLink?: string[];
+  eventFunction?: Function;
   children?: NavItem[];
 }
 
@@ -135,7 +136,7 @@ export enum AddressSearchKey {
   PINCODE = 'pincode',
   DISTRICT = 'district',
   STATE_NAME = 'stateName',
-  TOWN = 'town'
+  TOWN = 'town',
 }
 export interface User {
   id: string;

@@ -110,8 +110,7 @@ export class AdminDashboardComponent {
       {
         columnDef: 'name',
         header: 'Name',
-        cell: (element: PeriodicElement) =>
-          `${element.name} (${element.symbol})`,
+        cell: (element: PeriodicElement) => `${element.name} (${element.symbol})`,
       },
       {
         columnDef: 'weight',

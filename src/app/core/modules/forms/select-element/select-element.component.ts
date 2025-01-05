@@ -17,7 +17,7 @@ export class SelectElementComponent implements AfterViewInit, OnChanges {
   filteredOptions!: Observable<ListOptions>;
 
   ngOnChanges(changes: SimpleChanges) {
-    if(changes['element'] || changes['control']){
+    if (changes['element'] || changes['control']) {
       const element = this.element();
       if (element.disabled) {
         this.control().disable();
@@ -39,7 +39,7 @@ export class SelectElementComponent implements AfterViewInit, OnChanges {
     return str
       .toLowerCase()
       .split(' ')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
   }
 

@@ -21,7 +21,7 @@ export class SchoolProfileComponent implements AfterViewInit {
   private readonly sharedStore = inject(SharedStoreService);
   private readonly adminService = inject(AdminService);
   readonly screenObserver = inject(ScreenSizeObserver);
-  readonly states: {[k:string]: string} = states
+  readonly states: { [k: string]: string } = states;
   readonly formConfig = schoolFormConfig;
   readonly form = viewChild.required<FormComponent<SchoolProfile>>('form');
   schoolProfile?: SchoolProfile;
@@ -69,13 +69,13 @@ export class SchoolProfileComponent implements AfterViewInit {
   }
 
   uploadImage(input: HTMLInputElement) {
-    if(input.files && input.files.length > 0) {
+    if (input.files && input.files.length > 0) {
       const file = input.files?.item(0);
-      if(file) {
+      if (file) {
         this.image = file;
         const reader = new FileReader();
         reader.onload = (e: any) => {
-          if(this.schoolProfile) this.schoolProfile = {...this.schoolProfile, logoUrl: e.target.result};
+          if (this.schoolProfile) this.schoolProfile = { ...this.schoolProfile, logoUrl: e.target.result };
         };
         reader.readAsDataURL(file);
       }
@@ -88,38 +88,48 @@ export class SchoolProfileComponent implements AfterViewInit {
       ...this.form().formGroup.value,
       classes: this.basket,
       id: this.schoolProfile?.id,
-      image: (this.image)
+      image: this.image,
     };
-    if(this.image){
+    if (this.image) {
       delete school.logoUrl;
     }
     this.adminService.dispatch(schoolActions.updateSchool({ school }));
   }
 
-  handleDynamicOptions(){
+  handleDynamicOptions() {
     const formControls = this.form().formGroup.controls;
-    this.dynamicOptions['state'] = this.sharedStore.addressStates$.pipe(map((v)=> v.map((d)=> ({key: d, label: d}))));
-    this.dynamicOptions['city'] = this.sharedStore.addressDistrict$(formControls.state.value).pipe(map((v)=> v.map((d)=> ({key: d, label: d}))));
-    this.dynamicOptions['pincode'] = this.sharedStore.addressPincode$(formControls.state.value, formControls.city.value).pipe(map((v)=> v.map((d)=> ({key: d, label: d}))));
+    this.dynamicOptions['state'] = this.sharedStore.addressStates$.pipe(
+      map((v) => v.map((d) => ({ key: d, label: d }))),
+    );
+    this.dynamicOptions['city'] = this.sharedStore
+      .addressDistrict$(formControls.state.value)
+      .pipe(map((v) => v.map((d) => ({ key: d, label: d }))));
+    this.dynamicOptions['pincode'] = this.sharedStore
+      .addressPincode$(formControls.state.value, formControls.city.value)
+      .pipe(map((v) => v.map((d) => ({ key: d, label: d }))));
 
-    formControls.state.valueChanges.subscribe((state)=> {
-      if(state) {
-        formControls.city.setValue('', { emitEvent: false});
-        formControls.pincode.setValue('', { emitEvent: false});
-        formControls.city.enable({ emitEvent: false});
-        formControls.pincode.disable({ emitEvent: false});
-        this.dynamicOptions['pincode'] = of([])
-        this.dynamicOptions['city'] = this.sharedStore.addressDistrict$(state).pipe(map((v)=> v.map((d)=> ({key: d, label: d}))));
+    formControls.state.valueChanges.subscribe((state) => {
+      if (state) {
+        formControls.city.setValue('', { emitEvent: false });
+        formControls.pincode.setValue('', { emitEvent: false });
+        formControls.city.enable({ emitEvent: false });
+        formControls.pincode.disable({ emitEvent: false });
+        this.dynamicOptions['pincode'] = of([]);
+        this.dynamicOptions['city'] = this.sharedStore
+          .addressDistrict$(state)
+          .pipe(map((v) => v.map((d) => ({ key: d, label: d }))));
       }
-    })
-    formControls.city.valueChanges.subscribe((city)=> {
+    });
+    formControls.city.valueChanges.subscribe((city) => {
       const state = formControls.state.value;
-      formControls.pincode.setValue('', { emitEvent: false});
-      this.dynamicOptions['pincode'] = of([])
-      if(state && city && formControls.city.enabled){
-        formControls.pincode.enable({ emitEvent: false});  
-        this.dynamicOptions['pincode'] = this.sharedStore.addressPincode$(state, city).pipe(map((v)=> v.map((d)=> ({key: d, label: d}))));
+      formControls.pincode.setValue('', { emitEvent: false });
+      this.dynamicOptions['pincode'] = of([]);
+      if (state && city && formControls.city.enabled) {
+        formControls.pincode.enable({ emitEvent: false });
+        this.dynamicOptions['pincode'] = this.sharedStore
+          .addressPincode$(state, city)
+          .pipe(map((v) => v.map((d) => ({ key: d, label: d }))));
       }
-    })
+    });
   }
 }

@@ -1,4 +1,4 @@
-import { AddressSearchKey } from "@sc-models/core";
+import { AddressSearchKey } from '@sc-models/core';
 
 export const apiRoutes = {
   auth: {

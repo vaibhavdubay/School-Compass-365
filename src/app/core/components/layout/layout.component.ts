@@ -18,9 +18,35 @@ export class LayoutComponent {
   private readonly sharedStore = inject(SharedStoreService);
   private readonly titleService = inject(TitleService);
   readonly screenObserver = inject(ScreenSizeObserver);
-  
-  readonly states: {[k:string]: string} = states
+
+  readonly states: { [k: string]: string } = states;
   readonly navItems = input.required<NavItem[]>();
+
+  readonly logoutNavItems: NavItem[] = [
+    {
+      icon: 'Logout',
+      label: 'Sign out',
+      eventFunction: () => this.logOut(),
+    },
+    // {
+    //   icon: 'dark_mode',
+    //   label: 'Dark Mode',
+    //   routerLink: ['#'],
+    // },
+  ];
+
+  readonly preferanceNavItems: NavItem[] = [
+    {
+      icon: 'account_circle',
+      label: 'Edit Profile',
+      routerLink: ['edit-profile'],
+    },
+    {
+      icon: 'settings',
+      label: 'Preferences',
+      routerLink: ['preferences'],
+    },
+  ];
 
   private readonly breakpointObserver = inject(BreakpointObserver);
   profile: Observable<{

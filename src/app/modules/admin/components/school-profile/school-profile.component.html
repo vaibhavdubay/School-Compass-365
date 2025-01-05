@@ -1,6 +1,6 @@
 <section class="school_info_container d-flex justify-content-center flex-wrap py-4">
   <div class="col-md-6 d-flex flex-column align-items-center justify-content-center pb-4 text-center">
-    <input type="file" hidden #school_logo (change)="uploadImage(school_logo)">
+    <input type="file" hidden #school_logo (change)="uploadImage(school_logo)" />
     <div class="school_logo" (click)="school_logo.click()">
       <img
         style="height: 8rem; width: 8rem"
@@ -45,16 +45,12 @@
 
 <mat-tab-group class="mat_tab_group">
   <mat-tab>
-    <ng-template mat-tab-label>
-      Address Details
-    </ng-template>
+    <ng-template mat-tab-label> Address Details </ng-template>
     <sc-form [formConfig]="formConfig" #form [dynamicListOptions]="dynamicOptions"></sc-form>
   </mat-tab>
 
   <mat-tab>
-    <ng-template mat-tab-label>
-      Classes
-    </ng-template>
+    <ng-template mat-tab-label> Classes </ng-template>
 
     <div
       cdkDropListGroup
@@ -90,9 +86,7 @@
   </mat-tab>
 
   <mat-tab disabled="true">
-    <ng-template mat-tab-label>
-      Transportation
-    </ng-template>
+    <ng-template mat-tab-label> Transportation </ng-template>
 
     Content 3
   </mat-tab>
