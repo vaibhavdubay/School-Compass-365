@@ -60,7 +60,7 @@ export class EditProfileComponent {
   updatePassword() {
     const form = this.form().formGroup;
     if (form.valid) {
-      this.sharedStore.updateUser(form.value)
+      this.sharedStore.updateUser(form.value);
     } else {
       form.markAllAsTouched();
     }
