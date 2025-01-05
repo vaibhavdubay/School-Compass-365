@@ -11,8 +11,9 @@ import {
   selectLoggedInUserWithSchool,
   selectSchoolProfile,
 } from '../store/selector';
-import { addressActions, logInActions } from '../store/action';
+import { addressActions, logInActions, userActions } from '../store/action';
 import { filter } from 'rxjs';
+import { User } from '@sc-models/core';
 
 @Injectable({
   providedIn: 'root',
@@ -58,5 +59,9 @@ export class SharedStoreService extends StoreService<SharedState> {
 
   addressTowns$(state: string, district: string, pincode?: string) {
     return this.select(selectAddressTowns(state, district, pincode));
+  }
+
+  updateUser(user: Partial<User>) {
+    this.dispatch(userActions.updateUser({ user }))
   }
 }

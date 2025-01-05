@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { Address, HttpErrorObject, LoggedInUser, LoginDto, LoginResponse } from '@sc-models/core';
+import { Address, HttpErrorObject, LoggedInUser, LoginDto, LoginResponse, User } from '@sc-models/core';
 
 export const logInActions = createActionGroup({
   source: 'Authentication',
@@ -35,3 +35,12 @@ export const addressActions = createActionGroup({
     'Load Pincodes Failure': props<{ error: string }>(),
   },
 });
+
+export const userActions = createActionGroup({
+  source: "Users",
+  events: {
+    'Update User': props<{ user: Partial<User> }>(),
+    'Update User Success': props<{ user: User }>(),
+    'Update User Failure': props<{ error: HttpErrorObject }>(),
+  }
+})

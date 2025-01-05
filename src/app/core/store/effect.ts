@@ -1,8 +1,8 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { logInActions, addressActions } from './action';
+import { logInActions, addressActions, userActions } from './action';
 import { catchError, exhaustMap, filter, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ApiService } from '../service/http.service';
-import { Address, AddressSearchKey, LoggedInUser, LoginResponse, UserProfile } from '@sc-models/core';
+import { Address, AddressSearchKey, LoggedInUser, LoginResponse, User, UserProfile } from '@sc-models/core';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -142,8 +142,23 @@ export class SharedStoreEffect {
       ),
     );
   });
-
   // #endregion Address
+  
+  // #region Users
+  updateUser$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(userActions.updateUser),
+      withLatestFrom(this.store.select(selectLoggedInUser)),
+      switchMap(([{ user }, loggedInUser]) =>
+        this.apiService.put<User>(apiRoutes.users.update(loggedInUser.id), {...loggedInUser, ...user}).pipe(
+          map((user) => userActions.updateUserSuccess({ user })),
+          catchError((err) => of(userActions.updateUserFailure({ error: err }))),
+        ),
+      ),
+    );
+  });
+  // #endregion Users
+  
 
   // #region Logout
   logOut = createEffect(
