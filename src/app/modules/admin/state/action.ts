@@ -29,3 +29,12 @@ export const teachersAction = createActionGroup({
     'Get All TeachersFailure': props<{ error: HttpErrorObject }>(),
   },
 });
+
+export const adminActions = createActionGroup({
+  source: 'Admin',
+  events: {
+    'Update Admin': props<{ adminUser: Partial<AdminUser & { image?: File }> }>(),
+    'Update Admin Success': props<{ adminUser: AdminUser }>(),
+    'Update Admin Failure': props<{ error: HttpErrorObject }>(),
+  },
+});

@@ -3,8 +3,9 @@ import { StoreService } from 'src/app/core/service/store.service';
 import { AdminState } from '../state/reducer';
 import { Store } from '@ngrx/store';
 import { selectAdminUser, selectClasses, selectTeachers } from '../state/selector';
-import { classes, teachersAction } from '../state/action';
+import { adminActions, classes, teachersAction } from '../state/action';
 import { filter } from 'rxjs';
+import { AdminUser } from '@sc-models/core';
 
 @Injectable()
 export class AdminService extends StoreService<AdminState> {
@@ -24,5 +25,8 @@ export class AdminService extends StoreService<AdminState> {
   get teachers$() {
     this.dispatch(teachersAction.getAllTeachers())
     return this.select(selectTeachers).pipe(filter((c) => !!c))
+  }
+  updateAdminUserProfile(adminUser: AdminUser) {
+    this.dispatch(adminActions.updateAdmin({ adminUser }));
   }
 }

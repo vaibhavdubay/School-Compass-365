@@ -111,7 +111,7 @@ export class FormComponent<T = { [k: string]: string }> implements OnChanges {
       const confirmPasswordControl = formGroup.get(secondControl);
 
       // Early return if one or both controls are missing
-      if (!passwordControl || !confirmPasswordControl) {
+      if (!passwordControl || !confirmPasswordControl || !(passwordControl.touched || confirmPasswordControl.touched)) {
         return null;
       }
 
@@ -123,10 +123,7 @@ export class FormComponent<T = { [k: string]: string }> implements OnChanges {
       // Validate password
       if (passwordControl.errors) {
         passwordControl.markAsTouched(); // Mark password as touched if invalid
-        if (confirmPasswordControl.touched) {
-          // Set invalidPass error only if touched
-          confirmPasswordControl.setErrors({ invalidPass: true });
-        }
+        confirmPasswordControl.setErrors(null)
         return null; // No further validation needed if password is invalid
       }
 

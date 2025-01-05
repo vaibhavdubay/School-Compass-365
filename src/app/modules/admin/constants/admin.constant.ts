@@ -158,3 +158,44 @@ export const teachersTableConfig: TableConfig<TeacherProfile> = {
     column: 'firstName',
   },
 };
+
+export const editFormConfig: FormConfig = [
+  {
+    elementType: 'label',
+    element: {
+      key: 'change-password',
+      label: 'Change Password',
+      cssClass: 'col-12 pb-2',
+    },
+  },
+  {
+    elementType: 'text',
+    element: {
+      key: 'password',
+      validateAs: 'password',
+      required: true,
+      label: 'Password',
+      cssClass: 'col-12',
+    },
+  },
+  {
+    elementType: 'text',
+    element: {
+      key: 'confirmpassword',
+      validateAs: 'confirmPassword',
+      cssClass: 'col-12',
+      required: true,
+      label: 'Confirm Password',
+    },
+  },
+  {
+    elementType: 'button',
+    element: {
+      key: 'submit',
+      label: 'Change Password',
+      cssClass: 'col-12 mt-1',
+      color: "primary",
+      theme: "raised",
+    },
+  }
+];

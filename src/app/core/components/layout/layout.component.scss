@@ -173,6 +173,7 @@ mat-icon.toggle {
       background: var(--primary-550);
       width: 48px;
       font-size: 1.3em;
+      overflow: hidden;
       border-radius: var(--borderRadius-100-percent);
     }
     .profile_info {

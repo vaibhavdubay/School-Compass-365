@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { AdminUser, Class, Nullable, SchoolProfile, TeacherProfile } from '@sc-models/core';
-import { initAdminState, teachersAction } from './action';
+import { adminActions, initAdminState, teachersAction } from './action';
 import { classes as classAction, school as schoolAction } from './action';
 
 export interface AdminState {
@@ -35,6 +35,15 @@ export const AdminReducer = createReducer<AdminState>(
     return {
       ...state,
       schoolProfile: action.school,
+    };
+  }),
+  on(adminActions.updateAdminSuccess, (state, action) => {
+    const adminUser = JSON.parse(JSON.stringify(action.adminUser))
+    delete adminUser['school']
+    delete adminUser['user']
+    return {
+      ...state,
+      adminUser: adminUser,
     };
   }),
 );

@@ -1,9 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ApiService } from 'src/app/core/service/http.service';
-import { classes as classAction, school as schoolActions, teachersAction } from './action';
+import { adminActions, classes as classAction, school as schoolActions, teachersAction } from './action';
 import { catchError, filter, map, of, switchMap, withLatestFrom } from 'rxjs';
-import { Class, SchoolProfile, TeacherProfile } from '@sc-models/core';
+import { AdminUser, Class, SchoolProfile, TeacherProfile } from '@sc-models/core';
 import { apiRoutes } from 'src/app/core/constants/api.constants';
 import { selectClasses } from './selector';
 import { AdminService } from '../services/admin.service';
@@ -47,6 +47,18 @@ export class AdminEffects {
         this.apiService.put<SchoolProfile>(apiRoutes.school.update(school.id as string), school).pipe(
           map((school) => schoolActions.updateSchoolSuccess({ school })),
           catchError((err) => of(schoolActions.updateSchoolFailure({ error: err }))),
+        ),
+      ),
+    );
+  });
+
+  updateAdminProfile$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(adminActions.updateAdmin),
+      switchMap(({ adminUser }) =>
+        this.apiService.put<AdminUser>(apiRoutes.admin.update(adminUser.id as string), adminUser).pipe(
+          map((adminUser) => adminActions.updateAdminSuccess({ adminUser })),
+          catchError((err) => of(adminActions.updateAdminFailure({ error: err }))),
         ),
       ),
     );

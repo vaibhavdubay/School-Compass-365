@@ -2,43 +2,58 @@
 @let schoolProfile = schoolProfile$ | async;
 @let adminUser = adminUser$ | async;
 
-<section
-  class="admin_card d-flex justify-content-center align-items-center m-auto flex-wrap flex-wrap p-3"
-  [ngStyle]="{
-    backgroundImage: 'url(' + schoolProfile?.logoUrl + ')',
-  }"
->
-  <div class="col-sm-12 text-center">
-    <h2 class="text-lg font-bold">{{ schoolProfile?.name }}</h2>
-    <p class="text-xs capitalize">{{ schoolProfile?.address1 }}, {{ schoolProfile?.city | capitalize }}</p>
-  </div>
-  <div class="col-sm-5 d-flex flex-column rounded-3xl align-items-center justify-content-center pb-4 pt-2 text-center">
-    <input type="file" hidden #admin_logo (change)="uploadImage(admin_logo)" />
-    <div class="admin_logo" (click)="admin_logo.click()">
-      <img
-        class="mx-2"
-        style="height: 8rem; width: 8rem; border-radius: 50%;"
-        [src]="loggedInUser?.profileImageUrl ? loggedInUser?.profileImageUrl : 'assets/images/avatar_1.webp'"
-        [alt]="loggedInUser?.name"
-      />
+<section class="row justify-content-around mt-4">
+  <section
+    class="admin_card d-flex justify-content-center align-items-center flex-wrap flex-wrap p-3"
+    [ngStyle]="{
+      backgroundImage: 'url(' + schoolProfile?.logoUrl + ')',
+    }"
+  >
+    <div class="col-sm-12 text-center">
+      <h2 class="text-lg font-bold">{{ schoolProfile?.name }}</h2>
+      <p class="text-xs capitalize">{{ schoolProfile?.address1 }}, {{ schoolProfile?.city | capitalize }}</p>
     </div>
-  </div>
-  <div class="col-7 pt-2">
-    <div class="pb-4 text-base font-medium">
-      <div class="w-100 pb-2 ps-4 text-start font-semibold">{{ loggedInUser?.name }}</div>
-      <div class="card_details">
-        @for (item of profileData | keyvalue: keeporder; track $index) {
-          @let value =
-            $any(loggedInUser)?.[$any(item?.key)]
-              ? $any(loggedInUser)?.[$any(item?.key)]
-              : $any(adminUser)?.[$any(item?.key)];
-          {{ item.value }} : {{ value }}
-          <br />
+    <div class="col-sm-5 d-flex flex-column rounded-3xl align-items-center justify-content-center pb-4 pt-2 text-center">
+      <input type="file" hidden #admin_logo (change)="uploadImage(admin_logo)" />
+      <div class="admin_profile_image" (click)="admin_logo.click()">
+        @if (imagePath) {
+          @if (image) {
+            <mat-icon (click)="saveChanges($any(adminUser), $event)"> cloud_upload </mat-icon>
+          }
+          <img
+            style="height: 8rem; width: 8rem; border-radius: 50%;"
+            [src]="imagePath"
+            [alt]="loggedInUser?.name"
+          />
+        } @else {
+          <img
+            style="height: 8rem; width: 8rem; border-radius: 50%;"
+            [src]="loggedInUser?.profileImageUrl ? loggedInUser?.profileImageUrl : 'assets/images/avatar_1.webp'"
+            [alt]="loggedInUser?.name"
+          />
         }
       </div>
     </div>
-  </div>
-  <section class="note w-100 text-center text-xs text-gray-500">
-    <strong>Note:</strong> Admin cannot directly edit their profile. Please contact School Compass 365 for changes.
+    <div class="col-7 pt-2">
+      <div class="pb-4 text-base font-medium">
+        <div class="w-100 pb-2 ps-4 text-start font-semibold">{{ loggedInUser?.name }}</div>
+        <div class="card_details">
+          @for (item of profileData | keyvalue: keeporder; track $index) {
+            @let value =
+              $any(loggedInUser)?.[$any(item?.key)]
+                ? $any(loggedInUser)?.[$any(item?.key)]
+                : $any(adminUser)?.[$any(item?.key)];
+            {{ item.value }} : {{ value }}
+            <br />
+          }
+        </div>
+      </div>
+    </div>
+    <section class="note w-100 text-center text-xs text-gray-500">
+      <strong>Note:</strong> Admin cannot directly edit their profile. Please contact School Compass 365 for changes.
+    </section>
+  </section>
+  <section class="col mx-2" style="max-width: 500px;">
+    <sc-form [formConfig]="formConfig" #form (buttonClick)="updatePassword()" ></sc-form>
   </section>
 </section>
