@@ -21,8 +21,15 @@ export class TitleService {
     route.events
       .pipe(
         filter((event) => {
+          if (!(event instanceof ActivationEnd)) return false;
           const paths = route.url.split('/');
-          return event instanceof ActivationEnd && event.snapshot.routeConfig?.path == paths[paths.length - 1];
+          const snapshot = event.snapshot;
+          const routerPath =
+            snapshot.routeConfig?.path == '' ? snapshot['parent']?.routeConfig?.path : snapshot.routeConfig?.path;
+          if (routerPath && routerPath.split('/').length > 1) {
+            return routerPath.split('/').reverse().every((route, i) => route.includes(':') || route == paths[paths.length - (1 + i)] )
+          }
+          return routerPath == paths[paths.length - 1] && event.snapshot.data?.['title'];
         }),
       )
       .subscribe((event) => {
