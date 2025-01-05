@@ -125,6 +125,19 @@ export type LoggedInUser = UserProfile & {
 
 export type UserProfile = AdminUser & StudentProfile & TeacherProfile;
 
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  userName: string;
+  password: string;
+  profileImageUrl: string;
+  role: Role;
+  changePassword: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export class Address {
   town?: string;
   pincode?: string;
@@ -138,19 +151,6 @@ export enum AddressSearchKey {
   STATE_NAME = 'stateName',
   TOWN = 'town',
 }
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  userName: string;
-  password: string;
-  role: Role;
-  profileImageUrl: string;
-  changePassword: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
 export interface LoginResponse {
   token: {
     accessToken: string;

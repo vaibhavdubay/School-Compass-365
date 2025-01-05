@@ -77,7 +77,7 @@
                 autocomplete="off"
                 [ariaAutoComplete]="'off'"
                 matInput
-                formControlName="userName"
+                formControlName="username"
                 placeholder="User Name"
               />
             </div>
@@ -103,8 +103,12 @@
                 >
               </div>
             </div>
-            <div class="w-100 mobile_font mb-3">Forget Password?</div>
-            <div class="mobile_font text-sm">
+            <div class="mobile_font text-sm d-flex align-items-center">
+              <div class="col">
+                <mat-checkbox formControlName="remember">
+                  <span class="text-sm"> Remember me? </span>
+                </mat-checkbox>
+              </div>
               <a class="text-blue-500" (click)="forgotPassword()"> Forget Password </a>
             </div>
             <div class="w-100 login_button mt-4 text-center" (click)="login()" (keydown)="login()">Login</div>

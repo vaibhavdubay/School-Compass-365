@@ -22,6 +22,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 
 const material = [
   MatTabsModule,
@@ -34,7 +35,7 @@ const material = [
 ];
 
 @NgModule({
-  declarations: [AdminMainComponent, DashboardComponent, SchoolProfileComponent],
+  declarations: [AdminMainComponent, DashboardComponent, SchoolProfileComponent, EditProfileComponent],
   imports: [
     ...material,
     CoreModule,

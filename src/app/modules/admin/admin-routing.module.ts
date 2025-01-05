@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AdminMainComponent } from './admin.component';
 import { SchoolProfileComponent } from './components/school-profile/school-profile.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,13 @@ const routes: Routes = [
         component: SchoolProfileComponent,
         data: {
           title: 'School Profile',
+        },
+      },
+      {
+        path: 'edit-profile',
+        component: EditProfileComponent,
+        data: {
+          title: 'Edit Profile',
         },
       },
     ],

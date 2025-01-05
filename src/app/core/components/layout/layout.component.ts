@@ -37,14 +37,9 @@ export class LayoutComponent {
 
   readonly preferanceNavItems: NavItem[] = [
     {
-      icon: 'account_circle',
+      icon:  'account_circle',
       label: 'Edit Profile',
       routerLink: ['edit-profile'],
-    },
-    {
-      icon: 'settings',
-      label: 'Preferences',
-      routerLink: ['preferences'],
     },
   ];
 

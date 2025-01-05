@@ -23,9 +23,10 @@ import { MenuComponent } from './components/menu/menu.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { CapitalizePipe } from './pipes/capitalize.pipe';
 
 @NgModule({
-  declarations: [LoginComponent, LayoutComponent, MenuComponent, ForgetPasswordComponent],
+  declarations: [LoginComponent, LayoutComponent, MenuComponent, ForgetPasswordComponent, CapitalizePipe],
   imports: [
     FormsModule,
     CommonModule,
@@ -45,6 +46,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     EffectsModule.forFeature([SharedStoreEffect]),
     StoreModule.forFeature(STORE_FEATURES.SHARED, SharedStoreReducer),
   ],
-  exports: [LayoutComponent],
+  exports: [LayoutComponent, CapitalizePipe],
 })
 export class CoreModule {}

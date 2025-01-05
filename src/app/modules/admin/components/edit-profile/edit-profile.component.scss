@@ -1,0 +1,28 @@
+section.admin_card {
+  border-radius: var(--borderRadius-l);
+  box-shadow: var(--boxShadow-xs);
+  position: relative;
+  min-height: 250px;
+  max-width: 600px;
+  background-color: rgba(255, 255, 255, 0.9);
+  background-position: center;
+  background-size: 150px;
+  background-repeat: no-repeat;
+  > * {
+    z-index: 1;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.7;
+    z-index: 0;
+    background: white;
+  }
+}
+.card_details {
+    font-family: auto;
+}

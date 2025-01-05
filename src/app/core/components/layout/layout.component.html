@@ -43,17 +43,16 @@
     <sc-menu [navItems]="navItems()"></sc-menu>
     @if (screenObserver.isMobile) {
       <div class="seperator my-2"></div>
+      <sc-menu [navItems]="logoutNavItems"></sc-menu>
+      <mat-icon class="close_mobile_menu position-absolute" (click)="drawer.toggle()"> close </mat-icon>
     }
 
-    <div [ngStyle]="{ display: screenObserver.isMobile ? 'initial' : 'none' }">
-      <sc-menu [navItems]="logoutNavItems"></sc-menu>
-      <div class="seperator my-2"></div>
+    <div class="position-absolute w-100" [ngStyle]="{ display: screenObserver.isMobile ? 'initial' : 'none', bottom: '1rem' }">
       <div class="d-flex profile_option ps-3">
         <ng-container [ngTemplateOutlet]="profile_card"></ng-container>
         <div class="d-flex justify-content-end w-100 py-3 pe-3">
-          <div class="user_profile_actions d-flex flex-column align-items-between">
-            <mat-icon>edit</mat-icon>
-            <mat-icon>settings</mat-icon>
+          <div class="user_profile_actions d-flex align-items-between" [routerLink]="'./edit-profile'">
+            <mat-icon>edit</mat-icon>edit
           </div>
         </div>
       </div>
@@ -89,7 +88,7 @@
               </div>
               <div class="seperator my-2"></div>
               <sc-menu [navItems]="preferanceNavItems"></sc-menu>
-              <div class="seperator my-2"></div>
+              <div class="seperator mb-2"></div>
               <sc-menu [navItems]="logoutNavItems"></sc-menu>
             </mat-menu>
           </div>
