@@ -1,9 +1,10 @@
 section.admin_card {
   border-radius: var(--borderRadius-l);
-  box-shadow: var(--boxShadow-xs);
+  overflow: hidden;
+  box-shadow: var(--boxShadow-m-mid);
   position: relative;
   min-height: 250px;
-  max-width: 600px;
+  max-width: 550px;
   background-color: rgba(255, 255, 255, 0.9);
   background-position: center;
   background-size: 150px;

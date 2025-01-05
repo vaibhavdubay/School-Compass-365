@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { editFormConfig } from '@sc-modules/admin/constants/admin.constant';
 import { AdminService } from '@sc-modules/admin/services/admin.service';
 import { SharedStoreService } from 'src/app/core/service/shared-store.service';
 
@@ -15,6 +16,7 @@ export class EditProfileComponent {
   loggedInUser$ = this.sharedStore.loggedInUser$;
   schoolProfile$ = this.sharedStore.School$;
   adminUser$ = this.adminService.adminUser$;
+  formConfig = editFormConfig;
 
   profileData = {
     userName: 'User Name',

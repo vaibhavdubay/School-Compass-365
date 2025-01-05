@@ -44,6 +44,9 @@ export class ErrorComponent {
         case 'matDatepickerMax':
           this.message = errorMessages.matDatepickerMax;
           break;
+        case 'mustMatch':
+          this.message = errorMessages.mustMatch;
+          break;
       }
       const errorMessagesValue = this.errorMessages();
       if (errorMessagesValue[error]) {
