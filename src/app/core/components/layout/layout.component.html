@@ -65,7 +65,7 @@
     </div>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar [class.mobile_bgColor]="screenObserver.isMobile">
+    <mat-toolbar [class.mobile_bgColor]="screenObserver.isMobile" class="mb-4">
       @if (isHandset$ | async) {
         <button type="button" aria-label="Toggle sidenav" class="d-flex" mat-icon-button (click)="drawer.toggle()">
           <mat-icon aria-label="Side nav toggle icon" class="toggle">menu</mat-icon>
