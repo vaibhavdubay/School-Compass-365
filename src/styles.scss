@@ -134,6 +134,47 @@ mat-label {
   font-size: 0.73em;
   color: var(--neutral-900);
 }
+.upload_image {
+  position: relative;
+  border-radius: 50%;
+  mat-icon.save {
+    position: absolute;
+    right: 0;
+    height: 1.4em;
+    width: 1.4em;
+    font-size: 1.3em;
+    border-radius: 50%;
+    color: var(--primary-550);
+    box-shadow: var(--boxShadow-s-mid);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--color-white);
+  }
+  &:hover:not(:has(mat-icon))::after {
+    overflow: hidden;
+    border-radius: 50%;
+    content: 'add_a_photo';
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 2rem;
+    height: 100%;
+    width: 100%;
+    font-family: 'Material Symbols Outlined';
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+}
+.mat-step-icon-content {
+  mat-icon {
+    font-size: 0.9rem !important;
+    transform: translate(1px, -2px);
+  }
+}
 
 // <---------------- scrollbar style ------------------------------> //
 
