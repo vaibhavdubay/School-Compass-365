@@ -56,6 +56,12 @@ export interface TeacherProfile {
   academicYears: AcademicYear[];
   profileImageUrl: string;
   subjects: string[];
+  aadhar_number: string;
+  address: string;
+  city: string;
+  town: string;
+  state: string;
+  pincode: number;
   years_of_experience: number;
   createdAt: Date;
   updatedAt: Date;

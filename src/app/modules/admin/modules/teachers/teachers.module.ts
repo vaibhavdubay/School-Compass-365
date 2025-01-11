@@ -8,19 +8,30 @@ import { TableModule } from 'src/app/core/modules/table/table.module';
 import { ListComponent } from './list/list.component';
 import { EditComponent } from './edit/edit.component';
 import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { AddComponent } from './add/add.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatTabsModule } from '@angular/material/tabs';
 
+const Materials = [
+  MatTableModule,
+  MatTabsModule,
+  MatButtonModule,
+  MatStepperModule,
+]
 
 @NgModule({
   declarations: [
     ListComponent,
-    EditComponent
+    EditComponent,
+    AddComponent
   ],
   imports: [
+    ...Materials,
     CommonModule,
     CoreModule,
     TableModule,
     FormsModule,
-    MatTableModule,
     ReactiveFormsModule,
     TeachersRoutingModule
   ]

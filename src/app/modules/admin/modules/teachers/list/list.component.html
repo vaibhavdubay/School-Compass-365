@@ -1,5 +1,8 @@
 @let teachers = teachers$ | async;
 @if(teachers) {
     <sc-table [data]="teachers" [config]="tableConfig">
+        <div action-handler class="col text-end py-2">
+            <button mat-raised-button color="primary" [routerLink]="'./add'"> +Add Teacher </button>
+        </div>
     </sc-table>
 }

@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { teachersTableConfig } from '@sc-modules/admin/constants/admin.constant';
 import { AdminService } from '@sc-modules/admin/services/admin.service';
+import { teachersTableConfig } from '../teacher.constant';
 
 @Component({
   selector: 'sc-list',

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListComponent } from './list/list.component';
 import { EditComponent } from './edit/edit.component';
+import { AddComponent } from './add/add.component';
 
 const routes: Routes = [
   {
@@ -9,6 +10,13 @@ const routes: Routes = [
     component: ListComponent,
     data: {
       title: 'Teachers List'
+    }
+  },
+  {
+    path: 'add',
+    component: AddComponent,
+    data: {
+      title: 'Add Teacher Profile'
     }
   },
   {
