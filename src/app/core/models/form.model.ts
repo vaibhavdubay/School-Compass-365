@@ -67,7 +67,8 @@ export type Select = Element &
     value?: string;
     placeholder?: string;
     selectedValues?: ListOptions;
-    options: ListOptions;
+    options?: ListOptions;
+    categoriesList?: { category: string; options: ListOptions; disabled?: boolean }[]; 
   };
 
 export type InputValidators =

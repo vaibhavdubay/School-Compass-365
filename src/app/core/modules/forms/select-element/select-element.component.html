@@ -1,13 +1,15 @@
-<mat-label>{{ element().label }}</mat-label>
-<mat-form-field [style]="element().width ? { width: element().width } : { width: '100%' }">
-  @if (element().autoComplete) {
+@let elem = element();
+
+<mat-label>{{ elem.label }}</mat-label>
+<mat-form-field [style]="elem.width ? { width: elem.width } : { width: '100%' }">
+  @if (elem.autoComplete) {
     <input
       type="text"
       matInput
-      [placeholder]="element().placeholder || ''"
-      [required]="element().required || false"
-      [readonly]="element().readonly || false"
-      [hidden]="element().hidden || false"
+      [placeholder]="elem.placeholder || ''"
+      [required]="elem.required || false"
+      [readonly]="elem.readonly || false"
+      [hidden]="elem.hidden || false"
       [formControl]="control()"
       [matAutocomplete]="auto"
     />
@@ -20,12 +22,12 @@
     <mat-select
       [formControl]="control()"
       hideSingleSelectionIndicator
-      [multiple]="element().allowMultiple || false"
-      [placeholder]="element().placeholder || ''"
-      [required]="element().required || false"
-      [hidden]="element().hidden || false"
+      [multiple]="elem.allowMultiple || false"
+      [placeholder]="elem.placeholder || ''"
+      [required]="elem.required || false"
+      [hidden]="elem.hidden || false"
     >
-      @if (element().allowMultiple) {
+      @if (elem.allowMultiple) {
         <mat-select-trigger>
           {{ control().value?.[0] || '' }}
           @if ((control().value?.length || 0) > 1) {
@@ -35,17 +37,27 @@
           }
         </mat-select-trigger>
       }
-      @for (option of options(); track option.key) {
-        <mat-option [title]="option.label" [value]="option.key">{{ capitalizeWords(option.label) }}</mat-option>
+      @if (options().length == 0 && elem.categoriesList?.length) {
+        @for (group of elem.categoriesList; track group.category) {
+          <mat-optgroup [label]="group.category" [disabled]="group.disabled">
+            @for (option of group.options; track option) {
+              <mat-option [title]="option.label" [value]="option.key">{{ capitalizeWords(option.label) }}</mat-option>
+            }
+          </mat-optgroup>
+        }
+      } @else {
+        @for (option of options(); track option.key) {
+          <mat-option [title]="option.label" [value]="option.key">{{ capitalizeWords(option.label) }}</mat-option>
+        }
       }
     </mat-select>
   }
   @if (control().errors) {
     <mat-error>
-      <sc-error [element]="element()" [errors]="control().errors"></sc-error>
+      <sc-error [element]="elem" [errors]="control().errors"></sc-error>
     </mat-error>
   }
-  @if (element().hint) {
-    <mat-hint>{{ element().hint }}</mat-hint>
+  @if (elem.hint) {
+    <mat-hint>{{ elem.hint }}</mat-hint>
   }
 </mat-form-field>
