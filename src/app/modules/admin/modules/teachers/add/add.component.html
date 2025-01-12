@@ -10,16 +10,16 @@
   <mat-step [stepControl]="personalInfoForm.formGroup">
     <ng-template matStepLabel>Personal Information</ng-template>
     <sc-form
-      [formConfig]="educationAndExperienceFormConfig"
-      #personalInfoForm
-      [dynamicListOptions]="dynamicOptions"
+    [formConfig]="personalInformationFormConfig"
+    #personalInfoForm
+    [dynamicListOptions]="dynamicOptions"
     ></sc-form>
   </mat-step>
   <mat-step [stepControl]="personalInfoForm.formGroup">
     <ng-template matStepLabel>Educational Background</ng-template>
     <sc-form
-      [formConfig]="personalInformationFormConfig"
-      #personalInfoForm
+      [formConfig]="educationAndExperienceFormConfig"
+      #educationAndExperienceForm
       [dynamicListOptions]="dynamicOptions"
     ></sc-form>
   </mat-step>

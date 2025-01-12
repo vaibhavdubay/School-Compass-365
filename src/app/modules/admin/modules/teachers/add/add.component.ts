@@ -16,6 +16,7 @@ import { map, of } from 'rxjs';
 })
 export class AddComponent implements AfterViewInit {
   readonly personalInfoForm = viewChild.required<FormComponent<TeacherProfile>>('personalInfoForm');
+  readonly educationAndExperienceForm = viewChild.required<FormComponent<TeacherProfile>>('educationAndExperienceForm');
   private readonly sharedStore = inject(SharedStoreService);
   private readonly adminService = inject(AdminService);
 
@@ -38,6 +39,7 @@ export class AddComponent implements AfterViewInit {
       case 0:
         if(this.personalInfoForm().formGroup.valid) {
           this.currentTabIndex = 1;
+          
         } else {
           this.personalInfoForm().formGroup.markAllAsTouched();
         }
