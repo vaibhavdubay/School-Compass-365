@@ -2,17 +2,19 @@ import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ApiService } from 'src/app/core/service/http.service';
 import { adminActions, classes as classAction, school as schoolActions, teachersAction } from './action';
-import { catchError, filter, map, of, switchMap, withLatestFrom } from 'rxjs';
+import { catchError, filter, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { AdminUser, Class, SchoolProfile, TeacherProfile } from '@sc-models/core';
 import { apiRoutes } from 'src/app/core/constants/api.constants';
 import { selectClasses, selectTeachers } from './selector';
 import { AdminService } from '../services/admin.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AdminEffects {
   private readonly actions$ = inject(Actions);
   private readonly apiService = inject(ApiService);
   private readonly store = inject(AdminService);
+  private readonly router = inject(Router);
 
   getAllClasses$ = createEffect(() => {
     return this.actions$.pipe(
@@ -51,6 +53,15 @@ export class AdminEffects {
       ),
     );
   });
+
+  createTeacherSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(teachersAction.createTeacherSuccess),
+      tap(() => {
+        this.router.navigate(['admin','teachers']);
+      }),
+    )
+  }, { dispatch: false });
   updateSchoolProfile$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(schoolActions.updateSchool),
