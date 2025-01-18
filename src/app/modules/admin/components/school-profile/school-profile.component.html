@@ -12,7 +12,7 @@
         {{ schoolProfile?.town | capitalize }},
         {{ schoolProfile?.city | capitalize }}
         @if (schoolProfile?.state) {
-          ({{ states[schoolProfile?.state || ''] }})
+          ({{ states[schoolProfile?.state?.toUpperCase() || ''] }})
         }
       </span>
       <div class="school_academic">
