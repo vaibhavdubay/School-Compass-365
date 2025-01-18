@@ -20,10 +20,9 @@ export class ListComponent {
     const actions: { [k:string]: Function } = {
       edit: () => {
         this.router.navigate(['admin', 'teachers', event.row.id], { state: { teacher: event.row } });
-        console.log(event.row);
       },
       delete: () => {
-        console.log(event.row);
+        this.adminService.deleteTeachersProfile(event.row.id);
       },
     }
     actions[event.key]();

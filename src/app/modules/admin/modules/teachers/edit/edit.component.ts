@@ -21,16 +21,16 @@ import {
   styleUrl: './edit.component.scss',
 })
 export class EditComponent {
-  private readonly teacher: TeacherProfile = history.state['teacher'];
   readonly credFormComponents =
-    viewChild.required<FormComponent<TeacherProfile & { userName: string; password: string }>>('credForm');
+  viewChild.required<FormComponent<TeacherProfile & { userName: string; password: string }>>('credForm');
   readonly personalInfoFormComponent = viewChild.required<FormComponent<TeacherProfile>>('personalInfoForm');
   readonly educationFormComponents = viewChild.required<FormArrayComponent<TeachersEducation>>('educationForm');
   readonly experienceFormComponents = viewChild.required<FormArrayComponent<TeachersExperience>>('experience');
-
+  
   private readonly sharedStore = inject(SharedStoreService);
   private readonly adminService = inject(AdminService);
-
+  
+  readonly teacher: TeacherProfile = history.state['teacher'];
   readonly personalInformationFormConfig = personalInformationFormConfig;
   readonly educationFormConfig = educationFormConfig;
   readonly experienceFormConfig = experienceFormConfig;

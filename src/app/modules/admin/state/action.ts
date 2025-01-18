@@ -33,6 +33,9 @@ export const teachersAction = createActionGroup({
     'Update Teacher': props<{ teacher: TeacherProfileDTO; id: string }>(),
     'Update TeacherSuccess': props<{ teacher: TeacherProfile }>(),
     'Update TeacherFailure': props<{ error: HttpErrorObject }>(),
+    'Delete Teacher': props<{ id: string }>(),
+    'Delete TeacherSuccess': props<{ id: string }>(),
+    'Delete TeacherFailure': props<{ error: HttpErrorObject }>(),
   },
 });
 

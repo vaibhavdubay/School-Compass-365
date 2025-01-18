@@ -33,6 +33,11 @@ export class AdminService extends StoreService<AdminState> {
   updateTeachersProfile(id: string, teacher: TeacherProfileDTO) {
     this.dispatch(teachersAction.updateTeacher({ teacher, id }));
   }
+
+  deleteTeachersProfile(id: string) {
+    this.dispatch(teachersAction.deleteTeacher({ id }));
+  }
+
   updateAdminUserProfile(adminUser: AdminUser) {
     this.dispatch(adminActions.updateAdmin({ adminUser }));
   }

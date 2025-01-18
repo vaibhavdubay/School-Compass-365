@@ -73,6 +73,17 @@ export class AdminEffects {
       ),
     );
   });
+  deleteTeacher$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(teachersAction.deleteTeacher),
+      switchMap(({ id }) =>
+        this.apiService.delete<TeacherProfile>(apiRoutes.teachers.delete(id)).pipe(
+          map(() => teachersAction.deleteTeacherSuccess({ id })),
+          catchError((err) => of(teachersAction.deleteTeacherFailure({ error: err }))),
+        ),
+      ),
+    );
+  });
 
   updateSchoolProfile$ = createEffect(() => {
     return this.actions$.pipe(
