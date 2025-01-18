@@ -109,8 +109,8 @@ export class AddComponent implements AfterViewInit {
       ...(this.personalInfoForm.value as TeacherProfile),
       ...(this.credForms.value as TeacherProfile & {userName: string; password: string}),
       image: this.image,
-      teachers_education: this.educationForms.value as TeachersEducation[],
-      teachers_experience: this.experienceForms.value as TeachersExperience[],
+      teachersEducation: this.educationForms.value as TeachersEducation[],
+      teachersExperience: this.experienceForms.value as TeachersExperience[],
     }
     this.adminService.createTeachersProfile(teacherProfile);
   }

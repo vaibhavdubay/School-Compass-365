@@ -83,8 +83,8 @@ export interface CreateTeacherProfile {
   aadhar_number: string;
   subjects: string[];
   years_of_experience: number;
-  teachers_education?: TeachersEducation[];
-  teachers_experience?: TeachersExperience[];
+  teachersEducation?: TeachersEducation[];
+  teachersExperience?: TeachersExperience[];
   image: File | null;
 }
 
