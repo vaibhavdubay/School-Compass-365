@@ -31,6 +31,10 @@ export const AdminReducer = createReducer<AdminState>(
     ...state,
     teachers: action.teachers,
   })),
+  on(teachersAction.createTeacherSuccess, (state, action) => ({
+    ...state,
+    teachers: [...state.teachers, action.teacher],
+  })),
   on(schoolAction.updateSchoolSuccess, (state, action) => {
     return {
       ...state,

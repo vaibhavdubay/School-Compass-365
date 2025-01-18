@@ -57,7 +57,7 @@ export interface TeacherProfile {
   profileImageUrl: string;
   subjects: string[];
   aadhar_number: string;
-  address: string;
+  address1: string;
   city: string;
   town: string;
   state: string;
@@ -65,6 +65,42 @@ export interface TeacherProfile {
   years_of_experience: number;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface CreateTeacherProfile {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  password: string;
+  gender: GENDER;
+  address1: string;
+  town: string;
+  city: string;
+  state: string;
+  pincode: number;
+  userName: string;
+  aadhar_number: string;
+  subjects: string[];
+  years_of_experience: number;
+  teachers_education?: TeachersEducation[];
+  teachers_experience?: TeachersExperience[];
+  image: File | null;
+}
+
+export interface TeachersEducation {
+  institution: string;
+  level_of_education: string;
+  field_of_study: string;
+  passingYear: string;
+  gpa: string;
+}
+
+export interface TeachersExperience {
+  institute: string;
+  startDate: Date;
+  endDate: Date;
+  currentlyTeaching: boolean;
 }
 
 export interface StudentProfile {

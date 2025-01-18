@@ -1,5 +1,5 @@
 import { createAction, createActionGroup, emptyProps, props } from '@ngrx/store';
-import { AdminUser, Class, HttpErrorObject, SchoolProfile, TeacherProfile } from '@sc-models/core';
+import { AdminUser, Class, CreateTeacherProfile, HttpErrorObject, SchoolProfile, TeacherProfile } from '@sc-models/core';
 
 export const initAdminState = createAction('[ADMIN] Initiate State', props<{ adminProfile: AdminUser }>());
 
@@ -27,6 +27,9 @@ export const teachersAction = createActionGroup({
     'Get All Teachers': emptyProps(),
     'Get All TeachersSuccess': props<{ teachers: TeacherProfile[] }>(),
     'Get All TeachersFailure': props<{ error: HttpErrorObject }>(),
+    'Create Teacher': props<{ teacher: CreateTeacherProfile }>(),
+    'Create TeacherSuccess': props<{ teacher: TeacherProfile }>(),
+    'Create TeacherFailure': props<{ error: HttpErrorObject }>(),
   },
 });
 

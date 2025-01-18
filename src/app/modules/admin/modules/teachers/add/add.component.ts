@@ -5,7 +5,7 @@ import {
   experienceFormConfig,
   personalInformationFormConfig,
 } from '../teacher.constant';
-import { TeacherProfile } from '@sc-models/core';
+import { CreateTeacherProfile, TeacherProfile, TeachersEducation, TeachersExperience } from '@sc-models/core';
 import { DynamicListOptions } from '@sc-models/form';
 import { FormComponent } from '@sc-forms/form.component';
 import { SharedStoreService } from 'src/app/core/service/shared-store.service';
@@ -21,10 +21,10 @@ import { FormArrayComponent } from '@sc-forms/form-array/form-array.component';
   styleUrl: './add.component.scss',
 })
 export class AddComponent implements AfterViewInit {
-  readonly credFormComponents = viewChild.required<FormComponent<TeacherProfile>>('credForm');
+  readonly credFormComponents = viewChild.required<FormComponent<TeacherProfile & {userName: string; password: string}>>('credForm');
   readonly personalInfoFormComponent = viewChild.required<FormComponent<TeacherProfile>>('personalInfoForm');
-  readonly educationFormComponents = viewChild.required<FormArrayComponent<TeacherProfile>>('educationForm');
-  readonly experienceFormComponents = viewChild.required<FormArrayComponent<TeacherProfile>>('experience');
+  readonly educationFormComponents = viewChild.required<FormArrayComponent<TeachersEducation>>('educationForm');
+  readonly experienceFormComponents = viewChild.required<FormArrayComponent<TeachersExperience>>('experience');
 
   private readonly sharedStore = inject(SharedStoreService);
   private readonly adminService = inject(AdminService);
@@ -105,13 +105,14 @@ export class AddComponent implements AfterViewInit {
   }
 
   save() {
-    const teacherProfile = {
-      ...this.personalInfoForm.value,
-      ...this.credForms.value,
-      education: this.educationForms.value,
-      experience: this.experienceForms.value,
+    const teacherProfile: CreateTeacherProfile = {
+      ...(this.personalInfoForm.value as TeacherProfile),
+      ...(this.credForms.value as TeacherProfile & {userName: string; password: string}),
+      image: this.image,
+      teachers_education: this.educationForms.value as TeachersEducation[],
+      teachers_experience: this.experienceForms.value as TeachersExperience[],
     }
-    console.log(teacherProfile);
+    this.adminService.createTeachersProfile(teacherProfile);
   }
 
   get personalInfoForm() {

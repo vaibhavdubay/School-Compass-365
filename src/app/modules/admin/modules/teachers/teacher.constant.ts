@@ -110,7 +110,7 @@ export const personalInformationFormConfig: FormConfig = [
   {
     elementType: 'text',
     element: {
-      key: 'address',
+      key: 'address1',
       validateAs: 'text',
       cssClass: 'col-md-4',
       required: true,
