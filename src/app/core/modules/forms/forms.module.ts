@@ -26,6 +26,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { InputFormattingDirective } from './text-element/input-formatting.directive';
 import { ErrorComponent } from './error/error.component';
+import { FormArrayComponent } from './form-array/form-array.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { ErrorComponent } from './error/error.component';
     LabelElementComponent,
     InputFormattingDirective,
     ErrorComponent,
+    FormArrayComponent,
   ],
   imports: [
     CommonModule,
@@ -59,6 +61,6 @@ import { ErrorComponent } from './error/error.component';
     ReactiveFormsModule,
   ],
   providers: [provideNativeDateAdapter()],
-  exports: [FormComponent, FormElementComponent],
+  exports: [FormComponent, FormElementComponent, FormArrayComponent],
 })
 export class FormsModule {}
