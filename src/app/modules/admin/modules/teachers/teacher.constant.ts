@@ -179,7 +179,7 @@ export const educationFormConfig: FormConfig = [
     elementType: 'select',
     element: {
       label: 'Level of Education',
-      key: 'levelOfEducation',
+      key: 'level_of_education',
       cssClass: 'col-md-4',
       required: true,
       options: [
@@ -232,7 +232,7 @@ export const educationFormConfig: FormConfig = [
     elementType: 'select',
     element: {
       label: 'Field Of Study',
-      key: 'fieldOfStudy',
+      key: 'field_of_study',
       cssClass: 'col-md-4',
       required: true,
       categoriesList: [
