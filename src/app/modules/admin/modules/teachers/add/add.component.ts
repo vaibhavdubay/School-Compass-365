@@ -5,7 +5,7 @@ import {
   experienceFormConfig,
   personalInformationFormConfig,
 } from '../teacher.constant';
-import { CreateTeacherProfile, TeacherProfile, TeachersEducation, TeachersExperience } from '@sc-models/core';
+import { TeacherProfileDTO, TeacherProfile, TeachersEducation, TeachersExperience } from '@sc-models/core';
 import { DynamicListOptions } from '@sc-models/form';
 import { FormComponent } from '@sc-forms/form.component';
 import { SharedStoreService } from 'src/app/core/service/shared-store.service';
@@ -105,7 +105,7 @@ export class AddComponent implements AfterViewInit {
   }
 
   save() {
-    const teacherProfile: CreateTeacherProfile = {
+    const teacherProfile: TeacherProfileDTO = {
       ...(this.personalInfoForm.value as TeacherProfile),
       ...(this.credForms.value as TeacherProfile & {userName: string; password: string}),
       image: this.image,

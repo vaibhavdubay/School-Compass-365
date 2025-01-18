@@ -42,6 +42,7 @@ export class FormArrayComponent<T = { [k: string]: string }> implements OnChange
 
   patchValue(value: T[]) {
     this.formArray.clear();
+    this.elements.length = 0;
     value.forEach((v) => {
       this.add(v);
     });

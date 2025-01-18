@@ -14,7 +14,7 @@
       dynamicListOptions() && dynamicListOptions()[element.element.key]
         ? (dynamicListOptions()[element.element.key] | async)
         : element.element.options;
-    <sc-chip-element [keywords]="element.element.value || []" [options]="options ?? []" [element]="element.element" [control]="control()"></sc-chip-element>
+    <sc-chip-element [keywords]="control().value || element.element.value" [options]="options ?? []" [element]="element.element" [control]="control()"></sc-chip-element>
   }
   @case ('select') {
     @let options =

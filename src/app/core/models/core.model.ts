@@ -29,7 +29,7 @@ export interface SchoolProfile {
   id: string;
   name: string;
   establishedYear: number;
-  address1: string;
+  address: string;
   address2: string;
   academicYears: AcademicYear[];
   logoUrl: string;
@@ -57,7 +57,9 @@ export interface TeacherProfile {
   profileImageUrl: string;
   subjects: string[];
   aadhar_number: string;
-  address1: string;
+  address: string;
+  teachersEducation?: TeachersEducation[];
+  teachersExperience?: TeachersExperience[];
   city: string;
   town: string;
   state: string;
@@ -67,14 +69,15 @@ export interface TeacherProfile {
   updatedAt: Date;
 }
 
-export interface CreateTeacherProfile {
+export interface TeacherProfileDTO {
+  id?: string;
   firstName: string;
   lastName: string;
   email: string;
   phoneNumber: string;
   password: string;
   gender: GENDER;
-  address1: string;
+  address: string;
   town: string;
   city: string;
   state: string;

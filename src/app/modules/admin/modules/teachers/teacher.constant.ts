@@ -23,6 +23,31 @@ export const teachersTableConfig: TableConfig<TeacherProfile> = {
       cell: (row: TeacherProfile) => new Date(row.createdAt).toLocaleString(),
       header: 'Joining Date',
     },
+
+    {
+      columnDef: 'action',
+      formElement: {
+        elementType: 'button-group',
+        element: {
+          buttons: [
+            {
+                key: 'edit',
+                label: 'Edit',
+                theme: 'icon',
+                cssClass: 'p-0 col'
+              },
+              {
+                key: 'delete',
+                label: 'delete',
+                theme: 'icon',
+                cssClass: 'p-0 col'
+            },
+          ],
+          key: 'actions',
+        },
+      },
+      header: 'Actions',
+    },
   ],
   pagination: {
     pageSizeOptions: [10, 25, 50, 100],
@@ -110,7 +135,7 @@ export const personalInformationFormConfig: FormConfig = [
   {
     elementType: 'text',
     element: {
-      key: 'address1',
+      key: 'address',
       validateAs: 'text',
       cssClass: 'col-md-4',
       required: true,

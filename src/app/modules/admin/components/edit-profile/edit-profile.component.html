@@ -11,7 +11,7 @@
   >
     <div class="col-sm-12 text-center">
       <h2 class="text-lg font-bold">{{ schoolProfile?.name }}</h2>
-      <p class="text-xs capitalize">{{ schoolProfile?.address1 }}, {{ schoolProfile?.city | capitalize }}</p>
+      <p class="text-xs capitalize">{{ schoolProfile?.address }}, {{ schoolProfile?.city | capitalize }}</p>
     </div>
     <div class="col-sm-5 d-flex flex-column rounded-3xl align-items-center justify-content-center pb-4 pt-2 text-center">
       <input type="file" hidden #admin_logo (change)="uploadImage(admin_logo)" />

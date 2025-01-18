@@ -62,6 +62,18 @@ export class AdminEffects {
       }),
     )
   }, { dispatch: false });
+  updateTeacher$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(teachersAction.updateTeacher),
+      switchMap(({ teacher, id }) =>
+        this.apiService.put<TeacherProfile>(apiRoutes.teachers.update(id), teacher).pipe(
+          map((teacher) => teachersAction.updateTeacherSuccess({ teacher })),
+          catchError((err) => of(teachersAction.updateTeacherFailure({ error: err }))),
+        ),
+      ),
+    );
+  });
+
   updateSchoolProfile$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(schoolActions.updateSchool),

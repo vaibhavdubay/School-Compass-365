@@ -117,6 +117,16 @@ div.mat-mdc-select-panel {
 .mdc-tab-indicator__content.mdc-tab-indicator__content--underline {
   border-bottom-width: 1px;
 }
+mat-stepper {
+  background-color: var(--color-white);
+  box-shadow: var(--boxShadow-m);
+  border-radius: var(--borderRadius-l);
+  sc-form .form-container {
+    padding: 1.5rem 1rem 1rem !important;
+    background-color: transparent !important;
+    box-shadow: initial !important;
+  }
+}
 button.mdc-button {
   border-radius: 7px;
 }
