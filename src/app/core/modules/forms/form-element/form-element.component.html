@@ -9,6 +9,13 @@
   @case ('radio') {
     <sc-radio-element [element]="element.element" [control]="control()"></sc-radio-element>
   }
+  @case ('chip') {
+    @let options =
+      dynamicListOptions() && dynamicListOptions()[element.element.key]
+        ? (dynamicListOptions()[element.element.key] | async)
+        : element.element.options;
+    <sc-chip-element [keywords]="element.element.value || []" [options]="options ?? []" [element]="element.element" [control]="control()"></sc-chip-element>
+  }
   @case ('select') {
     @let options =
       dynamicListOptions() && dynamicListOptions()[element.element.key]

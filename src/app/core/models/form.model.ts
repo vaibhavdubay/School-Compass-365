@@ -3,13 +3,14 @@ import { Observable } from 'rxjs';
 export type FormConfig = FormElement[];
 export type FormElement = InputElement | UiElement;
 
-export type InputElement = CheckboxElement | DateElement | RadioElement | SelectElement | TextElement | TextAreaElement;
+export type InputElement = CheckboxElement | DateElement | RadioElement | SelectElement | ChipElement | TextElement | TextAreaElement;
 export type UiElement = ButtonElement | LabelElement | ButtonGroupElement;
 
 export type CheckboxElement = { elementType: 'checkbox'; element: Checkbox };
 export type RadioElement = { elementType: 'radio'; element: Radio };
 export type DateElement = { elementType: 'date'; element: DateInput };
 export type SelectElement = { elementType: 'select'; element: Select };
+export type ChipElement = { elementType: 'chip'; element: Chip };
 export type TextElement = { elementType: 'text'; element: TextInput };
 export type TextAreaElement = {
   elementType: 'textarea';
@@ -68,7 +69,15 @@ export type Select = Element &
     placeholder?: string;
     selectedValues?: ListOptions;
     options?: ListOptions;
-    categoriesList?: { category: string; options: ListOptions; disabled?: boolean }[]; 
+    categoriesList?: { category: string; options: ListOptions; disabled?: boolean }[];
+  };
+
+export type Chip = Element &
+  CoreInputElement & {
+    autoComplete?: boolean;
+    placeholder?: string;
+    value?: string [];
+    options?: ListOptions;
   };
 
 export type InputValidators =

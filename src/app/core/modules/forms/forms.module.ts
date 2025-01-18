@@ -14,6 +14,7 @@ import { LabelElementComponent } from './label-element/label-element.component';
 import { FormComponent } from './form.component';
 
 import { MatIconModule } from '@angular/material/icon';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatRippleModule, provideNativeDateAdapter } from '@angular/material/core';
@@ -27,6 +28,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { InputFormattingDirective } from './text-element/input-formatting.directive';
 import { ErrorComponent } from './error/error.component';
 import { FormArrayComponent } from './form-array/form-array.component';
+import { ChipElementComponent } from './chip-element/chip-element.component';
 
 @NgModule({
   declarations: [
@@ -43,11 +45,13 @@ import { FormArrayComponent } from './form-array/form-array.component';
     InputFormattingDirective,
     ErrorComponent,
     FormArrayComponent,
+    ChipElementComponent,
   ],
   imports: [
     CommonModule,
     MatIconModule,
     MatInputModule,
+    MatChipsModule,
     MatRadioModule,
     MatRippleModule,
     MatButtonModule,
