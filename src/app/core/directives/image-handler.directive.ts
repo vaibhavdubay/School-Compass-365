@@ -21,16 +21,18 @@ export class ImageHandlerDirective implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.createImageUploadElement();
+    this.imageEl.alt = this.alt();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if(changes['imagePath'] || changes['defaultImage']) {
       this.el.nativeElement.innerHTML = '';
       this.createImageUploadElement();
-    } else if(changes['imgStyle']) {
+    } else if(changes['imgStyle'] && this.imageEl) {
       this.imageEl.setAttribute('style', this.imgStyle())
+    } else if(changes['alt'] && this.imageEl) {
+      this.imageEl.alt = this.alt();
     }
-    this.imageEl.alt = this.alt();
   }
 
   private createImageUploadElement() {
