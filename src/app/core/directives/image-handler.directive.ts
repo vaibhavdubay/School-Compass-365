@@ -20,6 +20,7 @@ export class ImageHandlerDirective implements OnInit, OnChanges {
   private imageEl!: HTMLImageElement;
 
   ngOnInit(): void {
+    this.el.nativeElement.innerHTML = '';
     this.createImageUploadElement();
     this.imageEl.alt = this.alt();
   }
