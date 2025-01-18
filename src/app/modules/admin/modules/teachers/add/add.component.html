@@ -1,6 +1,5 @@
 <section class="main_header d-flex justify-content-center flex-wrap">
-  <div class="col-md-4 pb-4" scImageHandler>
-  </div>
+  <div class="col-md-4 pb-4" scImageHandler [alt]="'Add Teacher'" (image)="image = $event"></div>
 
   <div class="col-md-8 align-items-center d-flex flex-column">
     <sc-form [formConfig]="addFormConfig" #form></sc-form>
@@ -10,18 +9,50 @@
   <mat-step [stepControl]="personalInfoForm.formGroup">
     <ng-template matStepLabel>Personal Information</ng-template>
     <sc-form
-    [formConfig]="personalInformationFormConfig"
-    #personalInfoForm
-    [dynamicListOptions]="dynamicOptions"
-    ></sc-form>
-  </mat-step>
-  <mat-step [stepControl]="personalInfoForm.formGroup">
-    <ng-template matStepLabel>Educational Background</ng-template>
-    <sc-form
-      [formConfig]="educationAndExperienceFormConfig"
-      #educationAndExperienceForm
+      [formConfig]="personalInformationFormConfig"
+      #personalInfoForm
       [dynamicListOptions]="dynamicOptions"
     ></sc-form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Educational & Experience </ng-template>
+    <h4 class="mb-2">Educational</h4>
+    <sc-form [formConfig]="educationFormConfig" #educationForm [dynamicListOptions]="dynamicOptions"></sc-form>
+    @for (item of additionalEducations; track item) {
+      <div class="additional_education align-items-center d-inline-flex">
+        <!-- Add A Button For Remove -->
+        <button
+          mat-mini-fab
+          style="background-color: #eb7623"
+          (click)="deleteAdditionalEducations('education', $index)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+        <sc-form [formConfig]="educationFormConfig" #educationForm [dynamicListOptions]="dynamicOptions"></sc-form>
+      </div>
+    }
+    <div class="pb-4">
+      <button mat-raised-button (click)="addMore('education')">Add +</button>
+    </div>
+    <div class="seperator mb-3"></div>
+    <!-- < ------------- Experience ----------- > -->
+    <h4 class="mb-2">Experience</h4>
+      @for (item of additionalExperiences; track item) {
+        <div class="additional_education align-items-center d-inline-flex">
+          <!-- Add A Button For Remove -->
+          <button
+            mat-mini-fab
+            style="background-color: #eb7623"
+            (click)="deleteAdditionalEducations('experience', $index)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+          <sc-form [formConfig]="experienceFormConfig" #experience [dynamicListOptions]="dynamicOptions"></sc-form>
+        </div>
+      }
+    <div class="pb-4">
+      <button mat-raised-button (click)="addMore('experience')">Add +</button>
+    </div>
   </mat-step>
   <mat-step [stepControl]="personalInfoForm.formGroup">
     <ng-template matStepLabel>Documents / Additional Information</ng-template>
@@ -34,7 +65,7 @@
 </mat-stepper>
 
 <div class="col-md-12 justify-content-between d-flex py-4 text-center">
-    <button mat-raised-button color="basic" class="shadow" routerLink="../">Cancel</button>
+  <button mat-raised-button color="basic" class="shadow" routerLink="../">Cancel</button>
   <div class="positive_btn_container">
     @if (currentTabIndex > 0) {
       <button mat-raised-button color="basic" class="mx-2 shadow" (click)="currentTabIndex = currentTabIndex - 1">
@@ -44,9 +75,7 @@
     @if (currentTabIndex == 2) {
       <button mat-raised-button color="primary" class="shadow">save</button>
     } @else {
-      <button mat-raised-button color="primary" class="shadow" (click)="handleStepIndex()">
-        Next
-      </button>
+      <button mat-raised-button color="primary" class="shadow" (click)="handleStepIndex()">Next</button>
     }
   </div>
 </div>

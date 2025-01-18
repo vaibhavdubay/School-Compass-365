@@ -12,20 +12,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { AddComponent } from './add/add.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatIconModule } from '@angular/material/icon';
 
-const Materials = [
-  MatTableModule,
-  MatTabsModule,
-  MatButtonModule,
-  MatStepperModule,
-]
+const Materials = [MatTableModule, MatTabsModule, MatButtonModule, MatStepperModule, MatIconModule];
 
 @NgModule({
-  declarations: [
-    ListComponent,
-    EditComponent,
-    AddComponent
-  ],
+  declarations: [ListComponent, EditComponent, AddComponent],
   imports: [
     ...Materials,
     CommonModule,
@@ -33,7 +25,7 @@ const Materials = [
     TableModule,
     FormsModule,
     ReactiveFormsModule,
-    TeachersRoutingModule
-  ]
+    TeachersRoutingModule,
+  ],
 })
-export class TeachersModule { }
+export class TeachersModule {}

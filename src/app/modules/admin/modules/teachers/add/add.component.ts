@@ -1,5 +1,10 @@
-import { AfterViewInit, Component, inject, viewChild } from '@angular/core';
-import { addFormConfig, educationAndExperienceFormConfig, personalInformationFormConfig } from '../teacher.constant';
+import { AfterViewInit, Component, inject, viewChild, viewChildren } from '@angular/core';
+import {
+  addFormConfig,
+  educationFormConfig,
+  experienceFormConfig,
+  personalInformationFormConfig,
+} from '../teacher.constant';
 import { TeacherProfile } from '@sc-models/core';
 import { DynamicListOptions } from '@sc-models/form';
 import { FormComponent } from '@sc-forms/form.component';
@@ -16,14 +21,20 @@ import { map, of } from 'rxjs';
 })
 export class AddComponent implements AfterViewInit {
   readonly personalInfoForm = viewChild.required<FormComponent<TeacherProfile>>('personalInfoForm');
-  readonly educationAndExperienceForm = viewChild.required<FormComponent<TeacherProfile>>('educationAndExperienceForm');
+  readonly educationForm = viewChildren<FormComponent<TeacherProfile>>('educationForm');
+  readonly experienceForm = viewChildren<FormComponent<TeacherProfile>>('experience');
   private readonly sharedStore = inject(SharedStoreService);
   private readonly adminService = inject(AdminService);
 
   readonly personalInformationFormConfig = personalInformationFormConfig;
-  readonly educationAndExperienceFormConfig = educationAndExperienceFormConfig;
+  readonly educationFormConfig = educationFormConfig;
+  readonly experienceFormConfig = experienceFormConfig;
   readonly addFormConfig = addFormConfig;
+
   readonly dynamicOptions: DynamicListOptions<keyof TeacherProfile> = {};
+
+  readonly additionalEducations: number[] = [];
+  readonly additionalExperiences: number[] = [1];
 
   currentTabIndex = 0;
 
@@ -35,11 +46,10 @@ export class AddComponent implements AfterViewInit {
   }
 
   handleStepIndex() {
-    switch (this.currentTabIndex){
+    switch (this.currentTabIndex) {
       case 0:
-        if(this.personalInfoForm().formGroup.valid) {
+        if (this.personalInfoForm().formGroup.valid) {
           this.currentTabIndex = 1;
-          
         } else {
           this.personalInfoForm().formGroup.markAllAsTouched();
         }
@@ -54,7 +64,30 @@ export class AddComponent implements AfterViewInit {
         break;
     }
   }
+  deleteAdditionalEducations(type: 'education' | 'experience', index: number) {
+    switch (type) {
+      case 'education':
+        this.additionalEducations.splice(index, 1);
+        break;
+      case 'experience':
+        this.additionalExperiences.splice(index, 1);
+        break;
+    }
+  }
 
+  addMore(type: 'education' | 'experience') {
+    let last = 0;
+    switch (type) {
+      case 'education':
+        last = this.additionalEducations?.[this.additionalEducations.length - 1] || 0;
+        this.additionalEducations.push(last + 1);
+        break;
+      case 'experience':
+        last = this.additionalExperiences?.[this.additionalExperiences.length - 1] || 0;
+        this.additionalExperiences.push(last + 1);
+        break;
+    }
+  }
   uploadImage(input: HTMLInputElement) {
     if (input.files && input.files.length > 0) {
       const file = input.files?.item(0);
