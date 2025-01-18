@@ -432,4 +432,13 @@ export const addFormConfig: FormConfig = [
       required: true,
     },
   },
+  {
+    elementType: 'chip',
+    element: {
+      key: 'subjects',
+      label: 'Subjects',
+      cssClass: 'col-12',
+      required: true,
+    },
+  },
 ];
