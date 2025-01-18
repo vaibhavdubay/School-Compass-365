@@ -51,6 +51,7 @@
   <mat-divider></mat-divider>
   @if (config().pagination && data().length) {
     <mat-paginator
+      [length]="data().length"
       [pageSize]="config().pagination?.pageSize || 10"
       [disabled]="config().pagination?.disabled"
       [showFirstLastButtons]="config().pagination?.showFirstLastButtons"

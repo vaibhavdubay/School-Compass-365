@@ -50,7 +50,7 @@ export class TableComponent<T = { [k: string]: string }> implements OnChanges {
     search: new FormControl(),
   })
   public formGroup = new FormGroup<{ [k: string]: FormControl }>({});
-  public dataSource = new MatTableDataSource<T>(this.data());
+  public dataSource = new MatTableDataSource<T>(this.data() || []);
   public displayedColumns: (string | keyof T)[] = [];
 
   ngOnChanges(changes: SimpleChanges) {
@@ -74,7 +74,7 @@ export class TableComponent<T = { [k: string]: string }> implements OnChanges {
       });
     }
     if (changes['data']) {
-      this.dataSource = new MatTableDataSource(this.data());
+      this.dataSource.data = this.data();
     }
   }
 }
