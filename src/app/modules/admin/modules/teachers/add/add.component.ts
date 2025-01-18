@@ -21,8 +21,8 @@ import { map, of } from 'rxjs';
 })
 export class AddComponent implements AfterViewInit {
   readonly personalInfoForm = viewChild.required<FormComponent<TeacherProfile>>('personalInfoForm');
-  readonly educationForm = viewChildren<FormComponent<TeacherProfile>>('educationForm');
-  readonly experienceForm = viewChildren<FormComponent<TeacherProfile>>('experience');
+  readonly educationFormComponents = viewChildren<FormComponent<TeacherProfile>>('educationForm');
+  readonly experienceFormComponents = viewChildren<FormComponent<TeacherProfile>>('experience');
   private readonly sharedStore = inject(SharedStoreService);
   private readonly adminService = inject(AdminService);
 
@@ -40,6 +40,14 @@ export class AddComponent implements AfterViewInit {
 
   image: File | null = null;
   imagePath!: string;
+
+  get educationForms() {
+    return this.educationFormComponents().map((c) => c.formGroup);
+  }
+
+  get experienceForms() {
+    return this.experienceFormComponents().map((c) => c.formGroup);
+  }
 
   ngAfterViewInit(): void {
     this.handleDynamicOptions();
