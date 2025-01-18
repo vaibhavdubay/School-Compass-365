@@ -4,10 +4,10 @@
 }
 <mat-form-field>
   <mat-chip-grid #chipGrid [attr.aria-label]="el.placeholder" [formControl]="control()">
-    @for (keyword of keywords(); track keyword) {
+    @for (keyword of keywords(); track $index) {
       <mat-chip-row (removed)="removeKeyword(keyword)">
-        {{ keyword }}
-        <button matChipRemove aria-label="'remove ' + keyword">
+        {{ capitalizeWords(keyword) }}
+        <button matChipRemove [attr.aria-label]="'remove ' + keyword">
           <mat-icon>cancel</mat-icon>
         </button>
       </mat-chip-row>
@@ -19,9 +19,9 @@
       matInput
       [placeholder]="el.placeholder || ''"
       [required]="el.required || false"
+      [(ngModel)]="currentChip"
       [readonly]="el.readonly || false"
       [hidden]="el.hidden || false"
-      [formControl]="control()"
       [matAutocomplete]="auto"
     />
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
