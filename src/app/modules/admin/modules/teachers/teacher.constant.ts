@@ -19,9 +19,8 @@ export const teachersTableConfig: TableConfig<TeacherProfile> = {
       header: 'Phone',
     },
     {
-      columnDef: 'createdAt',
-      cell: (row: TeacherProfile) => new Date(row.createdAt).toLocaleString(),
-      header: 'Joining Date',
+      columnDef: 'subjects',
+      header: 'Subjects',
     },
 
     {
