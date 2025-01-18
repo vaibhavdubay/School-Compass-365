@@ -28,7 +28,7 @@ export class FormComponent<T = { [k: string]: string }> implements OnChanges {
   }>();
   private readonly inputElements = ['checkbox', 'date', 'radio', 'select', 'text', 'textarea'];
 
-  formGroup = new FormGroup({}) as unknown as FormGroup<{
+  readonly formGroup = new FormGroup({}) as unknown as FormGroup<{
     [K in keyof T]: AbstractControl;
   }>;
 
