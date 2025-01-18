@@ -1,10 +1,10 @@
-import { Directive, ElementRef, Renderer2, output, input, inject, model, OnChanges, SimpleChanges } from '@angular/core';
+import { Directive, ElementRef, Renderer2, output, input, inject, model, OnChanges, SimpleChanges, OnInit } from '@angular/core';
 
 @Directive({
   selector: '[scImageHandler]',
   standalone: false,
 })
-export class ImageHandlerDirective implements OnChanges {
+export class ImageHandlerDirective implements OnInit, OnChanges {
 
   private readonly el = inject(ElementRef<HTMLDivElement>);
   private readonly renderer = inject(Renderer2);
@@ -18,6 +18,10 @@ export class ImageHandlerDirective implements OnChanges {
   readonly save = output();
 
   private imageEl!: HTMLImageElement;
+
+  ngOnInit(): void {
+    this.createImageUploadElement();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if(changes['imagePath'] || changes['defaultImage']) {
