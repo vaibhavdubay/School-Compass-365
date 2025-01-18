@@ -11,6 +11,7 @@ import { FormComponent } from '@sc-forms/form.component';
 import { SharedStoreService } from 'src/app/core/service/shared-store.service';
 import { AdminService } from '@sc-modules/admin/services/admin.service';
 import { map, of } from 'rxjs';
+import { FormArrayComponent } from '@sc-forms/form-array/form-array.component';
 
 @Component({
   selector: 'sc-add',
@@ -21,8 +22,9 @@ import { map, of } from 'rxjs';
 })
 export class AddComponent implements AfterViewInit {
   readonly personalInfoForm = viewChild.required<FormComponent<TeacherProfile>>('personalInfoForm');
-  readonly educationFormComponents = viewChildren<FormComponent<TeacherProfile>>('educationForm');
-  readonly experienceFormComponents = viewChildren<FormComponent<TeacherProfile>>('experience');
+  readonly educationFormComponents = viewChild.required<FormArrayComponent<TeacherProfile>>('educationForm');
+  readonly experienceFormComponents = viewChild.required<FormArrayComponent<TeacherProfile>>('experience');
+
   private readonly sharedStore = inject(SharedStoreService);
   private readonly adminService = inject(AdminService);
 
@@ -33,21 +35,10 @@ export class AddComponent implements AfterViewInit {
 
   readonly dynamicOptions: DynamicListOptions<keyof TeacherProfile> = {};
 
-  readonly additionalEducations: number[] = [];
-  readonly additionalExperiences: number[] = [1];
-
   currentTabIndex = 0;
 
   image: File | null = null;
   imagePath!: string;
-
-  get educationForms() {
-    return this.educationFormComponents().map((c) => c.formGroup);
-  }
-
-  get experienceForms() {
-    return this.experienceFormComponents().map((c) => c.formGroup);
-  }
 
   ngAfterViewInit(): void {
     this.handleDynamicOptions();
@@ -72,30 +63,7 @@ export class AddComponent implements AfterViewInit {
         break;
     }
   }
-  deleteAdditionalEducations(type: 'education' | 'experience', index: number) {
-    switch (type) {
-      case 'education':
-        this.additionalEducations.splice(index, 1);
-        break;
-      case 'experience':
-        this.additionalExperiences.splice(index, 1);
-        break;
-    }
-  }
 
-  addMore(type: 'education' | 'experience') {
-    let last = 0;
-    switch (type) {
-      case 'education':
-        last = this.additionalEducations?.[this.additionalEducations.length - 1] || 0;
-        this.additionalEducations.push(last + 1);
-        break;
-      case 'experience':
-        last = this.additionalExperiences?.[this.additionalExperiences.length - 1] || 0;
-        this.additionalExperiences.push(last + 1);
-        break;
-    }
-  }
   uploadImage(input: HTMLInputElement) {
     if (input.files && input.files.length > 0) {
       const file = input.files?.item(0);

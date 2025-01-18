@@ -1,4 +1,4 @@
-import { Component, inject, input, viewChildren } from '@angular/core';
+import { Component, inject, input, OnChanges, SimpleChanges, viewChildren } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { FormComponent } from '@sc-forms/form.component';
 import { FormElement, DynamicListOptions } from '@sc-models/form';
@@ -9,11 +9,12 @@ import { FormElement, DynamicListOptions } from '@sc-models/form';
   templateUrl: './form-array.component.html',
   styleUrl: './form-array.component.scss',
 })
-export class FormArrayComponent<T = { [k: string]: string }> {
+export class FormArrayComponent<T = { [k: string]: string }> implements OnChanges {
   private readonly formComponents = viewChildren<FormComponent<T>>(FormComponent);
   private readonly fb = inject(FormBuilder);
 
   readonly formConfig = input.required<FormElement[]>();
+  readonly min = input<number>(0);
   readonly dateFilters = input<{
     [k: string]: Date[];
   }>({});
@@ -31,11 +32,19 @@ export class FormArrayComponent<T = { [k: string]: string }> {
     }>
   >([]);
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['min'] && this.min()) {
+      Array.from({ length: this.min() }, (_, i) => {
+        if (i >= this.elements.length) this.add();
+      });
+    }
+  }
+
   patchValue(value: T[]) {
     this.formArray.clear();
     value.forEach((v) => {
       this.add(v);
-    })
+    });
   }
 
   delete(index: number) {
@@ -47,7 +56,7 @@ export class FormArrayComponent<T = { [k: string]: string }> {
     this.elements.push(last + 1);
     setTimeout(() => {
       this.formComponents()[last].formGroup.patchValue(values as any);
-      this.formArray.push(this.formComponents()[last].formGroup)
-    })
+      this.formArray.push(this.formComponents()[last].formGroup);
+    });
   }
 }
