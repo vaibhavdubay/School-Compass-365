@@ -118,7 +118,7 @@ export type Button<F = (event: MouseEvent) => void> = Element & {
 export type Label = Omit<Element, 'disabled'>;
 export type ButtonGroup = Element & {
   display?: 'row' | 'column';
-  buttons: ButtonElement[];
+  buttons: Button[];
 };
 export type ListOptions = ListOption[];
 export type DynamicListOptions<T extends string | number | symbol = string> = {

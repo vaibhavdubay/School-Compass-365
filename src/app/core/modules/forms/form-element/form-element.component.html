@@ -35,7 +35,7 @@
       (clicked)="
         btnClick.emit({
           key: element.element.key,
-          element: element,
+          element: element.element
         })
       "
     ></sc-button-element>
@@ -54,12 +54,12 @@
       [style]="element.element.width ? { width: element.element.width } : null"
     >
       @for (buttonElement of element.element.buttons; track $index) {
-        <div [class]="buttonElement.element.cssClass || 'col'">
+        <div [class]="buttonElement.cssClass || 'col'">
           <sc-button-element
-            [element]="buttonElement.element"
+            [element]="buttonElement"
             (clicked)="
               btnClick.emit({
-                key: buttonElement.element.key,
+                key: buttonElement.key,
                 element: buttonElement,
               })
             "

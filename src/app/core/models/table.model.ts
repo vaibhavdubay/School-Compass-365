@@ -27,7 +27,7 @@ export interface TablePagination {
 }
 
 export interface TableColumn<T = { [k: string]: string }> {
-  columnDef: keyof T;
+  columnDef: keyof T | 'action';
   header: string;
   cell?: (element: T) => string | number | Date | boolean;
   formElement?: FormElement;
