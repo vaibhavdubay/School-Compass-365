@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject, viewChild, viewChildren } from '@angular/core';
+import { AfterViewInit, Component, inject, viewChild } from '@angular/core';
 import {
   addFormConfig,
   educationFormConfig,
@@ -21,7 +21,7 @@ import { FormArrayComponent } from '@sc-forms/form-array/form-array.component';
   styleUrl: './add.component.scss',
 })
 export class AddComponent implements AfterViewInit {
-  readonly personalInfoForm = viewChild.required<FormComponent<TeacherProfile>>('personalInfoForm');
+  readonly personalInfoFormComponent = viewChild.required<FormComponent<TeacherProfile>>('personalInfoForm');
   readonly educationFormComponents = viewChild.required<FormArrayComponent<TeacherProfile>>('educationForm');
   readonly experienceFormComponents = viewChild.required<FormArrayComponent<TeacherProfile>>('experience');
 
@@ -47,39 +47,31 @@ export class AddComponent implements AfterViewInit {
   handleStepIndex() {
     switch (this.currentTabIndex) {
       case 0:
-        if (this.personalInfoForm().formGroup.valid) {
+        if (this.personalInfoForm.valid) {
           this.currentTabIndex = 1;
         } else {
-          this.personalInfoForm().formGroup.markAllAsTouched();
+          this.personalInfoForm.markAllAsTouched();
         }
         break;
       case 1:
-        this.currentTabIndex = 2;
+        if (this.educationForms.valid && this.experienceForms.valid) {
+          console.log(this.educationForms, this.experienceForms);
+        } else {
+          this.educationForms.markAllAsTouched();
+          this.experienceForms.markAllAsTouched();
+        }
+        this.currentTabIndex = 1;
         break;
       case 2:
-        // this.uploadImageToFirebase();
+        this.currentTabIndex = 1;
         break;
       default:
         break;
     }
   }
 
-  uploadImage(input: HTMLInputElement) {
-    if (input.files && input.files.length > 0) {
-      const file = input.files?.item(0);
-      if (file) {
-        this.image = file;
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-          this.imagePath = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      }
-    }
-  }
-
   handleDynamicOptions() {
-    const formControls = this.personalInfoForm().formGroup.controls;
+    const formControls = this.personalInfoForm.controls;
     this.dynamicOptions['state'] = this.sharedStore.addressStates$.pipe(
       map((v) => v.map((d) => ({ key: d, label: d }))),
     );
@@ -109,5 +101,17 @@ export class AddComponent implements AfterViewInit {
           .pipe(map((v) => v.map((d) => ({ key: d, label: d }))));
       }
     });
+  }
+
+  get personalInfoForm() {
+    return this.personalInfoFormComponent().formGroup;
+  }
+
+  get educationForms() {
+    return this.educationFormComponents().formArray;
+  }
+
+  get experienceForms() {
+    return this.experienceFormComponents().formArray;
   }
 }

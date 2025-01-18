@@ -32,7 +32,7 @@
       [dynamicListOptions]="dynamicOptions"
     ></sc-form-array>
   </mat-step>
-  <mat-step [stepControl]="personalInfoForm.formGroup">
+  <mat-step [editable]="false">
     <ng-template matStepLabel>Documents / Additional Information</ng-template>
     <sc-form
       [formConfig]="personalInformationFormConfig"
