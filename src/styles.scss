@@ -72,6 +72,15 @@ div.seperator {
   border-color: var(--neutral-300);
   border-style: solid;
 }
+.mat-mdc-text-field-wrapper {
+  max-height: 42px;
+  .mdc-icon-button {
+    font-size: 20px;
+    height: 40px;
+    width: 40px;
+    padding: 8px;
+  }
+}
 
 // mat tab
 .mat-mdc-tab.mdc-tab--active .mdc-tab__ripple::before {
