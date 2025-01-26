@@ -6,6 +6,7 @@ import { classes as classAction, school as schoolAction } from './action';
 export interface AdminState {
   adminUser: AdminUser;
   schoolProfile: SchoolProfile;
+  dashboard: any;
   classes: Class[];
   teachers: TeacherProfile[]
 }
@@ -13,6 +14,7 @@ export interface AdminState {
 export const initialState: Nullable<AdminState> = {
   adminUser: null,
   schoolProfile: null,
+  dashboard: null,
   classes: [],
   teachers: []
 };
@@ -42,6 +44,10 @@ export const AdminReducer = createReducer<AdminState>(
   on(teachersAction.deleteTeacherSuccess, (state, action) => ({
     ...state,
     teachers: state.teachers.filter((teacher)=> teacher.id !== action.id),
+  })),
+  on(schoolAction.getDashboardSuccess, (state, action) => ({
+    ...state,
+    dashboard: action.dashboard,
   })),
   on(schoolAction.updateSchoolSuccess, (state, action) => {
     return {

@@ -18,6 +18,9 @@ export const school = createActionGroup({
     'Update School': props<{ school: Partial<SchoolProfile & { image?: File }> }>(),
     'Update School Success': props<{ school: SchoolProfile }>(),
     'Update School Failure': props<{ error: HttpErrorObject }>(),
+    'Get Dashboard': emptyProps(),
+    'Get Dashboard Success': props<{ dashboard: any }>(),
+    'Get Dashboard Failure': props<{ error: HttpErrorObject }>(),
   },
 });
 

@@ -22,6 +22,7 @@ export const apiRoutes = {
   },
   school: {
     update: (id: string) => `/school/${id}`,
+    dashboard: `/school/dashboard`,
   },
   teachers: {
     get: '/teacher',
