@@ -1,9 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ApiService } from 'src/app/core/service/http.service';
-import { adminActions, classes as classAction, school as schoolActions, teachersAction } from './action';
+import { adminActions, classes as classAction, school as schoolActions, teachersAction, studentAction } from './action';
 import { catchError, filter, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
-import { AdminUser, Class, SchoolProfile, TeacherProfile } from '@sc-models/core';
+import { AdminUser, Class, SchoolProfile, StudentProfile, TeacherProfile } from '@sc-models/core';
 import { apiRoutes } from 'src/app/core/constants/api.constants';
 import { selectClasses, selectTeachers } from './selector';
 import { AdminService } from '../services/admin.service';
@@ -29,6 +29,8 @@ export class AdminEffects {
       ),
     );
   });
+  //#region teachers effects
+
   getAllTeachers$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(teachersAction.getAllTeachers),
@@ -54,14 +56,17 @@ export class AdminEffects {
     );
   });
 
-  createTeacherSuccess$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(teachersAction.createTeacherSuccess),
-      tap(() => {
-        this.router.navigate(['admin','teachers']);
-      }),
-    )
-  }, { dispatch: false });
+  createTeacherSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(teachersAction.createTeacherSuccess),
+        tap(() => {
+          this.router.navigate(['admin', 'teachers']);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
   updateTeacher$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(teachersAction.updateTeacher),
@@ -84,6 +89,9 @@ export class AdminEffects {
       ),
     );
   });
+  //#endregion
+
+  //#region school profile effects
 
   updateSchoolProfile$ = createEffect(() => {
     return this.actions$.pipe(
@@ -96,6 +104,8 @@ export class AdminEffects {
       ),
     );
   });
+  //#endregion
+  //#region admin profile effects
 
   updateAdminProfile$ = createEffect(() => {
     return this.actions$.pipe(
@@ -108,4 +118,65 @@ export class AdminEffects {
       ),
     );
   });
+  //#endregion
+  //#region student effects
+
+  getAllStudent$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(studentAction.getAllStudents),
+      switchMap(() =>
+        this.apiService.get<StudentProfile[]>(apiRoutes.students.get).pipe(
+          map((student) => studentAction.getAllStudentsSuccess({ Students: student })),
+          catchError((err) => of(studentAction.getAllStudentsFailure({ error: err }))),
+        ),
+      ),
+    );
+  });
+  createsStudent$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(studentAction.createStudents),
+      switchMap(({ Students }) =>
+        this.apiService.post<StudentProfile>(apiRoutes.students.create, Students).pipe(
+          map((student) => studentAction.createStudentsSuccess({ Students: student })),
+          catchError((err) => of(studentAction.createStudentsFailure({ error: err }))),
+        ),
+      ),
+    );
+  });
+
+  createStudentSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(studentAction.createStudentsSuccess),
+        tap(() => {
+          this.router.navigate(['admin', 'students']);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
+
+  updateStudent$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(studentAction.updateStudents),
+      switchMap(({ Students, id }) =>
+        this.apiService.put<StudentProfile>(apiRoutes.students.update(id), Students).pipe(
+          map((student) => studentAction.updateStudentsSuccess({ Students: student })),
+          catchError((err) => of(studentAction.updateStudentsFailure({ error: err }))),
+        ),
+      ),
+    );
+  });
+  deleteStudent$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(studentAction.deleteStudents),
+      switchMap(({ id }) =>
+        this.apiService.delete<StudentProfile>(apiRoutes.students.delete(id)).pipe(
+          map(() => studentAction.deleteStudentsSuccess({ id })),
+          catchError((err) => of(studentAction.deleteStudentsFailure({ error: err }))),
+        ),
+      ),
+    );
+  });
+  //#endregion
 }

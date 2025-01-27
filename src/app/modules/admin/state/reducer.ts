@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import { AdminUser, Class, Nullable, SchoolProfile, TeacherProfile } from '@sc-models/core';
-import { adminActions, initAdminState, teachersAction } from './action';
+import { AdminUser, Class, Nullable, SchoolProfile, StudentProfile, TeacherProfile } from '@sc-models/core';
+import { adminActions, initAdminState, teachersAction, studentAction } from './action';
 import { classes as classAction, school as schoolAction } from './action';
 
 export interface AdminState {
@@ -8,13 +8,15 @@ export interface AdminState {
   schoolProfile: SchoolProfile;
   classes: Class[];
   teachers: TeacherProfile[]
+  students:StudentProfile[]
 }
 
 export const initialState: Nullable<AdminState> = {
   adminUser: null,
   schoolProfile: null,
   classes: [],
-  teachers: []
+  teachers: [],
+  students:[]
 };
 
 export const AdminReducer = createReducer<AdminState>(
@@ -23,10 +25,13 @@ export const AdminReducer = createReducer<AdminState>(
     ...state,
     adminUser: action.adminProfile,
   })),
+  //#region Class 
   on(classAction.getAllSuccess, (state, action) => ({
     ...state,
     classes: action.classes,
   })),
+  //#endregion
+  //#region Teacher 
   on(teachersAction.getAllTeachersSuccess, (state, action) => ({
     ...state,
     teachers: action.teachers,
@@ -43,12 +48,34 @@ export const AdminReducer = createReducer<AdminState>(
     ...state,
     teachers: state.teachers.filter((teacher)=> teacher.id !== action.id),
   })),
+  //#endregion
+  //#region Student 
+  on(studentAction.getAllStudentsSuccess, (state, action) => ({
+    ...state,
+    student: action.Students,
+  })),
+  on(studentAction.createStudentsSuccess, (state, action) => ({
+    ...state,
+    students: [...state.students, action.Students],
+  })),
+  on(studentAction.updateStudentsSuccess, (state, action) => ({
+    ...state,
+    students: state.students.map((student)=> student.id == action.Students.id ? action.Students : student),
+  })),
+  on(studentAction.deleteStudentsSuccess, (state, action) => ({
+    ...state,
+    students: state.students.filter((student)=> student.id !== action.id),
+  })),
+  //#endregion
+  //#region School 
   on(schoolAction.updateSchoolSuccess, (state, action) => {
     return {
       ...state,
       schoolProfile: action.school,
     };
   }),
+  //#endregion
+  //#region Admin
   on(adminActions.updateAdminSuccess, (state, action) => {
     const adminUser = JSON.parse(JSON.stringify(action.adminUser))
     delete adminUser['school']
