@@ -16,11 +16,11 @@
     </mat-step>
     <mat-step >
       <ng-template matStepLabel>Parents Or Guardian Information</ng-template>
-      <sc-form
+      <sc-form-array
         [formConfig]="parentsOrGuardianFormConfig"
         #ParentOrGuardian
         [dynamicListOptions]="dynamicOptions"
-      ></sc-form>
+      ></sc-form-array>
     </mat-step>
   </mat-stepper>
   

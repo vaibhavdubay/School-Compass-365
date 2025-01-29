@@ -1,12 +1,13 @@
 import { Component, inject, viewChild } from '@angular/core';
 import { FormArrayComponent } from '@sc-forms/form-array/form-array.component';
-import { ParentOrGuardian, StudentProfile, StudentProfileDTO } from '@sc-models/core';
+import { Class, ParentOrGuardian, StudentProfile, StudentProfileDTO } from '@sc-models/core';
 import { AdminService } from '@sc-modules/admin/services/admin.service';
 import { SharedStoreService } from 'src/app/core/service/shared-store.service';
 import { FormComponent } from '@sc-forms/form.component';
-import { map, of } from 'rxjs';
+import { filter, map, of } from 'rxjs';
 import { DynamicListOptions } from '@sc-models/form';
 import { studentPersonalInformationFormConfig, parentsOrGuardianFormConfig, addFormConfig } from '../student.constant';
+import { selectClasses } from '@sc-modules/admin/state/selector';
 
 @Component({
   selector: 'sc-add',
@@ -19,20 +20,22 @@ export class AddComponent {
   readonly studentFormComponents = viewChild.required<FormComponent<StudentProfile>>('createStudentForm');
   readonly credFormComponents =
     viewChild.required<FormComponent<StudentProfile & { userName: string; password: string }>>('credForm');
-  readonly parentOrGuardianFormComponents =
-    viewChild.required<FormArrayComponent<ParentOrGuardian>>('ParentOrGuardian');
+  readonly parentOrGuardianFormComponents = viewChild.required<FormArrayComponent<ParentOrGuardian>>('ParentOrGuardian');
 
   private readonly sharedStore = inject(SharedStoreService);
   private readonly adminService = inject(AdminService);
 
   readonly studentPersonalInformationFormConfig = studentPersonalInformationFormConfig;
   readonly parentsOrGuardianFormConfig = parentsOrGuardianFormConfig;
-  readonly dynamicOptions: DynamicListOptions<keyof StudentProfile> = {};
+  readonly dynamicOptions: DynamicListOptions<keyof StudentProfileDTO> = {};
   readonly addFormConfig = addFormConfig;
 
   currentTabIndex = 0;
-
   image: File | null = null;
+
+  ngAfterViewInit(): void {
+    this.handleDynamicOptions();
+  }
 
   handleStepIndex() {
     switch (this.currentTabIndex) {
@@ -43,6 +46,14 @@ export class AddComponent {
           this.studentInfoForm.markAllAsTouched();
         }
         break;
+        case 1:
+          if (this.studentInfoForm.valid && this.ParentOrGuardianForms.valid) {
+            this.save()
+          } else {
+            this.studentInfoForm.markAllAsTouched();
+            this.ParentOrGuardianForms.markAllAsTouched();
+          }
+          break;
       default:
         break;
     }
@@ -76,6 +87,10 @@ export class AddComponent {
     );
     this.dynamicOptions['city'] = of([]);
     this.dynamicOptions['pincode'] = of([]);
+    this.dynamicOptions['classId'] = this.sharedStore.schoolClasses$.pipe(
+      filter((v) => !!v),
+      map((v) => [...v]?.sort((a,b)=>a?.order-b?.order)?.map((d) => ({ key: d.id, label: d.className }))),
+    )
 
     formControls.state.valueChanges.subscribe((state) => {
       if (state) {

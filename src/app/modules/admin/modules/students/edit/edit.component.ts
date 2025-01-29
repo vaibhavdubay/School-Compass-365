@@ -11,13 +11,12 @@ import { studentPersonalInformationFormConfig, parentsOrGuardianFormConfig, addF
 @Component({
   selector: 'sc-edit',
   standalone: false,
-  
+
   templateUrl: './edit.component.html',
-  styleUrl: './edit.component.scss'
+  styleUrl: './edit.component.scss',
 })
 export class EditComponent {
-
-readonly studentFormComponents = viewChild.required<FormComponent<StudentProfile>>('createStudentForm');
+  readonly studentFormComponents = viewChild.required<FormComponent<StudentProfile>>('createStudentForm');
   readonly credFormComponents =
     viewChild.required<FormComponent<StudentProfile & { userName: string; password: string }>>('credForm');
   readonly parentOrGuardianFormComponents =
@@ -31,11 +30,26 @@ readonly studentFormComponents = viewChild.required<FormComponent<StudentProfile
   readonly dynamicOptions: DynamicListOptions<keyof StudentProfile> = {};
   readonly addFormConfig = addFormConfig;
   readonly student: StudentProfile = history.state['student'];
-  
 
   currentTabIndex = 0;
 
   image: File | null = null;
+
+  ngAfterViewInit(): void {
+    this.handleDynamicOptions();
+  }
+
+  get studentInfoForm() {
+    return this.studentFormComponents().formGroup;
+  }
+
+  get ParentOrGuardianForms() {
+    return this.parentOrGuardianFormComponents().formArray;
+  }
+
+  get credForms() {
+    return this.credFormComponents().formGroup;
+  }
 
   handleStepIndex() {
     switch (this.currentTabIndex) {
@@ -46,61 +60,58 @@ readonly studentFormComponents = viewChild.required<FormComponent<StudentProfile
           this.studentInfoForm.markAllAsTouched();
         }
         break;
+        case 1:
+          if (this.studentInfoForm.valid && this.ParentOrGuardianForms.valid) {
+            this.save()
+          } else {
+            this.studentInfoForm.markAllAsTouched();
+            this.ParentOrGuardianForms.markAllAsTouched();
+          }
+          break
       default:
         break;
     }
   }
-  get studentInfoForm() {
-      return this.studentFormComponents().formGroup;
-    }
-  
-    get ParentOrGuardianForms() {
-      return this.parentOrGuardianFormComponents().formArray;
-    }
-  
-    get credForms() {
-      return this.credFormComponents().formGroup;
-    }
-    handleDynamicOptions() {
-      const formControls = this.studentInfoForm.controls;
-      this.dynamicOptions['state'] = this.sharedStore.addressStates$.pipe(
-        map((v) => v.map((d) => ({ key: d, label: d }))),
-      );
-      this.dynamicOptions['city'] = of([]);
-      this.dynamicOptions['pincode'] = of([]);
-  
-      formControls.state.valueChanges.subscribe((state) => {
-        if (state) {
-          formControls.city.setValue('', { emitEvent: false });
-          formControls.pincode.setValue('', { emitEvent: false });
-          formControls.city.enable({ emitEvent: false });
-          formControls.pincode.disable({ emitEvent: false });
-          this.dynamicOptions['pincode'] = of([]);
-          this.dynamicOptions['city'] = this.sharedStore
-            .addressDistrict$(state)
-            .pipe(map((v) => v.map((d) => ({ key: d, label: d }))));
-        }
-      });
-      formControls.city.valueChanges.subscribe((city) => {
-        const state = formControls.state.value;
-        formControls.pincode.setValue('', { emitEvent: false });
-        this.dynamicOptions['pincode'] = of([]);
-        if (state && city && formControls.city.enabled) {
-          formControls.pincode.enable({ emitEvent: false });
-          this.dynamicOptions['pincode'] = this.sharedStore
-            .addressPincode$(state, city)
-            .pipe(map((v) => v.map((d) => ({ key: d, label: d }))));
-        }
-      });
-    }
 
-    save() {
-        const studentProfile: StudentProfileDTO = {
-          ...(this.studentInfoForm.value as StudentProfile),
-          ...(this.credForms.value as StudentProfile & { userName: string; password: string }),
-          image:this.image
-        };
-        this.adminService.updateStudentProfile(this.student.id,  studentProfile);
+  handleDynamicOptions() {
+    const formControls = this.studentInfoForm.controls;
+    this.dynamicOptions['state'] = this.sharedStore.addressStates$.pipe(
+      map((v) => v.map((d) => ({ key: d, label: d }))),
+    );
+    this.dynamicOptions['city'] = of([]);
+    this.dynamicOptions['pincode'] = of([]);
+
+    formControls.state.valueChanges.subscribe((state) => {
+      if (state) {
+        formControls.city.setValue('', { emitEvent: false });
+        formControls.pincode.setValue('', { emitEvent: false });
+        formControls.city.enable({ emitEvent: false });
+        formControls.pincode.disable({ emitEvent: false });
+        this.dynamicOptions['pincode'] = of([]);
+        this.dynamicOptions['city'] = this.sharedStore
+          .addressDistrict$(state)
+          .pipe(map((v) => v.map((d) => ({ key: d, label: d }))));
       }
-    
+    });
+    formControls.city.valueChanges.subscribe((city) => {
+      const state = formControls.state.value;
+      formControls.pincode.setValue('', { emitEvent: false });
+      this.dynamicOptions['pincode'] = of([]);
+      if (state && city && formControls.city.enabled) {
+        formControls.pincode.enable({ emitEvent: false });
+        this.dynamicOptions['pincode'] = this.sharedStore
+          .addressPincode$(state, city)
+          .pipe(map((v) => v.map((d) => ({ key: d, label: d }))));
+      }
+    });
+  }
+
+  save() {
+    const studentProfile: StudentProfileDTO = {
+      ...(this.studentInfoForm.value as StudentProfile),
+      ...(this.credForms.value as StudentProfile & { userName: string; password: string }),
+      image: this.image,
+    };
+    this.adminService.updateStudentProfile(this.student.id, studentProfile);
+  }
 }

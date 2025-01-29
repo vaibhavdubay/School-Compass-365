@@ -148,7 +148,6 @@ export const studentPersonalInformationFormConfig: FormConfig = [
       element: {
         key: 'bloodGroup',
         validateAs:'text',
-        required: true,
         cssClass: 'col-md-4',
         label: 'Blood Group',
       },
@@ -301,12 +300,12 @@ export const addFormConfig: FormConfig = [
         },
       },
       {
-        elementType: 'text',
+        elementType: 'select',
         element: {
-          key: 'classSection',
+          key: 'classId',
+          options: [],
           cssClass: 'col-md-6',
           label: 'Class',
-          validateAs: 'text',
           required: true,
         },
       },

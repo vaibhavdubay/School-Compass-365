@@ -1,4 +1,4 @@
-@let students = students$ | async;
+@let students = students$;
 @if(students) {
 <sc-table [data]="[]" [config]="tableConfig" (buttonClick)="buttonClick($event)">
     <div action-handler class="col text-end py-2">

@@ -9,6 +9,7 @@ import {
   selectAddressTowns,
   selectLoggedInUser,
   selectLoggedInUserWithSchool,
+  selectSchoolClasses$,
   selectSchoolProfile,
 } from '../store/selector';
 import { addressActions, logInActions, userActions } from '../store/action';
@@ -47,6 +48,9 @@ export class SharedStoreService extends StoreService<SharedState> {
     return this.select(selectAddressStates);
   }
 
+  get schoolClasses$() {
+    return this.select(selectSchoolClasses$);
+  }
   addressDistrict$(state: string) {
     this.dispatch(addressActions.loadDistricts({ state }));
     return this.select(selectAddressDistricts(state));
