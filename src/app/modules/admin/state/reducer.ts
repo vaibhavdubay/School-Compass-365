@@ -6,6 +6,7 @@ import { classes as classAction, school as schoolAction } from './action';
 export interface AdminState {
   adminUser: AdminUser;
   schoolProfile: SchoolProfile;
+  dashboard: any;
   classes: Class[];
   teachers: TeacherProfile[]
   students:StudentProfile[]
@@ -14,6 +15,7 @@ export interface AdminState {
 export const initialState: Nullable<AdminState> = {
   adminUser: null,
   schoolProfile: null,
+  dashboard: null,
   classes: [],
   teachers: [],
   students:[]
@@ -68,6 +70,10 @@ export const AdminReducer = createReducer<AdminState>(
   })),
   //#endregion
   //#region School 
+  on(schoolAction.getDashboardSuccess, (state, action) => ({
+    ...state,
+    dashboard: action.dashboard,
+  })),
   on(schoolAction.updateSchoolSuccess, (state, action) => {
     return {
       ...state,

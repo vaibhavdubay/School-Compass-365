@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { AdminService } from '@sc-modules/admin/services/admin.service';
 
 @Component({
   selector: 'sc-dashboard',
@@ -6,4 +7,7 @@ import { Component } from '@angular/core';
   styleUrl: './dashboard.component.scss',
   standalone: false,
 })
-export class DashboardComponent {}
+export class DashboardComponent {
+  adminService = inject(AdminService);
+  dashboard$ = this.adminService.dashboard$;
+}

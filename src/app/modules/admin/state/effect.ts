@@ -5,7 +5,7 @@ import { adminActions, classes as classAction, school as schoolActions, teachers
 import { catchError, filter, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { AdminUser, Class, SchoolProfile, StudentProfile, TeacherProfile } from '@sc-models/core';
 import { apiRoutes } from 'src/app/core/constants/api.constants';
-import { selectClasses, selectTeachers } from './selector';
+import { selectClasses, selectDashboard, selectTeachers } from './selector';
 import { AdminService } from '../services/admin.service';
 import { Router } from '@angular/router';
 
@@ -93,6 +93,19 @@ export class AdminEffects {
 
   //#region school profile effects
 
+  getDashboard$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(schoolActions.getDashboard),
+      withLatestFrom(this.store.select(selectDashboard)),
+      filter(([_, dashboard]) => !dashboard),
+      switchMap(() =>
+        this.apiService.get<any>(apiRoutes.school.dashboard).pipe(
+          map((dashboard) => schoolActions.getDashboardSuccess({ dashboard })),
+          catchError((err) => of(schoolActions.getDashboardFailure({ error: err }))),
+        ),
+      ),
+    );
+  });
   updateSchoolProfile$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(schoolActions.updateSchool),

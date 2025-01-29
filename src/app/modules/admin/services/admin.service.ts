@@ -2,8 +2,8 @@ import { Injectable, inject } from '@angular/core';
 import { StoreService } from 'src/app/core/service/store.service';
 import { AdminState } from '../state/reducer';
 import { Store } from '@ngrx/store';
-import { selectAdminUser, selectClasses, selectTeachers } from '../state/selector';
-import { adminActions, classes, studentAction, teachersAction } from '../state/action';
+import { selectAdminUser, selectClasses, selectDashboard, selectTeachers } from '../state/selector';
+import { adminActions, classes, studentAction,school, teachersAction } from '../state/action';
 import { filter } from 'rxjs';
 import { AdminUser, StudentProfileDTO, TeacherProfileDTO } from '@sc-models/core';
 
@@ -25,6 +25,10 @@ export class AdminService extends StoreService<AdminState> {
   get teachers$() {
     this.dispatch(teachersAction.getAllTeachers())
     return this.select(selectTeachers).pipe(filter((c) => !!c))
+  }
+  get dashboard$() {
+    this.dispatch(school.getDashboard())
+    return this.select(selectDashboard).pipe(filter((c) => !!c))
   }
   createTeachersProfile(teacher: TeacherProfileDTO) {
     this.dispatch(teachersAction.createTeacher({ teacher }));

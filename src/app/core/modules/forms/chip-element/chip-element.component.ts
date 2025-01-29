@@ -44,7 +44,7 @@ export class ChipElementComponent {
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
     if (value) {
-      this.keywords.update((keywords) => [...keywords, value]);
+      this.keywords.update((keywords) => (keywords || []).concat(value));
     }
     event.chipInput!.clear();
   }

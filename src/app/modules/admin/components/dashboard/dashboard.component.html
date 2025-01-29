@@ -1,0 +1,37 @@
+@let dashboard = dashboard$ | async;
+
+<div class="min-h-screen">
+  <!-- Top Section -->
+  <div class="mb-4 rounded-2xl bg-white p-4 py-5 shadow-md">
+    <section class="analytics-container flex flex-wrap">
+        @for (item of dashboard.analytical_data | keyvalue; track $index) {
+            <div class="w-1/4">
+              <div class="flex items-center p-2 justify-center">
+                <div
+                  class="icon-container bg-primary me-4 flex items-center justify-center rounded-full p-2 text-white"
+                  style="height: 72px; width: 72px"
+                >
+                  <mat-icon class="h-auto w-auto text-5xl">{{$any(item.value).icon}}</mat-icon>
+                </div>
+                <div class="placeholder-container">
+                  <div class="text-xs text-neutral-500 capitalize">{{item.key}}</div>
+                  <div class="fegure-container">
+                    <div class="text-3xl">{{$any(item.value).current}}</div>
+                    <div class="text-xs">{{$any(item.value).total}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        }
+    </section>
+  </div>
+
+  <!-- Navigation Section -->
+  <div class="flex">
+    <!-- Main Content -->
+    <div class="w-3/4 p-4">
+      <p>Welcome to the dashboard!</p>
+      <!-- Add more content here -->
+    </div>
+  </div>
+</div>
