@@ -1,6 +1,6 @@
-@let students = students$;
+@let students = students$ | async;
 @if(students) {
-<sc-table [data]="[]" [config]="tableConfig" (buttonClick)="buttonClick($event)">
+<sc-table [data]="students" [config]="tableConfig" (buttonClick)="buttonClick($event)">
     <div action-handler class="col text-end py-2">
         <button mat-raised-button color="primary" [routerLink]="'./add'"> Enroll Student </button>
     </div>

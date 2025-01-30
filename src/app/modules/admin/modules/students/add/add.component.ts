@@ -8,6 +8,7 @@ import { filter, map, of } from 'rxjs';
 import { DynamicListOptions } from '@sc-models/form';
 import { studentPersonalInformationFormConfig, parentsOrGuardianFormConfig, addFormConfig } from '../student.constant';
 import { selectClasses } from '@sc-modules/admin/state/selector';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'sc-add',
@@ -24,6 +25,7 @@ export class AddComponent {
 
   private readonly sharedStore = inject(SharedStoreService);
   private readonly adminService = inject(AdminService);
+  private readonly router = inject(Router);
 
   readonly studentPersonalInformationFormConfig = studentPersonalInformationFormConfig;
   readonly parentsOrGuardianFormConfig = parentsOrGuardianFormConfig;
@@ -67,6 +69,7 @@ export class AddComponent {
       parentsGuardians: this.ParentOrGuardianForms.value,
     };
     this.adminService.createStudentProfile(studentProfile);
+    this.router.navigate(['admin', 'students'])
   }
 
   get studentInfoForm() {

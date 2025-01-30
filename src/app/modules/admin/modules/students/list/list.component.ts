@@ -21,7 +21,7 @@ export class ListComponent {
   buttonClick(event: { key: string; row: StudentProfile }) {
       const actions: { [k:string]: Function } = {
         edit: () => {
-          this.router.navigate(['admin', 'student', event.row.id], { state: { student: event.row } });
+          this.router.navigate(['admin', 'students', event.row.id], { state: { student: event.row } });
         },
         delete: () => {
           this.adminService.deleteStudentProfile(event.row.id);

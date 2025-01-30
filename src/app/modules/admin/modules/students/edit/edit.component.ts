@@ -4,9 +4,10 @@ import { FormComponent } from '@sc-forms/form.component';
 import { StudentProfile, ParentOrGuardian, StudentProfileDTO } from '@sc-models/core';
 import { DynamicListOptions } from '@sc-models/form';
 import { AdminService } from '@sc-modules/admin/services/admin.service';
-import { map, of } from 'rxjs';
+import { filter, map, of } from 'rxjs';
 import { SharedStoreService } from 'src/app/core/service/shared-store.service';
 import { studentPersonalInformationFormConfig, parentsOrGuardianFormConfig, addFormConfig } from '../student.constant';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'sc-edit',
@@ -24,10 +25,12 @@ export class EditComponent {
 
   private readonly sharedStore = inject(SharedStoreService);
   private readonly adminService = inject(AdminService);
+  private readonly router = inject(Router);
+
 
   readonly studentPersonalInformationFormConfig = studentPersonalInformationFormConfig;
   readonly parentsOrGuardianFormConfig = parentsOrGuardianFormConfig;
-  readonly dynamicOptions: DynamicListOptions<keyof StudentProfile> = {};
+  readonly dynamicOptions: DynamicListOptions<keyof StudentProfileDTO> = {};
   readonly addFormConfig = addFormConfig;
   readonly student: StudentProfile = history.state['student'];
 
@@ -80,6 +83,10 @@ export class EditComponent {
     );
     this.dynamicOptions['city'] = of([]);
     this.dynamicOptions['pincode'] = of([]);
+    this.dynamicOptions['classId'] = this.sharedStore.schoolClasses$.pipe(
+          filter((v) => !!v),
+          map((v) => [...v]?.sort((a,b)=>a?.order-b?.order)?.map((d) => ({ key: d.id, label: d.className }))),
+        )
 
     formControls.state.valueChanges.subscribe((state) => {
       if (state) {
@@ -113,5 +120,6 @@ export class EditComponent {
       image: this.image,
     };
     this.adminService.updateStudentProfile(this.student.id, studentProfile);
+    this.router.navigate(['admin', 'students'])
   }
 }
