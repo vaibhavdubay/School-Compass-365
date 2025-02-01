@@ -28,16 +28,11 @@ export class LayoutComponent {
       label: 'Sign out',
       eventFunction: () => this.logOut(),
     },
-    // {
-    //   icon: 'dark_mode',
-    //   label: 'Dark Mode',
-    //   routerLink: ['#'],
-    // },
   ];
 
-  readonly profileNavItems: NavItem[] = [
+  readonly preferenceNavItems: NavItem[] = [
     {
-      icon:  'account_circle',
+      icon: 'account_circle',
       label: 'Edit Profile',
       routerLink: ['edit-profile'],
     },
