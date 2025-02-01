@@ -10,6 +10,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { httpInterceptor } from './core/interceptor/http.interceptor';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideHotToastConfig } from '@ngxpert/hot-toast';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,6 +27,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     provideClientHydration(),
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([httpInterceptor])),
+    provideHotToastConfig(),
   ],
   bootstrap: [AppComponent],
 })
