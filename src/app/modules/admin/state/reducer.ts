@@ -54,7 +54,7 @@ export const AdminReducer = createReducer<AdminState>(
   //#region Student 
   on(studentAction.getAllStudentsSuccess, (state, action) => ({
     ...state,
-    student: action.Students,
+    students: action.Students,
   })),
   on(studentAction.createStudentsSuccess, (state, action) => ({
     ...state,

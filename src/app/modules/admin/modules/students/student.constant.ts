@@ -15,6 +15,7 @@ export const StudentsTableConfig: TableConfig<StudentProfile> = {
       {
         columnDef: 'class',
         header: 'Class',
+        cell: (row: StudentProfile) => `${row.class.className}`,
       },
       {
         columnDef: 'phoneNumber',

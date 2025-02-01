@@ -40,6 +40,7 @@ export class EditComponent {
 
   ngAfterViewInit(): void {
     this.handleDynamicOptions();
+    this.studentInfoForm.patchValue(this.student);
   }
 
   get studentInfoForm() {
