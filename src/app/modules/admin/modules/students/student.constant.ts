@@ -110,7 +110,7 @@ export const studentPersonalInformationFormConfig: FormConfig = [
         cssClass: 'col-md-4',
         key: 'dateOfBirth',
         label: 'Date of Birth',
-        max: `12/31/${new Date().getFullYear() - 18}`,
+        max: `12/31/${new Date().getFullYear() - 3}`,
         required: true,
       },
     },
