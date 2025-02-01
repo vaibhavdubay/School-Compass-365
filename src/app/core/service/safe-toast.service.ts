@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class SafeToastServiceService extends HotToastService {
+export class SafeToastService extends HotToastService {
   constructor() {
     super();
   }
