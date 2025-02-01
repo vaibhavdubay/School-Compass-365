@@ -37,6 +37,14 @@ export class LayoutComponent {
       routerLink: ['edit-profile'],
     },
   ];
+  
+  readonly preferanceNavItems: NavItem[] = [
+    {
+      icon:  'settings',
+      label: 'Preferences',
+      routerLink: ['preferance'],
+    },
+  ];
 
   private readonly breakpointObserver = inject(BreakpointObserver);
   profile: Observable<{
