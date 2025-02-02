@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
-import { Address, Nullable, SchoolProfile, User } from '@sc-models/core';
+import { Address, Nullable, User } from '@sc-models/core';
 import { logInActions, addressActions } from './action';
+import { SchoolProfile } from '@sc-models/school';
 
 export interface AddressState {
   [state: string]: {

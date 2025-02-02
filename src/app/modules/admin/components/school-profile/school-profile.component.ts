@@ -1,7 +1,7 @@
 import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { AfterViewInit, Component, inject, viewChild } from '@angular/core';
 import { FormComponent } from '@sc-forms/form.component';
-import { Class, SchoolProfile } from '@sc-models/core';
+import { Class } from '@sc-models/core';
 import { schoolFormConfig } from '@sc-modules/admin/constants/admin.constant';
 import { AdminService } from '@sc-modules/admin/services/admin.service';
 import { ScreenSizeObserver } from 'src/app/core/service/screen.service';
@@ -10,6 +10,7 @@ import { school as schoolActions } from '@sc-modules/admin/state/action';
 import { DynamicListOptions } from '@sc-models/form';
 import { map, of } from 'rxjs';
 import { states } from 'src/app/core/constants/states.constant';
+import { SchoolProfile } from '@sc-models/school';
 
 @Component({
   selector: 'sc-school-profile',

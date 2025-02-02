@@ -1,5 +1,6 @@
 import { createReducer } from '@ngrx/store';
-import { StudentProfile, Nullable } from '@sc-models/core';
+import { Nullable } from '@sc-models/core';
+import { StudentProfile } from '@sc-models/student';
 
 export interface StudentState {
   studentProfile: StudentProfile;

@@ -1,6 +1,6 @@
 import { Component, inject, viewChild } from '@angular/core';
 import { FormComponent } from '@sc-forms/form.component';
-import { AdminUser } from '@sc-models/core';
+import { AdminUser } from '@sc-models/admin';
 import { editFormConfig } from '@sc-modules/admin/constants/admin.constant';
 import { AdminService } from '@sc-modules/admin/services/admin.service';
 import { SharedStoreService } from 'src/app/core/service/shared-store.service';

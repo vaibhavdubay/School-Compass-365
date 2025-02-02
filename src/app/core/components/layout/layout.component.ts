@@ -1,12 +1,13 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, inject, input } from '@angular/core';
-import { NavItem, SchoolProfile, User } from '@sc-models/core';
+import { NavItem, User } from '@sc-models/core';
 import { Observable, map, shareReplay } from 'rxjs';
 import { SharedStoreService } from '../../service/shared-store.service';
 import { logInActions } from '../../store/action';
 import { ScreenSizeObserver } from '../../service/screen.service';
 import { TitleService } from '../../service/title.service';
 import { states } from '../../constants/states.constant';
+import { SchoolProfile } from '@sc-models/school';
 
 @Component({
   selector: 'sc-layout',

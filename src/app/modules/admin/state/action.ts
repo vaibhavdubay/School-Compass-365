@@ -1,5 +1,7 @@
 import { createAction, createActionGroup, emptyProps, props } from '@ngrx/store';
-import { AdminUser, Class, HttpErrorObject, SchoolProfile } from '@sc-models/core';
+import { AdminUser } from '@sc-models/admin';
+import { Class, HttpErrorObject } from '@sc-models/core';
+import { SchoolProfile } from '@sc-models/school';
 
 export const initAdminState = createAction('[ADMIN] Initiate State', props<{ adminProfile: AdminUser }>());
 

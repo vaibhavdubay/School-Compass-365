@@ -1,5 +1,6 @@
 import { createReducer } from '@ngrx/store';
-import { TeacherProfile, Nullable } from '@sc-models/core';
+import { Nullable } from '@sc-models/core';
+import { TeacherProfile } from '@sc-models/teacher';
 
 export interface TeachersState {
   teacherProfile: TeacherProfile;

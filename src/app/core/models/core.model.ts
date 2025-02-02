@@ -1,8 +1,9 @@
 import { HttpHeaders, HttpContext, HttpParams } from '@angular/common/http';
-import { ACADEMIC_STATUS } from '@sc-enums/academicStatus';
-import { BLOOD_GROUP } from '@sc-enums/bloodGroup';
-import { GENDER } from '@sc-enums/gender';
 import { Role } from '@sc-enums/role';
+import { SchoolProfile } from './school.model';
+import { AdminUser } from './admin.model';
+import { StudentProfile } from './student.model';
+import { TeacherProfile } from './teacher.model';
 
 export interface AcademicYear {
   id: string;
@@ -11,88 +12,6 @@ export interface AcademicYear {
   createdAt: Date;
   updatedAt: Date;
 }
-
-export interface AdminUser {
-  id: string;
-  schoolId: string;
-  firstName: string;
-  lastName: string;
-  gender: GENDER;
-  email: string;
-  phoneNumber: string;
-  profileImageUrl: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface SchoolProfile {
-  id: string;
-  name: string;
-  establishedYear: number;
-  address1: string;
-  address2: string;
-  academicYears: AcademicYear[];
-  logoUrl: string;
-  currentAcademicYear: AcademicYear;
-  city: string;
-  town: string;
-  state: string;
-  pincode: number;
-  schoolDISECode: string;
-  schoolCode: string;
-  classes: Class[];
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface TeacherProfile {
-  id: string;
-  gender: GENDER;
-  schoolId: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
-  academicYears: AcademicYear[];
-  profileImageUrl: string;
-  subjects: string[];
-  years_of_experience: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface StudentProfile {
-  id: string;
-  schoolId: string;
-  class: Class;
-  classSection: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
-  pen: string;
-  academicStatus: ACADEMIC_STATUS;
-  dateOfBirth: Date;
-  gender: GENDER;
-  bloodGroup: BLOOD_GROUP;
-  profileImageUrl: string;
-  academicYears: AcademicYear[];
-  parentsGuardians: ParentOrGuardian[];
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface ParentOrGuardian {
-  id: string;
-  name: string;
-  gender: GENDER;
-  relations: string;
-  contactEmail: string;
-  contactPhone: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
 export interface Class {
   id: string;
   className: string;

@@ -3,10 +3,12 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ApiService } from 'src/app/core/service/http.service';
 import { adminActions, classes as classAction, school as schoolActions } from './action';
 import { catchError, filter, map, of, switchMap, withLatestFrom } from 'rxjs';
-import { AdminUser, Class, SchoolProfile } from '@sc-models/core';
+import { Class } from '@sc-models/core';
 import { apiRoutes } from 'src/app/core/constants/api.constants';
 import { selectClasses } from './selector';
 import { AdminService } from '../services/admin.service';
+import { SchoolProfile } from '@sc-models/school';
+import { AdminUser } from '@sc-models/admin';
 
 @Injectable()
 export class AdminEffects {

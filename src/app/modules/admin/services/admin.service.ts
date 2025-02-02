@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { selectAdminUser, selectClasses } from '../state/selector';
 import { adminActions, classes } from '../state/action';
 import { filter } from 'rxjs';
-import { AdminUser } from '@sc-models/core';
+import { AdminUser } from '@sc-models/admin';
 
 @Injectable()
 export class AdminService extends StoreService<AdminState> {
