@@ -1,13 +1,10 @@
 import { AcademicYear, Class } from "./core.model";
 
-
-
 export interface SchoolProfile {
   id: string;
   name: string;
   establishedYear: number;
-  address1: string;
-  address2: string;
+  address: string;
   academicYears: AcademicYear[];
   logoUrl: string;
   currentAcademicYear: AcademicYear;

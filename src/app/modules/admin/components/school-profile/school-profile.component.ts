@@ -69,20 +69,6 @@ export class SchoolProfileComponent implements AfterViewInit {
     this.basket = this.basket.sort((a, b) => a.order - b.order);
   }
 
-  uploadImage(input: HTMLInputElement) {
-    if (input.files && input.files.length > 0) {
-      const file = input.files?.item(0);
-      if (file) {
-        this.image = file;
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-          if (this.schoolProfile) this.schoolProfile = { ...this.schoolProfile, logoUrl: e.target.result };
-        };
-        reader.readAsDataURL(file);
-      }
-    }
-  }
-
   updateSchoolProfile() {
     const school = {
       ...this.schoolProfile,

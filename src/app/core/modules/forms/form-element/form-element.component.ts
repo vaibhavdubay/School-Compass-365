@@ -1,6 +1,6 @@
 import { Component, input, output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ButtonElement, DynamicListOptions, FormElement } from '@sc-models/form';
+import { Button, ButtonElement, DynamicListOptions, FormElement } from '@sc-models/form';
 
 @Component({
   selector: 'sc-form-element',
@@ -14,6 +14,6 @@ export class FormElementComponent {
   readonly dynamicListOptions = input<DynamicListOptions>({});
   readonly btnClick = output<{
     key: string;
-    element: ButtonElement;
+    element: Button;
   }>();
 }

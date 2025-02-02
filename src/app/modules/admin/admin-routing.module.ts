@@ -30,12 +30,16 @@ const routes: Routes = [
         },
       },
       {
-        path: 'preference',
+        path: 'edit-profile',
         component: EditProfileComponent,
         data: {
-          title: 'Preference',
+          title: 'Edit Profile',
         },
       },
+      {
+        path: "teachers",
+        loadChildren: () => import('./modules/teachers/teachers.module').then((m) => m.TeachersModule),
+      }
     ],
   },
 ];

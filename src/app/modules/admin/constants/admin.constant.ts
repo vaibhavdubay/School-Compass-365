@@ -68,7 +68,7 @@ export const schoolFormConfig: FormConfig = [
   {
     elementType: 'text',
     element: {
-      key: 'address1',
+      key: 'address',
       validateAs: 'text',
       cssClass: 'col-md-4',
       label: 'Address',

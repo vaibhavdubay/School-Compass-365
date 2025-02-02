@@ -7,16 +7,18 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { FormsModule } from '@sc-forms/forms.module';
 import { MatDividerModule } from '@angular/material/divider';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [TableComponent],
   imports: [
     CommonModule,
     FormsModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatDividerModule,
     MatIconModule,
     MatSortModule,
+    MatTableModule,
+    MatDividerModule,
+    MatPaginatorModule,
+    ReactiveFormsModule
   ],
   exports: [TableComponent, FormsModule],
 })

@@ -3,13 +3,14 @@ import { Observable } from 'rxjs';
 export type FormConfig = FormElement[];
 export type FormElement = InputElement | UiElement;
 
-export type InputElement = CheckboxElement | DateElement | RadioElement | SelectElement | TextElement | TextAreaElement;
+export type InputElement = CheckboxElement | DateElement | RadioElement | SelectElement | ChipElement | TextElement | TextAreaElement;
 export type UiElement = ButtonElement | LabelElement | ButtonGroupElement;
 
 export type CheckboxElement = { elementType: 'checkbox'; element: Checkbox };
 export type RadioElement = { elementType: 'radio'; element: Radio };
 export type DateElement = { elementType: 'date'; element: DateInput };
 export type SelectElement = { elementType: 'select'; element: Select };
+export type ChipElement = { elementType: 'chip'; element: Chip };
 export type TextElement = { elementType: 'text'; element: TextInput };
 export type TextAreaElement = {
   elementType: 'textarea';
@@ -30,7 +31,7 @@ export type ButtonGroupElement = {
 
 export type Element = {
   key: string;
-  label: string;
+  label?: string;
   cssClass?: string;
   width?: string;
   hidden?: boolean;
@@ -67,7 +68,16 @@ export type Select = Element &
     value?: string;
     placeholder?: string;
     selectedValues?: ListOptions;
-    options: ListOptions;
+    options?: ListOptions;
+    categoriesList?: { category: string; options: ListOptions; disabled?: boolean }[];
+  };
+
+export type Chip = Element &
+  CoreInputElement & {
+    autoComplete?: boolean;
+    placeholder?: string;
+    value?: string [];
+    options?: ListOptions;
   };
 
 export type InputValidators =
@@ -108,7 +118,7 @@ export type Button<F = (event: MouseEvent) => void> = Element & {
 export type Label = Omit<Element, 'disabled'>;
 export type ButtonGroup = Element & {
   display?: 'row' | 'column';
-  buttons: ButtonElement[];
+  buttons: Button[];
 };
 export type ListOptions = ListOption[];
 export type DynamicListOptions<T extends string | number | symbol = string> = {

@@ -25,9 +25,10 @@ import { ForgetPasswordComponent } from './components/forget-password/forget-pas
 import { MatDialogModule } from '@angular/material/dialog';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { MatBadgeModule } from '@angular/material/badge';
+import { ImageHandlerDirective } from './directives/image-handler.directive';
 
 @NgModule({
-  declarations: [LoginComponent, LayoutComponent, MenuComponent, ForgetPasswordComponent, CapitalizePipe],
+  declarations: [LoginComponent, LayoutComponent, MenuComponent, ForgetPasswordComponent, CapitalizePipe, ImageHandlerDirective],
   imports: [
     FormsModule,
     CommonModule,
@@ -48,6 +49,6 @@ import { MatBadgeModule } from '@angular/material/badge';
     EffectsModule.forFeature([SharedStoreEffect]),
     StoreModule.forFeature(STORE_FEATURES.SHARED, SharedStoreReducer),
   ],
-  exports: [LayoutComponent, CapitalizePipe],
+  exports: [LayoutComponent, CapitalizePipe, ImageHandlerDirective],
 })
 export class CoreModule {}

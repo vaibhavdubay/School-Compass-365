@@ -1,20 +1,18 @@
-<section class="school_info_container d-flex justify-content-center flex-wrap py-4">
+<section class="school_info_container d-flex justify-content-center flex-wrap">
   <div class="col-md-6 d-flex flex-column align-items-center justify-content-center pb-4 text-center">
-    <input type="file" hidden #school_logo (change)="uploadImage(school_logo)" />
-    <div class="school_logo" (click)="school_logo.click()">
-      <img
-        style="height: 8rem; width: 8rem"
-        [src]="schoolProfile?.logoUrl ? schoolProfile?.logoUrl : 'assets/images/avatar_1.webp'"
-        [alt]="schoolProfile?.name"
-      />
-    </div>
+    <div
+      scImageHandler
+      [imagePath]="schoolProfile?.logoUrl || ''"
+      [alt]="schoolProfile?.name || ''"
+      (image)="image = $event"
+    ></div>
     <div [ngStyle]="{ width: '100%', maxWidth: '260px' }">
       <h5 class="school_name title">{{ schoolProfile?.name }}</h5>
       <span class="school_address sub_title">
-        {{ schoolProfile?.town }},
-        {{ schoolProfile?.city }}
+        {{ schoolProfile?.town | capitalize }},
+        {{ schoolProfile?.city | capitalize }}
         @if (schoolProfile?.state) {
-          ({{ states[schoolProfile?.state || ''] }})
+          ({{ states[schoolProfile?.state?.toUpperCase() || ''] }})
         }
       </span>
       <div class="school_academic">
@@ -94,5 +92,5 @@
 
 <div class="col-md-12 justify-content-end d-flex py-4 text-center">
   <button mat-flat-button color="basic" class="mx-2">Cancel</button>
-  <button mat-flat-button color="primary" (click)="updateSchoolProfile()">Continue</button>
+  <button mat-flat-button color="primary" (click)="updateSchoolProfile()">save</button>
 </div>
