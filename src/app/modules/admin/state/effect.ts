@@ -8,6 +8,8 @@ import { apiRoutes } from 'src/app/core/constants/api.constants';
 import { selectClasses, selectDashboard, selectStudents, selectTeachers } from './selector';
 import { AdminService } from '../services/admin.service';
 import { Router } from '@angular/router';
+import { SafeToastService } from 'src/app/core/service/safe-toast.service';
+import { TOASTER_MESSAGES } from 'src/app/core/constants/toaster_messages.constant';
 
 @Injectable()
 export class AdminEffects {
@@ -15,6 +17,7 @@ export class AdminEffects {
   private readonly apiService = inject(ApiService);
   private readonly store = inject(AdminService);
   private readonly router = inject(Router);
+  private readonly toasterService = inject(SafeToastService);
 
   getAllClasses$ = createEffect(() => {
     return this.actions$.pipe(
@@ -61,6 +64,7 @@ export class AdminEffects {
       return this.actions$.pipe(
         ofType(teachersAction.createTeacherSuccess),
         tap(() => {
+          this.toasterService.success(TOASTER_MESSAGES.SAVED_SUCCESS);
           this.router.navigate(['admin', 'teachers']);
         }),
       );
@@ -78,6 +82,19 @@ export class AdminEffects {
       ),
     );
   });
+  updateTeacherSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(teachersAction.updateTeacherSuccess),
+        tap(() => {
+          this.toasterService.success(TOASTER_MESSAGES.UPDATED_SUCCESS);
+          this.router.navigate(['admin', 'teachers']);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
+
   deleteTeacher$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(teachersAction.deleteTeacher),
@@ -89,6 +106,17 @@ export class AdminEffects {
       ),
     );
   });
+  deleteTeacherSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(teachersAction.deleteTeacherSuccess),
+        tap(() => {
+          this.toasterService.success(TOASTER_MESSAGES.DELETED_SUCCESS);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
   //#endregion
 
   //#region school profile effects
@@ -117,6 +145,18 @@ export class AdminEffects {
       ),
     );
   });
+  updateSchoolProfileSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(schoolActions.updateSchoolSuccess),
+        tap(() => {
+          this.toasterService.success(TOASTER_MESSAGES.UPDATED_SUCCESS);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
+
   //#endregion
   //#region admin profile effects
 
@@ -131,6 +171,18 @@ export class AdminEffects {
       ),
     );
   });
+
+  updateAdminProfileSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(adminActions.updateAdminSuccess),
+        tap(() => {
+          this.toasterService.success(TOASTER_MESSAGES.UPDATED_SUCCESS);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
   //#endregion
   //#region student effects
 
@@ -164,6 +216,7 @@ export class AdminEffects {
       return this.actions$.pipe(
         ofType(studentAction.createStudentsSuccess),
         tap(() => {
+          this.toasterService.success(TOASTER_MESSAGES.SAVED_SUCCESS);
           this.router.navigate(['admin', 'students']);
         }),
       );
@@ -182,6 +235,20 @@ export class AdminEffects {
       ),
     );
   });
+
+  updateStudentSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(studentAction.updateStudentsSuccess),
+        tap(() => {
+          this.router.navigate(['admin', 'students']);
+          this.toasterService.success(TOASTER_MESSAGES.UPDATED_SUCCESS);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
+
   deleteStudent$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(studentAction.deleteStudents),
@@ -193,5 +260,18 @@ export class AdminEffects {
       ),
     );
   });
+
+  deleteStudentSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(studentAction.deleteStudentsSuccess),
+        tap(() => {
+          this.router.navigate(['admin', 'students']);
+          this.toasterService.success(TOASTER_MESSAGES.DELETED_SUCCESS);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
   //#endregion
 }

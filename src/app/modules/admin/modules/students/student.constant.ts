@@ -1,3 +1,4 @@
+import { BLOOD_GROUP } from "@sc-enums/bloodGroup";
 import { GENDER } from "@sc-enums/gender";
 import { StudentProfile } from "@sc-models/core";
 import { FormConfig } from "@sc-models/form";
@@ -23,7 +24,7 @@ export const StudentsTableConfig: TableConfig<StudentProfile> = {
       },
       {
         columnDef: 'parentsGuardians',
-        cell: (row: StudentProfile) => `${row.parentsGuardians[0].name}`,
+        cell: (row: StudentProfile) => `${row.parentsGuardians[0]?.name}`,
         header: 'Parents Name',
       },
       {
@@ -117,6 +118,7 @@ export const studentPersonalInformationFormConfig: FormConfig = [
     {
       elementType: 'text',
       element: {
+
         key: 'phoneNumber',
         cssClass: 'col-md-4',
         label: 'Phone Number',
@@ -145,10 +147,10 @@ export const studentPersonalInformationFormConfig: FormConfig = [
       },
     },
     {
-      elementType: 'text',
+      elementType: 'select',
       element: {
         key: 'bloodGroup',
-        validateAs:'text',
+        options: Object.values(BLOOD_GROUP).map((v) => ({ key: v, label: v.toUpperCase() })),
         cssClass: 'col-md-4',
         label: 'Blood Group',
       },

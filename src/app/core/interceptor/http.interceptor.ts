@@ -16,8 +16,21 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
   }
   return next(request).pipe(
     catchError((error) => {
-      toasterService.error(error?.error?.message || error?.message);
+      const errorMsg = Array.isArray(error?.error?.message)
+        ? error?.error?.message
+            .reduce((acc: string[], err: string) => {
+              const errorIndex = acc.findIndex((e) => err.includes(e.split(' ')[0])); 
+              if (errorIndex === -1) {
+                acc.push(err);
+              } else if(err.includes('not be empty')) {
+                acc[errorIndex] = err;
+              }
+              return acc;
+            }, [])
+            .join(',\n')
+        : error?.error?.message || error?.message;
+      toasterService.error(errorMsg);
       return of(error);
-    })
-  )
+    }),
+  );
 };

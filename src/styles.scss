@@ -55,7 +55,7 @@ body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 mat-icon {
-  font-family: 'Material Symbols Outlined';
+  font-family: 'Material Symbols Outlined' !important;
 }
 .mdc-text-field--filled:not(.mdc-text-field--disabled),
 .mdc-text-field--focused {

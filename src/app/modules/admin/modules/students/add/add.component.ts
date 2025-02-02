@@ -69,7 +69,6 @@ export class AddComponent {
       parentsGuardians: this.ParentOrGuardianForms.value,
     };
     this.adminService.createStudentProfile(studentProfile);
-    this.router.navigate(['admin', 'students'])
   }
 
   get studentInfoForm() {

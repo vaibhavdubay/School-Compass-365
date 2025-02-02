@@ -110,7 +110,7 @@ export interface StudentProfile {
   id: string;
   schoolId: string;
   class: Class;
-  classSection: string;
+  classId: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -136,7 +136,6 @@ export interface StudentProfileDTO {
   firstName: string;
   lastName: string;
   email: string;
-  classSection: string;
   password: string;
   userName: string;
   phoneNumber: string;
