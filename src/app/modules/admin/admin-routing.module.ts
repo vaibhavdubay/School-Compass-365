@@ -25,10 +25,10 @@ const routes: Routes = [
         },
       },
       {
-        path: 'Edit Profile',
+        path: 'edit-profile',
         component: EditProfileComponent,
         data: {
-          title: 'edit-profile',
+          title: 'Edit Profile',
         },
       },
       {
