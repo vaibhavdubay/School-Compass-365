@@ -35,6 +35,7 @@
       [(ngModel)]="currentChip"
       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
       (matChipInputTokenEnd)="add($event)"
+      (blur)="addFromBlur()"
     />
   }
 </mat-form-field>
