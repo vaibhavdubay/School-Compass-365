@@ -31,6 +31,10 @@ const routes: Routes = [
           title: 'edit-profile',
         },
       },
+      {
+        path: "teachers",
+        loadChildren: () => import('./modules/teachers/teachers.module').then((m) => m.TeachersModule),
+      }
     ],
   },
 ];

@@ -1,5 +1,5 @@
 import { Component, OnChanges, SimpleChanges, inject, input, output } from '@angular/core';
-import { ButtonElement, DateElement, DynamicListOptions, FormElement, InputElement } from '@sc-models/form';
+import { Button, ButtonElement, DateElement, DynamicListOptions, FormElement, InputElement } from '@sc-models/form';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
@@ -24,11 +24,11 @@ export class FormComponent<T = { [k: string]: string }> implements OnChanges {
   readonly dynamicListOptions = input<DynamicListOptions>({});
   readonly buttonClick = output<{
     key: string;
-    element: ButtonElement;
+    element: Button;
   }>();
-  private readonly inputElements = ['checkbox', 'date', 'radio', 'select', 'text', 'textarea'];
+  private readonly inputElements = ['checkbox', 'chip', 'date', 'radio', 'select', 'text', 'textarea'];
 
-  formGroup = new FormGroup({}) as unknown as FormGroup<{
+  readonly formGroup = new FormGroup({}) as unknown as FormGroup<{
     [K in keyof T]: AbstractControl;
   }>;
 

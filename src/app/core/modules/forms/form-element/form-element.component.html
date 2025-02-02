@@ -9,6 +9,13 @@
   @case ('radio') {
     <sc-radio-element [element]="element.element" [control]="control()"></sc-radio-element>
   }
+  @case ('chip') {
+    @let options =
+      dynamicListOptions() && dynamicListOptions()[element.element.key]
+        ? (dynamicListOptions()[element.element.key] | async)
+        : element.element.options;
+    <sc-chip-element [keywords]="control().value || element.element.value" [options]="options ?? []" [element]="element.element" [control]="control()"></sc-chip-element>
+  }
   @case ('select') {
     @let options =
       dynamicListOptions() && dynamicListOptions()[element.element.key]
@@ -28,7 +35,7 @@
       (clicked)="
         btnClick.emit({
           key: element.element.key,
-          element: element,
+          element: element.element
         })
       "
     ></sc-button-element>
@@ -47,12 +54,12 @@
       [style]="element.element.width ? { width: element.element.width } : null"
     >
       @for (buttonElement of element.element.buttons; track $index) {
-        <div [class]="buttonElement.element.cssClass || 'col'">
+        <div [class]="buttonElement.cssClass || 'col'">
           <sc-button-element
-            [element]="buttonElement.element"
+            [element]="buttonElement"
             (clicked)="
               btnClick.emit({
-                key: buttonElement.element.key,
+                key: buttonElement.key,
                 element: buttonElement,
               })
             "

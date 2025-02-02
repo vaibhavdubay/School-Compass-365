@@ -48,7 +48,7 @@
       [hidden]="element().hidden"
       [class]="element().cssClass"
       [type]="element().type"
-      [style]="element().width ? { width: element().width } : { width: '100%' }"
+      [style]="element().width ? { width: element().width } : {  }"
       [disabled]="element().disabled"
       (click)="element().onClick; clicked.emit()"
     >

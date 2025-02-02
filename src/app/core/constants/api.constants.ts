@@ -22,5 +22,13 @@ export const apiRoutes = {
   },
   school: {
     update: (id: string) => `/school/${id}`,
+    dashboard: `/school/dashboard`,
   },
+  teachers: {
+    get: '/teacher',
+    create: '/teacher',
+    getById: (id: string) => `/teacher/${id}`,
+    update: (id: string) => `/teacher/${id}`,
+    delete: (id: string) => `/teacher/${id}`,
+  }
 };

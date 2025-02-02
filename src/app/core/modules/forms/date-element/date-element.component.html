@@ -1,6 +1,14 @@
 <mat-label>{{ element().label }}</mat-label>
 <mat-form-field [style]="element().width ? { width: element().width } : { width: '100%' }">
-  <input matInput [matDatepicker]="picker" [formControl]="control()" [matDatepickerFilter]="filter" />
+  <input
+    matInput
+    [max]="max"
+    [min]="min"
+    [matDatepicker]="picker"
+    [formControl]="control()"
+    [required]="element().required || false"
+    [matDatepickerFilter]="filter"
+  />
   @if (control().errors) {
     <mat-error>
       <sc-error [element]="element()" [errors]="control().errors"></sc-error>

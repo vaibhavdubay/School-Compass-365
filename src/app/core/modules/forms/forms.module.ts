@@ -14,6 +14,7 @@ import { LabelElementComponent } from './label-element/label-element.component';
 import { FormComponent } from './form.component';
 
 import { MatIconModule } from '@angular/material/icon';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatRippleModule, provideNativeDateAdapter } from '@angular/material/core';
@@ -26,6 +27,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { InputFormattingDirective } from './text-element/input-formatting.directive';
 import { ErrorComponent } from './error/error.component';
+import { FormArrayComponent } from './form-array/form-array.component';
+import { ChipElementComponent } from './chip-element/chip-element.component';
 
 @NgModule({
   declarations: [
@@ -41,11 +44,14 @@ import { ErrorComponent } from './error/error.component';
     LabelElementComponent,
     InputFormattingDirective,
     ErrorComponent,
+    FormArrayComponent,
+    ChipElementComponent,
   ],
   imports: [
     CommonModule,
     MatIconModule,
     MatInputModule,
+    MatChipsModule,
     MatRadioModule,
     MatRippleModule,
     MatButtonModule,
@@ -59,6 +65,6 @@ import { ErrorComponent } from './error/error.component';
     ReactiveFormsModule,
   ],
   providers: [provideNativeDateAdapter()],
-  exports: [FormComponent, FormElementComponent],
+  exports: [FormComponent, FormElementComponent, FormArrayComponent],
 })
 export class FormsModule {}

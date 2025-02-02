@@ -1,18 +1,22 @@
 import { createReducer, on } from '@ngrx/store';
-import { AdminUser, Class, Nullable, SchoolProfile } from '@sc-models/core';
-import { adminActions, initAdminState } from './action';
+import { AdminUser, Class, Nullable, SchoolProfile, TeacherProfile } from '@sc-models/core';
+import { adminActions, initAdminState, teachersAction } from './action';
 import { classes as classAction, school as schoolAction } from './action';
 
 export interface AdminState {
   adminUser: AdminUser;
-  classes: Class[];
   schoolProfile: SchoolProfile;
+  dashboard: any;
+  classes: Class[];
+  teachers: TeacherProfile[]
 }
 
 export const initialState: Nullable<AdminState> = {
   adminUser: null,
-  classes: null,
   schoolProfile: null,
+  dashboard: null,
+  classes: [],
+  teachers: []
 };
 
 export const AdminReducer = createReducer<AdminState>(
@@ -24,6 +28,26 @@ export const AdminReducer = createReducer<AdminState>(
   on(classAction.getAllSuccess, (state, action) => ({
     ...state,
     classes: action.classes,
+  })),
+  on(teachersAction.getAllTeachersSuccess, (state, action) => ({
+    ...state,
+    teachers: action.teachers,
+  })),
+  on(teachersAction.createTeacherSuccess, (state, action) => ({
+    ...state,
+    teachers: [...state.teachers, action.teacher],
+  })),
+  on(teachersAction.updateTeacherSuccess, (state, action) => ({
+    ...state,
+    teachers: state.teachers.map((teacher)=> teacher.id == action.teacher.id ? action.teacher : teacher),
+  })),
+  on(teachersAction.deleteTeacherSuccess, (state, action) => ({
+    ...state,
+    teachers: state.teachers.filter((teacher)=> teacher.id !== action.id),
+  })),
+  on(schoolAction.getDashboardSuccess, (state, action) => ({
+    ...state,
+    dashboard: action.dashboard,
   })),
   on(schoolAction.updateSchoolSuccess, (state, action) => {
     return {

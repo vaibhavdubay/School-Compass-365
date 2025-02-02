@@ -1,0 +1,21 @@
+<div class="form-array-container">
+  @for (item of elements; track item) {
+    <div class="align-items-center d-inline-flex">
+      @if ( min() <= $index ) {
+        <button mat-mini-fab style="background-color: #eb7623" (click)="delete($index)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      }
+      <sc-form
+        [formConfig]="formConfig()"
+        [dynamicListOptions]="dynamicListOptions()"
+        [customDateClasses]="customDateClasses()"
+        [dateFilters]="dateFilters()"
+      ></sc-form>
+    </div>
+  }
+</div>
+
+<div class="pb-4">
+  <button class="shadow" color="primary" mat-raised-button (click)="add()">Add +</button>
+</div>
