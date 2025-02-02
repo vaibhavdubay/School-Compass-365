@@ -54,6 +54,7 @@ export class EditComponent {
       this.studentInfoForm.patchValue(this.student);
       const user = (this.student as any)['user'] as User;
       this.credForms.controls.userName.setValue(user.userName);
+      this.credForms.controls.classId.setValue(this.student.classId);
       this.credForms.controls.userName.disable();
       this.credForms.patchValue({ ...this.student });
       this.parentOrGuardianFormComponents().patchValue(this.student['parentsGuardians']);
