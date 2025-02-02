@@ -25,7 +25,7 @@ const routes: Routes = [
         },
       },
       {
-        path: 'preferance',
+        path: 'preference',
         component: EditProfileComponent,
         data: {
           title: 'Preference',
