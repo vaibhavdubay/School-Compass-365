@@ -20,6 +20,13 @@ export const apiRoutes = {
   class: {
     get: '/class',
   },
+  chat: {
+    get: '/chat',
+    create: '/chat',
+    getList: '/chat/list',
+    update: (chatId: string) => `/chat/${chatId}`,
+    delete: (chatId: string) => `/chat/${chatId}`
+  },
   school: {
     update: (id: string) => `/school/${id}`,
   },

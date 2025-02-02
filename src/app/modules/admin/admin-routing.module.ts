@@ -4,6 +4,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AdminMainComponent } from './admin.component';
 import { SchoolProfileComponent } from './components/school-profile/school-profile.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { ChatLayoutComponent } from 'src/app/core/modules/chat/component/chat-layout/chat-layout.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
         data: {
           title: 'Dashboard',
         },
+      },
+      {
+        path: 'chat',
+        component: ChatLayoutComponent
       },
       {
         path: 'school-profile',

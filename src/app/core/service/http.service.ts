@@ -28,7 +28,7 @@ export class ApiService {
           } else if (typeof v === 'object') {
             formData.append(k, JSON.stringify(v));
           } else {
-            formData.append(k, (v as any).toString());
+            formData.append(k, (v as any)?.toString());
           }
         });
         body = formData;

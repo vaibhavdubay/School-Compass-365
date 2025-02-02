@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Content } from '@ngneat/overview';
-import { CreateHotToastRef, HotToastService, ObservableMessages, ToastConfig, ToastOptions } from '@ngxpert/hot-toast';
+import { CreateHotToastRef, HotToastService, ObservableMessages, ToastOptions } from '@ngxpert/hot-toast';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -20,7 +20,7 @@ export class SafeToastService extends HotToastService {
     >;
   }
   override error<DataType>(message?: Content, options?: ToastOptions<DataType>): CreateHotToastRef<DataType | unknown> {
-    return this.browserCheck(() => super.show(message, options)) as CreateHotToastRef<DataType | unknown>;
+    return this.browserCheck(() => super.error(message, options)) as CreateHotToastRef<DataType | unknown>;
   }
   override success<DataType>(
     message?: Content,

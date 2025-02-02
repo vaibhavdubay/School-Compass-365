@@ -76,27 +76,33 @@
           <div class="d-flex align-items-center layout_title">
             {{ title$ | async }}
           </div>
-          <div class="profile_container d-flex justify-content-end p-1" [matMenuTriggerFor]="menu">
-            <div class="profile d-flex flex-column text-end">
-              <div class="profile_name">
-                {{ loggedInUser?.name }}
-              </div>
-              <div class="profile_email">
-                {{ loggedInUser?.email }}
-              </div>
+          <div class="action_and_conversation_container flex align-items-center">
+            <div class="conversation_container flex gap-2.5 pe-4">
+              <mat-icon class="d-flex items-center content-center" [matBadge]="1" matBadgeSize="small" [hidden]="0"> message </mat-icon>
+              <mat-icon class="d-flex items-center content-center" style="font-size: 1.3rem;" [matBadge]="1" matBadgeSize="small" [hidden]="0"> notifications </mat-icon>
             </div>
-            <div class="avtar_container d-flex justify-content-center align-items-center">
-              <ng-container [ngTemplateOutlet]="profile_name"></ng-container>
-            </div>
-            <mat-menu #menu="matMenu" class="nav_options_menu">
-              <div class="px-2">
-                <ng-container [ngTemplateOutlet]="profile_card"></ng-container>
+            <div class="profile_container d-flex justify-content-end p-1" [matMenuTriggerFor]="menu">
+              <div class="profile d-flex flex-column text-end">
+                <div class="profile_name">
+                  {{ loggedInUser?.name }}
+                </div>
+                <div class="profile_email">
+                  {{ loggedInUser?.email }}
+                </div>
               </div>
-              <div class="seperator my-2"></div>
-              <sc-menu [navItems]="preferenceNavItems"></sc-menu>
-              <div class="seperator mb-2"></div>
-              <sc-menu [navItems]="logoutNavItems"></sc-menu>
-            </mat-menu>
+              <div class="avtar_container d-flex justify-content-center align-items-center">
+                <ng-container [ngTemplateOutlet]="profile_name"></ng-container>
+              </div>
+              <mat-menu #menu="matMenu" class="nav_options_menu">
+                <div class="px-2">
+                  <ng-container [ngTemplateOutlet]="profile_card"></ng-container>
+                </div>
+                <div class="seperator my-2"></div>
+                <sc-menu [navItems]="preferenceNavItems"></sc-menu>
+                <div class="seperator mb-2"></div>
+                <sc-menu [navItems]="logoutNavItems"></sc-menu>
+              </mat-menu>
+            </div>
           </div>
         } @else {
           <div></div>

@@ -1,8 +1,8 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { logInActions, addressActions, userActions } from './action';
+import { logInActions, addressActions, userActions, chatsAction } from './action';
 import { catchError, exhaustMap, filter, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ApiService } from '../service/http.service';
-import { Address, AddressSearchKey, LoggedInUser, LoginResponse, User, UserProfile } from '@sc-models/core';
+import { Address, AddressSearchKey, Chat, LoggedInUser, LoginResponse, User, UserProfile } from '@sc-models/core';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -178,6 +178,23 @@ export class SharedStoreEffect {
     { dispatch: false },
   );
   // #endregion Logout
+
+
+  // #region Chats
+
+  getMessageList$ = createEffect(()=> {
+    return this.action$.pipe(
+      ofType(chatsAction.getMessageList),
+      switchMap(()=> 
+        this.apiService.get<Chat[]>(apiRoutes.chat.getList).pipe(
+          map((chats) => chatsAction.getMessageListSuccess({ chats })),
+          catchError((err) => of(chatsAction.getMessageListFailure({ error: err })))
+        )
+      )
+    )
+  })
+
+  // #endregion
 
   // #region Helpers
   private handleFeatureState(role: Role, userProfile: UserProfile) {
