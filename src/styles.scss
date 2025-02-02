@@ -4,6 +4,7 @@
 /* Importing @ngxpert/hot-toast SCSS file. */
 @use '@ngxpert/hot-toast/styles';
 
+@import 'material-icons/iconfont/material-icons.css';
 @import 'variables';
 @tailwind base;
 @tailwind components;
@@ -191,6 +192,21 @@ mat-label {
     background-color: rgba(0, 0, 0, 0.3);
   }
 }
+.mat-icon-toast {
+  .hot-toast-animated-icon div {
+    font-family: 'Material Symbols';
+  }
+  &.toast-error {
+    color: red;
+    .hot-toast-animated-icon div {
+      font-family: 'Material Icons';
+      color: red;
+      font-size: 1.35rem;
+      font-weight: 500;
+    }
+  }
+}
+
 .mat-step-icon-content {
   mat-icon {
     font-size: 0.9rem !important;
