@@ -44,6 +44,8 @@ export class EditComponent {
   imagePath!: string;
 
   ngAfterViewInit(): void {
+    if (typeof document == 'undefined') return;
+    setTimeout(() => {
     this.personalInfoForm.patchValue(this.teacher);
     const user = (this.teacher as any)['user'] as User;
     this.credForms.controls.userName.setValue(user.userName);
@@ -52,6 +54,7 @@ export class EditComponent {
     this.educationFormComponents().patchValue(this.teacher['teachersEducation'] || []);
     this.experienceFormComponents().patchValue(this.teacher['teachersExperience'] || []);
     this.handleDynamicOptions();
+    }, 500); // Adjust the timeout duration as needed
   }
 
   handleStepIndex() {
