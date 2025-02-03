@@ -4,6 +4,7 @@
 /* Importing @ngxpert/hot-toast SCSS file. */
 @use '@ngxpert/hot-toast/styles';
 
+@import 'material-icons/iconfont/material-icons.css';
 @import 'variables';
 @tailwind base;
 @tailwind components;
@@ -54,7 +55,7 @@ body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 mat-icon {
-  font-family: 'Material Symbols Outlined';
+  font-family: 'Material Symbols Outlined' !important;
 }
 .mdc-text-field--filled:not(.mdc-text-field--disabled),
 .mdc-text-field--focused {
@@ -191,6 +192,21 @@ mat-label {
     background-color: rgba(0, 0, 0, 0.3);
   }
 }
+.mat-icon-toast {
+  .hot-toast-animated-icon div {
+    font-family: 'Material Symbols';
+  }
+  &.toast-error {
+    color: red;
+    .hot-toast-animated-icon div {
+      font-family: 'Material Icons';
+      color: red;
+      font-size: 1.35rem;
+      font-weight: 500;
+    }
+  }
+}
+
 .mat-step-icon-content {
   mat-icon {
     font-size: 0.9rem !important;
@@ -201,6 +217,11 @@ mat-label {
   color: var(--primary-550) !important;
 }
 .bg-primary {
+  background-color: var(--primary-550) !important;
+}
+.mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background{
+  border-color: var(--primary-550) !important;
+  border: 2px solid var(--primary-550);
   background-color: var(--primary-550) !important;
 }
 // <---------------- scrollbar style ------------------------------> //

@@ -1,0 +1,45 @@
+<section class="main_header d-flex justify-content-center flex-wrap">
+    <div class="col-md-4 pb-4" scImageHandler [alt]="'Add Student'" (image)="image = $event"></div>
+  
+    <div class="col-md-8 align-items-center d-flex flex-column pb-4">
+      <sc-form [formConfig]="addFormConfig" #credForm
+      [dynamicListOptions]="dynamicOptions"
+      ></sc-form>
+    </div>
+  </section>
+  <mat-stepper [(selectedIndex)]="currentTabIndex" class="add_teacher_tab" linear #stepper>
+    <mat-step [stepControl]="createStudentForm.formGroup">
+      <ng-template matStepLabel>Student Information</ng-template>
+      <sc-form
+        [formConfig]="studentPersonalInformationFormConfig"
+        #createStudentForm
+        [dynamicListOptions]="dynamicOptions"
+      ></sc-form>
+    </mat-step>
+    <mat-step >
+      <ng-template matStepLabel>Parents Or Guardian Information</ng-template>
+    <div class="seperator mb-3"></div>
+    <h5 class="mb-3">Click on Add button to add Parents </h5>
+      <sc-form-array
+        [formConfig]="parentsOrGuardianFormConfig"
+        #ParentOrGuardian
+        [dynamicListOptions]="dynamicOptions"
+      ></sc-form-array>
+    </mat-step>
+    
+  </mat-stepper>
+  
+  <div class="col-md-12 justify-content-between d-flex py-4 text-center">
+    <button mat-raised-button color="basic" class="shadow" routerLink="../">Cancel</button>
+    <div class="positive_btn_container">
+      @if (currentTabIndex > 0) {
+        <button mat-raised-button color="basic" class="mx-2 shadow" (click)="currentTabIndex = currentTabIndex - 1">
+          Previous
+        </button>
+      }
+      <button mat-raised-button color="primary" class="shadow" (click)="handleStepIndex()">
+        {{ currentTabIndex == 1 ? 'save' : 'Next' }}
+      </button>
+    </div>
+  </div>
+  

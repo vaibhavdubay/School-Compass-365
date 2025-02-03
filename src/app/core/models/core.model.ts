@@ -110,7 +110,7 @@ export interface StudentProfile {
   id: string;
   schoolId: string;
   class: Class;
-  classSection: string;
+  classId: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -125,8 +125,32 @@ export interface StudentProfile {
   parentsGuardians: ParentOrGuardian[];
   createdAt: Date;
   updatedAt: Date;
+  town: string;
+  city: string;
+  state: string;  
+  pincode: number;
+  aadhar_number: string;
 }
-
+export interface StudentProfileDTO {
+  classId?: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  userName: string;
+  phoneNumber: string;
+  pen: string;
+  dateOfBirth: Date;
+  gender: GENDER;
+  bloodGroup: string;
+  parentsGuardians: Partial<ParentOrGuardian>[];
+  image: File | null;
+  town: string;
+  city: string;
+  state: string;  
+  pincode: number;
+  aadhar_number: string;
+}
 export interface ParentOrGuardian {
   id: string;
   name: string;

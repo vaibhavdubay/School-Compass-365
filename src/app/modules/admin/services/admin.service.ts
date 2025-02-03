@@ -2,10 +2,10 @@ import { Injectable, inject } from '@angular/core';
 import { StoreService } from 'src/app/core/service/store.service';
 import { AdminState } from '../state/reducer';
 import { Store } from '@ngrx/store';
-import { selectAdminUser, selectClasses, selectDashboard, selectTeachers } from '../state/selector';
-import { adminActions, classes, school, teachersAction } from '../state/action';
+import { selectAdminUser, selectClasses, selectDashboard, selectStudents, selectTeachers } from '../state/selector';
+import { adminActions, classes, studentAction,school, teachersAction } from '../state/action';
 import { filter } from 'rxjs';
-import { AdminUser, TeacherProfileDTO } from '@sc-models/core';
+import { AdminUser, StudentProfileDTO, TeacherProfileDTO } from '@sc-models/core';
 
 @Injectable()
 export class AdminService extends StoreService<AdminState> {
@@ -44,5 +44,22 @@ export class AdminService extends StoreService<AdminState> {
 
   updateAdminUserProfile(adminUser: AdminUser) {
     this.dispatch(adminActions.updateAdmin({ adminUser }));
+  }
+
+  // Students Profile
+  get students$() {
+    this.dispatch(studentAction.getAllStudents())
+    return this.select(selectStudents).pipe(filter((c) => !!c))
+  }
+  createStudentProfile(student: StudentProfileDTO) {
+    this.dispatch(studentAction.createStudents({ Students:student }));
+  }
+  
+  updateStudentProfile(id: string, student: StudentProfileDTO) {
+    this.dispatch(studentAction.updateStudents({ id, Students:student }));
+  }
+
+  deleteStudentProfile(id: string) {
+    this.dispatch(studentAction.deleteStudents({ id }));
   }
 }

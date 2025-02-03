@@ -401,7 +401,6 @@ export const experienceFormConfig: FormConfig = [
     element: {
       cssClass: 'col-md-4',
       key: 'endDate',
-      max: `12/31/${new Date().getFullYear() - 18}`,
       label: 'End Date',
     },
   },

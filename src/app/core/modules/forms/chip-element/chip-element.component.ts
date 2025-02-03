@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { Component, computed, inject, input, model } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
@@ -20,7 +20,7 @@ export class ChipElementComponent {
   readonly control = input.required<FormControl>();
   readonly options = input.required<ListOptions>();
 
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA,SPACE];
   readonly currentChip = model('');
   readonly filteredFruits = computed(() => {
     const currentFruit = this.currentChip().toLowerCase();
@@ -47,6 +47,14 @@ export class ChipElementComponent {
       this.keywords.update((keywords) => (keywords || []).concat(value));
     }
     event.chipInput!.clear();
+    this.currentChip.set('');
+  }
+  addFromBlur(): void {
+    const value = this.currentChip().trim(); // Get current input text
+    if (value) {
+      this.keywords.update((keywords) => [...keywords, value]); // Add to chips
+    }
+    this.currentChip.set(''); // Clear input
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {

@@ -14,6 +14,8 @@ import { initTeacherState } from '@sc-modules/teachers/state/action';
 import { selectAddress, selectAddressStates, selectLoggedInUser } from './selector';
 import { apiRoutes } from '../constants/api.constants';
 import { states } from '../constants/states.constant';
+import { SafeToastService } from '../service/safe-toast.service';
+import { TOASTER_MESSAGES } from '../constants/toaster_messages.constant';
 
 @Injectable()
 export class SharedStoreEffect {
@@ -22,6 +24,7 @@ export class SharedStoreEffect {
   private readonly router = inject(Router);
   private readonly store = inject(Store);
   private readonly cookieService = inject(CookieService);
+  private readonly toasterService = inject(SafeToastService)
 
   // #region Login
   logIn = createEffect(() => {
@@ -49,6 +52,7 @@ export class SharedStoreEffect {
       map(({ response }) => {
         const { user, school, ...userProfile } = response.userProfile;
         const role = user.role;
+        this.toasterService.success(TOASTER_MESSAGES.LOGIN_SUCCESS)
         this.router.navigate([role, 'dashboard']);
         return this.handleFeatureState(user.role, userProfile);
       }),
@@ -157,6 +161,15 @@ export class SharedStoreEffect {
       ),
     );
   });
+
+  updateUserSuccess$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(userActions.updateUserSuccess),
+      tap(() => {
+        this.toasterService.success(TOASTER_MESSAGES.UPDATED_SUCCESS)
+      }),
+    );
+  }, { dispatch: false }); 
   // #endregion Users
   
 
@@ -170,6 +183,7 @@ export class SharedStoreEffect {
             localStorage.clear();
             sessionStorage.clear();
           }
+          this.toasterService.success(TOASTER_MESSAGES.LOGOUT_SUCCESS)
           this.cookieService.deleteAll();
           this.router.navigate(['']);
         }),
