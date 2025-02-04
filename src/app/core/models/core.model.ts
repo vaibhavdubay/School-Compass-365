@@ -127,7 +127,7 @@ export interface StudentProfile {
   updatedAt: Date;
   town: string;
   city: string;
-  state: string;  
+  state: string;
   pincode: number;
   aadhar_number: string;
 }
@@ -147,7 +147,7 @@ export interface StudentProfileDTO {
   image: File | null;
   town: string;
   city: string;
-  state: string;  
+  state: string;
   pincode: number;
   aadhar_number: string;
 }

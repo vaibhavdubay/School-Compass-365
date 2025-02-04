@@ -1,11 +1,21 @@
-import { Directive, ElementRef, Renderer2, output, input, inject, model, OnChanges, SimpleChanges, OnInit } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  Renderer2,
+  output,
+  input,
+  inject,
+  model,
+  OnChanges,
+  SimpleChanges,
+  OnInit,
+} from '@angular/core';
 
 @Directive({
   selector: '[scImageHandler]',
   standalone: false,
 })
 export class ImageHandlerDirective implements OnInit, OnChanges {
-
   private readonly el = inject(ElementRef<HTMLDivElement>);
   private readonly renderer = inject(Renderer2);
 
@@ -26,12 +36,12 @@ export class ImageHandlerDirective implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(changes['imagePath'] || changes['defaultImage']) {
+    if (changes['imagePath'] || changes['defaultImage']) {
       this.el.nativeElement.innerHTML = '';
       this.createImageUploadElement();
-    } else if(changes['imgStyle'] && this.imageEl) {
-      this.imageEl.setAttribute('style', this.imgStyle())
-    } else if(changes['alt'] && this.imageEl) {
+    } else if (changes['imgStyle'] && this.imageEl) {
+      this.imageEl.setAttribute('style', this.imgStyle());
+    } else if (changes['alt'] && this.imageEl) {
       this.imageEl.alt = this.alt();
     }
   }
@@ -53,16 +63,16 @@ export class ImageHandlerDirective implements OnInit, OnChanges {
     this.renderer.setAttribute(imgElement, 'alt', this.alt());
 
     const saveIcon = this.renderer.createElement('mat-icon');
-    this.renderer.addClass(saveIcon,'save');
+    this.renderer.addClass(saveIcon, 'save');
     saveIcon.style.display = 'none';
-    if(this.saveIcon()) {
+    if (this.saveIcon()) {
       this.renderer.listen(saveIcon, 'click', () => this.save.emit());
       this.renderer.appendChild(uploadImageDiv, saveIcon);
     }
 
     this.renderer.listen(inputFile, 'change', (event: Event) => {
       saveIcon.style.display = 'block';
-      this.onFileChange(event)
+      this.onFileChange(event);
     });
 
     const imagePath = this.imagePath();

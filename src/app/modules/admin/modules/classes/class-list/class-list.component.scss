@@ -8,18 +8,18 @@
   border-radius: var(--borderRadius-xl);
   height: calc(100vh - (var(--mat-toolbar-standard-height) + 44px));
   .add-shift {
-        background-color: var(--primary-100);
-        border-radius: 62px;
-        color: var(--primary-500);
+    background-color: var(--primary-100);
+    border-radius: 62px;
+    color: var(--primary-500);
     mat-icon {
-        width: 7rem;
-        height: 7rem;
-        font-size: 5rem;
-        padding: 20px 0px
+      width: 7rem;
+      height: 7rem;
+      font-size: 5rem;
+      padding: 20px 0px;
     }
-    &:hover{
+    &:hover {
       color: var(--primary-500);
-    background: var(--primary-150)
+      background: var(--primary-150);
     }
   }
 }

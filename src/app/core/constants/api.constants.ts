@@ -37,5 +37,5 @@ export const apiRoutes = {
     getById: (id: string) => `/student/${id}`,
     update: (id: string) => `/student/${id}`,
     delete: (id: string) => `/student/${id}`,
-  }
+  },
 };

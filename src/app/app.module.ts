@@ -27,7 +27,7 @@ import { provideHotToastConfig } from '@ngxpert/hot-toast';
     provideClientHydration(),
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([httpInterceptor])),
-    provideHotToastConfig({"position":"top-right"}),
+    provideHotToastConfig({ position: 'top-right' }),
   ],
   bootstrap: [AppComponent],
 })

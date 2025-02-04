@@ -37,10 +37,10 @@ export const addressActions = createActionGroup({
 });
 
 export const userActions = createActionGroup({
-  source: "Users",
+  source: 'Users',
   events: {
     'Update User': props<{ user: Partial<User> }>(),
     'Update User Success': props<{ user: User }>(),
     'Update User Failure': props<{ error: HttpErrorObject }>(),
-  }
-})
+  },
+});

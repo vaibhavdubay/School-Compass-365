@@ -20,12 +20,12 @@ export class ChipElementComponent {
   readonly control = input.required<FormControl>();
   readonly options = input.required<ListOptions>();
 
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA,SPACE];
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
   readonly currentChip = model('');
   readonly filteredFruits = computed(() => {
     const currentFruit = this.currentChip().toLowerCase();
     return currentFruit
-      ? this.options().filter(fruit => fruit.label.toLowerCase().includes(currentFruit))
+      ? this.options().filter((fruit) => fruit.label.toLowerCase().includes(currentFruit))
       : this.options().slice();
   });
   removeKeyword(keyword: string) {
@@ -58,7 +58,7 @@ export class ChipElementComponent {
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.keywords.update(keyword => [...keyword, event.option.viewValue]);
+    this.keywords.update((keyword) => [...keyword, event.option.viewValue]);
     this.currentChip.set('');
     event.option.deselect();
   }

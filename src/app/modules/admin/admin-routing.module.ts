@@ -32,17 +32,17 @@ const routes: Routes = [
         },
       },
       {
-        path: "teachers",
+        path: 'teachers',
         loadChildren: () => import('./modules/teachers/teachers.module').then((m) => m.TeachersModule),
       },
       {
-        "path":"students",
-        loadChildren:() => import('./modules/students/students.module').then((s)=>s.StudentsModule)
+        path: 'students',
+        loadChildren: () => import('./modules/students/students.module').then((s) => s.StudentsModule),
       },
       {
-        "path":"classes",
-        loadChildren:() => import('./modules/classes/classes.module').then((c)=>c.ClassesModule)
-      }
+        path: 'classes',
+        loadChildren: () => import('./modules/classes/classes.module').then((c) => c.ClassesModule),
+      },
     ],
   },
 ];

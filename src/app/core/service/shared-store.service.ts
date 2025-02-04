@@ -66,6 +66,6 @@ export class SharedStoreService extends StoreService<SharedState> {
   }
 
   updateUser(user: Partial<User>) {
-    this.dispatch(userActions.updateUser({ user }))
+    this.dispatch(userActions.updateUser({ user }));
   }
 }

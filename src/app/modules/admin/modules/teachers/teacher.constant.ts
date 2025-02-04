@@ -30,16 +30,16 @@ export const teachersTableConfig: TableConfig<TeacherProfile> = {
         element: {
           buttons: [
             {
-                key: 'edit',
-                label: 'Edit',
-                theme: 'icon',
-                cssClass: 'p-0 col'
-              },
-              {
-                key: 'delete',
-                label: 'delete',
-                theme: 'icon',
-                cssClass: 'p-0 col'
+              key: 'edit',
+              label: 'Edit',
+              theme: 'icon',
+              cssClass: 'p-0 col',
+            },
+            {
+              key: 'delete',
+              label: 'delete',
+              theme: 'icon',
+              cssClass: 'p-0 col',
             },
           ],
           key: 'actions',

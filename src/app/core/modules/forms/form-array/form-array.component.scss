@@ -1,19 +1,19 @@
 :host ::ng-deep {
-    sc-form {
-        position: relative;
-        .form-container {
-            box-shadow: initial;
-            padding: 1rem 0.7rem 0.7rem 1.5rem !important;
-            background-color: transparent;
-        }
+  sc-form {
+    position: relative;
+    .form-container {
+      box-shadow: initial;
+      padding: 1rem 0.7rem 0.7rem 1.5rem !important;
+      background-color: transparent;
     }
-    button + sc-form::before {
-        content: '';
-        position: absolute;
-        height: 60%;
-        transform: translate(10px, -50%);
-        width: 0.3px;
-        background-color: #00000059;
-        top: 50%;
-    }
+  }
+  button + sc-form::before {
+    content: '';
+    position: absolute;
+    height: 60%;
+    transform: translate(10px, -50%);
+    width: 0.3px;
+    background-color: #00000059;
+    top: 50%;
+  }
 }

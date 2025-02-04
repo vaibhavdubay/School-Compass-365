@@ -14,8 +14,8 @@ export class ClassListComponent {
   openShiftDialog() {
     const dialogRef = this.dialog.open(ShiftDialogComponent, {
       width: '470px',
-      maxWidth:'95vw',
-      maxHeight:'100vh',
+      maxWidth: '95vw',
+      maxHeight: '100vh',
       disableClose: true,
     });
     dialogRef.afterClosed().subscribe((res) => {

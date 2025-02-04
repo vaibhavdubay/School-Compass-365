@@ -13,21 +13,19 @@
       <h2 class="text-lg font-bold">{{ schoolProfile?.name }}</h2>
       <p class="text-xs capitalize">{{ schoolProfile?.address }}, {{ schoolProfile?.city | capitalize }}</p>
     </div>
-    <div class="col-sm-5 d-flex flex-column rounded-3xl align-items-center justify-content-center pb-4 pt-2 text-center">
+    <div
+      class="col-sm-5 d-flex flex-column align-items-center justify-content-center rounded-3xl pb-4 pt-2 text-center"
+    >
       <input type="file" hidden #admin_logo (change)="uploadImage(admin_logo)" />
       <div class="upload_image" (click)="admin_logo.click()">
         @if (imagePath) {
           @if (image) {
             <mat-icon class="save" (click)="saveChanges($any(adminUser), $event)"> cloud_upload </mat-icon>
           }
-          <img
-            style="height: 8rem; width: 8rem; border-radius: 50%;"
-            [src]="imagePath"
-            [alt]="loggedInUser?.name"
-          />
+          <img style="height: 8rem; width: 8rem; border-radius: 50%" [src]="imagePath" [alt]="loggedInUser?.name" />
         } @else {
           <img
-            style="height: 8rem; width: 8rem; border-radius: 50%;"
+            style="height: 8rem; width: 8rem; border-radius: 50%"
             [src]="loggedInUser?.profileImageUrl ? loggedInUser?.profileImageUrl : 'assets/images/avatar_1.webp'"
             [alt]="loggedInUser?.name"
           />
@@ -53,7 +51,7 @@
       <strong>Note:</strong> Admin cannot directly edit their profile. Please contact School Compass 365 for changes.
     </section>
   </section>
-  <section class="col mx-2" style="max-width: 500px;">
-    <sc-form [formConfig]="formConfig" #form (buttonClick)="updatePassword()" ></sc-form>
+  <section class="col mx-2" style="max-width: 500px">
+    <sc-form [formConfig]="formConfig" #form (buttonClick)="updatePassword()"></sc-form>
   </section>
 </section>

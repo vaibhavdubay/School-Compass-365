@@ -14,22 +14,10 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 
-
 const Materials = [MatTableModule, MatTabsModule, MatButtonModule, MatStepperModule, MatIconModule];
 
-
 @NgModule({
-  declarations: [
-    ListComponent,
-    AddComponent,
-    EditComponent
-  ],
-  imports: [
-    ...Materials,
-    CommonModule,
-    CoreModule,
-    StudentsRoutingModule,
-    TableModule
-  ]
+  declarations: [ListComponent, AddComponent, EditComponent],
+  imports: [...Materials, CommonModule, CoreModule, StudentsRoutingModule, TableModule],
 })
-export class StudentsModule { }
+export class StudentsModule {}

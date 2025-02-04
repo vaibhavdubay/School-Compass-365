@@ -8,8 +8,8 @@ export interface AdminState {
   schoolProfile: SchoolProfile;
   dashboard: any;
   classes: Class[];
-  teachers: TeacherProfile[]
-  students:StudentProfile[]
+  teachers: TeacherProfile[];
+  students: StudentProfile[];
 }
 
 export const initialState: Nullable<AdminState> = {
@@ -18,7 +18,7 @@ export const initialState: Nullable<AdminState> = {
   dashboard: null,
   classes: [],
   teachers: [],
-  students:[]
+  students: [],
 };
 
 export const AdminReducer = createReducer<AdminState>(
@@ -27,13 +27,13 @@ export const AdminReducer = createReducer<AdminState>(
     ...state,
     adminUser: action.adminProfile,
   })),
-  //#region Class 
+  //#region Class
   on(classAction.getAllSuccess, (state, action) => ({
     ...state,
     classes: action.classes,
   })),
   //#endregion
-  //#region Teacher 
+  //#region Teacher
   on(teachersAction.getAllTeachersSuccess, (state, action) => ({
     ...state,
     teachers: action.teachers,
@@ -44,14 +44,14 @@ export const AdminReducer = createReducer<AdminState>(
   })),
   on(teachersAction.updateTeacherSuccess, (state, action) => ({
     ...state,
-    teachers: state.teachers.map((teacher)=> teacher.id == action.teacher.id ? action.teacher : teacher),
+    teachers: state.teachers.map((teacher) => (teacher.id == action.teacher.id ? action.teacher : teacher)),
   })),
   on(teachersAction.deleteTeacherSuccess, (state, action) => ({
     ...state,
-    teachers: state.teachers.filter((teacher)=> teacher.id !== action.id),
+    teachers: state.teachers.filter((teacher) => teacher.id !== action.id),
   })),
   //#endregion
-  //#region Student 
+  //#region Student
   on(studentAction.getAllStudentsSuccess, (state, action) => ({
     ...state,
     students: action.Students,
@@ -62,14 +62,14 @@ export const AdminReducer = createReducer<AdminState>(
   })),
   on(studentAction.updateStudentsSuccess, (state, action) => ({
     ...state,
-    students: state.students.map((student)=> student.id == action.Students.id ? action.Students : student),
+    students: state.students.map((student) => (student.id == action.Students.id ? action.Students : student)),
   })),
   on(studentAction.deleteStudentsSuccess, (state, action) => ({
     ...state,
-    students: state.students.filter((student)=> student.id !== action.id),
+    students: state.students.filter((student) => student.id !== action.id),
   })),
   //#endregion
-  //#region School 
+  //#region School
   on(schoolAction.getDashboardSuccess, (state, action) => ({
     ...state,
     dashboard: action.dashboard,
@@ -83,9 +83,9 @@ export const AdminReducer = createReducer<AdminState>(
   //#endregion
   //#region Admin
   on(adminActions.updateAdminSuccess, (state, action) => {
-    const adminUser = JSON.parse(JSON.stringify(action.adminUser))
-    delete adminUser['school']
-    delete adminUser['user']
+    const adminUser = JSON.parse(JSON.stringify(action.adminUser));
+    delete adminUser['school'];
+    delete adminUser['user'];
     return {
       ...state,
       adminUser: adminUser,

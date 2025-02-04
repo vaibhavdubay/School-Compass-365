@@ -21,7 +21,8 @@ export class AddComponent {
   readonly studentFormComponents = viewChild.required<FormComponent<StudentProfile>>('createStudentForm');
   readonly credFormComponents =
     viewChild.required<FormComponent<StudentProfile & { userName: string; password: string }>>('credForm');
-  readonly parentOrGuardianFormComponents = viewChild.required<FormArrayComponent<ParentOrGuardian>>('ParentOrGuardian');
+  readonly parentOrGuardianFormComponents =
+    viewChild.required<FormArrayComponent<ParentOrGuardian>>('ParentOrGuardian');
 
   private readonly sharedStore = inject(SharedStoreService);
   private readonly adminService = inject(AdminService);
@@ -48,14 +49,14 @@ export class AddComponent {
           this.studentInfoForm.markAllAsTouched();
         }
         break;
-        case 1:
-          if (this.studentInfoForm.valid && this.ParentOrGuardianForms.valid) {
-            this.save()
-          } else {
-            this.studentInfoForm.markAllAsTouched();
-            this.ParentOrGuardianForms.markAllAsTouched();
-          }
-          break;
+      case 1:
+        if (this.studentInfoForm.valid && this.ParentOrGuardianForms.valid) {
+          this.save();
+        } else {
+          this.studentInfoForm.markAllAsTouched();
+          this.ParentOrGuardianForms.markAllAsTouched();
+        }
+        break;
       default:
         break;
     }
@@ -91,8 +92,8 @@ export class AddComponent {
     this.dynamicOptions['pincode'] = of([]);
     this.dynamicOptions['classId'] = this.sharedStore.schoolClasses$.pipe(
       filter((v) => !!v),
-      map((v) => [...v]?.sort((a,b)=>a?.order-b?.order)?.map((d) => ({ key: d.id, label: d.className }))),
-    )
+      map((v) => [...v]?.sort((a, b) => a?.order - b?.order)?.map((d) => ({ key: d.id, label: d.className }))),
+    );
 
     formControls.state.valueChanges.subscribe((state) => {
       if (state) {

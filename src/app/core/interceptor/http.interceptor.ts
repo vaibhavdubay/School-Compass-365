@@ -19,10 +19,10 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
       const errorMsg = Array.isArray(error?.error?.message)
         ? error?.error?.message
             .reduce((acc: string[], err: string) => {
-              const errorIndex = acc.findIndex((e) => err.includes(e.split(' ')[0])); 
+              const errorIndex = acc.findIndex((e) => err.includes(e.split(' ')[0]));
               if (errorIndex === -1) {
                 acc.push(err);
-              } else if(err.includes('not be empty')) {
+              } else if (err.includes('not be empty')) {
                 acc[errorIndex] = err;
               }
               return acc;

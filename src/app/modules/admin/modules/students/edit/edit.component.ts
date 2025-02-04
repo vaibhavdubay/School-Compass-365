@@ -58,7 +58,7 @@ export class EditComponent {
       this.credForms.controls.userName.disable();
       this.credForms.patchValue({ ...this.student });
       this.parentOrGuardianFormComponents().patchValue(this.student['parentsGuardians']);
-      console.log(JSON.stringify(this.ParentOrGuardianForms.value))
+      console.log(JSON.stringify(this.ParentOrGuardianForms.value));
       this.handleDynamicOptions();
     }, 500); // Adjust the timeout duration as needed
   }

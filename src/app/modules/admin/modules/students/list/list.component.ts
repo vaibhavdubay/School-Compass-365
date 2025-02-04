@@ -7,26 +7,25 @@ import { StudentsTableConfig } from '../student.constant';
 @Component({
   selector: 'sc-list',
   standalone: false,
-  
+
   templateUrl: './list.component.html',
-  styleUrl: './list.component.scss'
+  styleUrl: './list.component.scss',
 })
 export class ListComponent {
   readonly tableConfig = StudentsTableConfig;
   private readonly adminService = inject(AdminService);
   readonly students$ = this.adminService.students$;
   private readonly router = inject(Router);
-  
 
   buttonClick(event: { key: string; row: StudentProfile }) {
-      const actions: { [k:string]: Function } = {
-        edit: () => {
-          this.router.navigate(['admin', 'students', event.row.id], { state: { student: event.row } });
-        },
-        delete: () => {
-          this.adminService.deleteStudentProfile(event.row.id);
-        },
-      }
-      actions[event.key]();
-    }
+    const actions: { [k: string]: Function } = {
+      edit: () => {
+        this.router.navigate(['admin', 'students', event.row.id], { state: { student: event.row } });
+      },
+      delete: () => {
+        this.adminService.deleteStudentProfile(event.row.id);
+      },
+    };
+    actions[event.key]();
+  }
 }

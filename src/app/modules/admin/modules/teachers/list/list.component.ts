@@ -17,14 +17,14 @@ export class ListComponent {
   readonly teachers$ = this.adminService.teachers$;
 
   buttonClick(event: { key: string; row: TeacherProfile }) {
-    const actions: { [k:string]: Function } = {
+    const actions: { [k: string]: Function } = {
       edit: () => {
         this.router.navigate(['admin', 'teachers', event.row.id], { state: { teacher: event.row } });
       },
       delete: () => {
         this.adminService.deleteTeachersProfile(event.row.id);
       },
-    }
+    };
     actions[event.key]();
   }
 }

@@ -15,36 +15,35 @@ import { ShiftSchedule } from '@sc-models/classes';
   styleUrl: './shift-dialog.component.scss',
 })
 export class ShiftDialogComponent {
-
-  private dialogRef = inject(MatDialogRef)
-    private readonly sharedStore = inject(SharedStoreService);
+  private dialogRef = inject(MatDialogRef);
+  private readonly sharedStore = inject(SharedStoreService);
 
   readonly addShiftFormComponent = viewChild.required<FormComponent>('addShiftForm');
   readonly addShiftFormConfig = addShiftFormConfig;
   readonly dynamicOptions: DynamicListOptions<keyof ShiftSchedule> = {};
 
-  ngAfterViewInit(){
-    this.getClassList()
+  ngAfterViewInit() {
+    this.getClassList();
   }
 
   get addShiftForm() {
     return this.addShiftFormComponent().formGroup;
   }
 
-  getClassList(){
-     this.dynamicOptions['classId'] = this.sharedStore.schoolClasses$.pipe(
-          filter((v) => !!v),
-          map((v) => [...v]?.sort((a, b) => a?.order - b?.order)?.map((d) => ({ key: d.id, label: d.className }))),
-        );
+  getClassList() {
+    this.dynamicOptions['classId'] = this.sharedStore.schoolClasses$.pipe(
+      filter((v) => !!v),
+      map((v) => [...v]?.sort((a, b) => a?.order - b?.order)?.map((d) => ({ key: d.id, label: d.className }))),
+    );
   }
 
   shiftDialog(event: 'cancel' | 'save') {
     switch (event) {
-      case 'cancel': 
+      case 'cancel':
         this.dialogRef.close(); // No data on cancel
         break;
-      case 'save': 
-        this.dialogRef.close({data: this.addShiftForm.value }); // Send form data
+      case 'save':
+        this.dialogRef.close({ data: this.addShiftForm.value }); // Send form data
         break;
     }
   }

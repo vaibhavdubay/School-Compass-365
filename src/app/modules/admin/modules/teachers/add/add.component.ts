@@ -21,7 +21,8 @@ import { FormArrayComponent } from '@sc-forms/form-array/form-array.component';
   styleUrl: './add.component.scss',
 })
 export class AddComponent implements AfterViewInit {
-  readonly credFormComponents = viewChild.required<FormComponent<TeacherProfile & {userName: string; password: string}>>('credForm');
+  readonly credFormComponents =
+    viewChild.required<FormComponent<TeacherProfile & { userName: string; password: string }>>('credForm');
   readonly personalInfoFormComponent = viewChild.required<FormComponent<TeacherProfile>>('personalInfoForm');
   readonly educationFormComponents = viewChild.required<FormArrayComponent<TeachersEducation>>('educationForm');
   readonly experienceFormComponents = viewChild.required<FormArrayComponent<TeachersExperience>>('experience');
@@ -56,7 +57,7 @@ export class AddComponent implements AfterViewInit {
         break;
       case 1:
         if (this.educationForms.valid && this.experienceForms.valid) {
-          this.save()
+          this.save();
         } else {
           this.educationForms.markAllAsTouched();
           this.experienceForms.markAllAsTouched();
@@ -107,11 +108,11 @@ export class AddComponent implements AfterViewInit {
   save() {
     const teacherProfile: TeacherProfileDTO = {
       ...(this.personalInfoForm.value as TeacherProfile),
-      ...(this.credForms.value as TeacherProfile & {userName: string; password: string}),
+      ...(this.credForms.value as TeacherProfile & { userName: string; password: string }),
       image: this.image,
       teachersEducation: this.educationForms.value as TeachersEducation[],
       teachersExperience: this.experienceForms.value as TeachersExperience[],
-    }
+    };
     this.adminService.createTeachersProfile(teacherProfile);
   }
 

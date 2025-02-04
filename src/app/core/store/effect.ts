@@ -24,7 +24,7 @@ export class SharedStoreEffect {
   private readonly router = inject(Router);
   private readonly store = inject(Store);
   private readonly cookieService = inject(CookieService);
-  private readonly toasterService = inject(SafeToastService)
+  private readonly toasterService = inject(SafeToastService);
 
   // #region Login
   logIn = createEffect(() => {
@@ -52,7 +52,7 @@ export class SharedStoreEffect {
       map(({ response }) => {
         const { user, school, ...userProfile } = response.userProfile;
         const role = user.role;
-        this.toasterService.success(TOASTER_MESSAGES.LOGIN_SUCCESS)
+        this.toasterService.success(TOASTER_MESSAGES.LOGIN_SUCCESS);
         this.router.navigate([role, 'dashboard']);
         return this.handleFeatureState(user.role, userProfile);
       }),
@@ -147,14 +147,14 @@ export class SharedStoreEffect {
     );
   });
   // #endregion Address
-  
+
   // #region Users
   updateUser$ = createEffect(() => {
     return this.action$.pipe(
       ofType(userActions.updateUser),
       withLatestFrom(this.store.select(selectLoggedInUser)),
       switchMap(([{ user }, loggedInUser]) =>
-        this.apiService.put<User>(apiRoutes.users.update(loggedInUser.id), {...loggedInUser, ...user}).pipe(
+        this.apiService.put<User>(apiRoutes.users.update(loggedInUser.id), { ...loggedInUser, ...user }).pipe(
           map((user) => userActions.updateUserSuccess({ user })),
           catchError((err) => of(userActions.updateUserFailure({ error: err }))),
         ),
@@ -162,16 +162,18 @@ export class SharedStoreEffect {
     );
   });
 
-  updateUserSuccess$ = createEffect(() => {
-    return this.action$.pipe(
-      ofType(userActions.updateUserSuccess),
-      tap(() => {
-        this.toasterService.success(TOASTER_MESSAGES.UPDATED_SUCCESS)
-      }),
-    );
-  }, { dispatch: false }); 
+  updateUserSuccess$ = createEffect(
+    () => {
+      return this.action$.pipe(
+        ofType(userActions.updateUserSuccess),
+        tap(() => {
+          this.toasterService.success(TOASTER_MESSAGES.UPDATED_SUCCESS);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
   // #endregion Users
-  
 
   // #region Logout
   logOut = createEffect(
@@ -183,7 +185,7 @@ export class SharedStoreEffect {
             localStorage.clear();
             sessionStorage.clear();
           }
-          this.toasterService.success(TOASTER_MESSAGES.LOGOUT_SUCCESS)
+          this.toasterService.success(TOASTER_MESSAGES.LOGOUT_SUCCESS);
           this.cookieService.deleteAll();
           this.router.navigate(['']);
         }),

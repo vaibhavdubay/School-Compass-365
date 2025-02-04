@@ -1,16 +1,16 @@
 :host {
-    display: flex;
-    flex-direction: column;
-    ::ng-deep {
-        .mat-mdc-text-field-wrapper {
-            max-height: max-content;
-        }
-        .mat-mdc-chip-remove  {
-            mat-icon {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-        }
+  display: flex;
+  flex-direction: column;
+  ::ng-deep {
+    .mat-mdc-text-field-wrapper {
+      max-height: max-content;
     }
+    .mat-mdc-chip-remove {
+      mat-icon {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
 }

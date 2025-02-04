@@ -3,7 +3,7 @@ import { StoreService } from 'src/app/core/service/store.service';
 import { AdminState } from '../state/reducer';
 import { Store } from '@ngrx/store';
 import { selectAdminUser, selectClasses, selectDashboard, selectStudents, selectTeachers } from '../state/selector';
-import { adminActions, classes, studentAction,school, teachersAction } from '../state/action';
+import { adminActions, classes, studentAction, school, teachersAction } from '../state/action';
 import { filter } from 'rxjs';
 import { AdminUser, StudentProfileDTO, TeacherProfileDTO } from '@sc-models/core';
 
@@ -23,17 +23,17 @@ export class AdminService extends StoreService<AdminState> {
     return this.select(selectClasses).pipe(filter((c) => !!c));
   }
   get teachers$() {
-    this.dispatch(teachersAction.getAllTeachers())
-    return this.select(selectTeachers).pipe(filter((c) => !!c))
+    this.dispatch(teachersAction.getAllTeachers());
+    return this.select(selectTeachers).pipe(filter((c) => !!c));
   }
   get dashboard$() {
-    this.dispatch(school.getDashboard())
-    return this.select(selectDashboard).pipe(filter((c) => !!c))
+    this.dispatch(school.getDashboard());
+    return this.select(selectDashboard).pipe(filter((c) => !!c));
   }
   createTeachersProfile(teacher: TeacherProfileDTO) {
     this.dispatch(teachersAction.createTeacher({ teacher }));
   }
-  
+
   updateTeachersProfile(id: string, teacher: TeacherProfileDTO) {
     this.dispatch(teachersAction.updateTeacher({ teacher, id }));
   }
@@ -48,15 +48,15 @@ export class AdminService extends StoreService<AdminState> {
 
   // Students Profile
   get students$() {
-    this.dispatch(studentAction.getAllStudents())
-    return this.select(selectStudents).pipe(filter((c) => !!c))
+    this.dispatch(studentAction.getAllStudents());
+    return this.select(selectStudents).pipe(filter((c) => !!c));
   }
   createStudentProfile(student: StudentProfileDTO) {
-    this.dispatch(studentAction.createStudents({ Students:student }));
+    this.dispatch(studentAction.createStudents({ Students: student }));
   }
-  
+
   updateStudentProfile(id: string, student: StudentProfileDTO) {
-    this.dispatch(studentAction.updateStudents({ id, Students:student }));
+    this.dispatch(studentAction.updateStudents({ id, Students: student }));
   }
 
   deleteStudentProfile(id: string) {

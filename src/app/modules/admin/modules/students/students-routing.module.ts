@@ -6,30 +6,30 @@ import { EditComponent } from './edit/edit.component';
 
 const routes: Routes = [
   {
-      path: '',
-      component: ListComponent,
-      data: {
-        title: 'Students List'
-      }
+    path: '',
+    component: ListComponent,
+    data: {
+      title: 'Students List',
     },
-    {
-      path: 'add',
-      component: AddComponent,
-      data: {
-        title: 'Add Student Profile'
-      }
+  },
+  {
+    path: 'add',
+    component: AddComponent,
+    data: {
+      title: 'Add Student Profile',
     },
-    {
-      path: ':id',
-      component: EditComponent,
-      data: {
-        title: 'Student Profile'
-      }
-    }
+  },
+  {
+    path: ':id',
+    component: EditComponent,
+    data: {
+      title: 'Student Profile',
+    },
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class StudentsRoutingModule { }
+export class StudentsRoutingModule {}

@@ -9,27 +9,27 @@ const routes: Routes = [
     path: '',
     component: ListComponent,
     data: {
-      title: 'Teachers List'
-    }
+      title: 'Teachers List',
+    },
   },
   {
     path: 'add',
     component: AddComponent,
     data: {
-      title: 'Add Teacher Profile'
-    }
+      title: 'Add Teacher Profile',
+    },
   },
   {
     path: ':id',
     component: EditComponent,
     data: {
-      title: 'Teacher Profile'
-    }
-  }
+      title: 'Teacher Profile',
+    },
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class TeachersRoutingModule { }
+export class TeachersRoutingModule {}

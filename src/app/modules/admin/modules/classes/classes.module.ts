@@ -9,19 +9,8 @@ import { FormsModule as SCFormsModule } from '@sc-forms/forms.module';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
 
-
-
 @NgModule({
-  declarations: [  
-    ClassListComponent, ShiftDialogComponent
-  ],
-  imports: [
-    CommonModule,
-    SCFormsModule,
-    CoreModule,
-    MatIcon,
-    MatButton,
-    ClassesRoutingModule
-  ]
+  declarations: [ClassListComponent, ShiftDialogComponent],
+  imports: [CommonModule, SCFormsModule, CoreModule, MatIcon, MatButton, ClassesRoutingModule],
 })
-export class ClassesModule { }
+export class ClassesModule {}

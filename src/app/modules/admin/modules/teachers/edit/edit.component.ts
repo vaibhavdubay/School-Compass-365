@@ -22,14 +22,14 @@ import {
 })
 export class EditComponent {
   readonly credFormComponents =
-  viewChild.required<FormComponent<TeacherProfile & { userName: string; password: string }>>('credForm');
+    viewChild.required<FormComponent<TeacherProfile & { userName: string; password: string }>>('credForm');
   readonly personalInfoFormComponent = viewChild.required<FormComponent<TeacherProfile>>('personalInfoForm');
   readonly educationFormComponents = viewChild.required<FormArrayComponent<TeachersEducation>>('educationForm');
   readonly experienceFormComponents = viewChild.required<FormArrayComponent<TeachersExperience>>('experience');
-  
+
   private readonly sharedStore = inject(SharedStoreService);
   private readonly adminService = inject(AdminService);
-  
+
   readonly teacher: TeacherProfile = history.state['teacher'];
   readonly personalInformationFormConfig = personalInformationFormConfig;
   readonly educationFormConfig = educationFormConfig;
@@ -46,14 +46,14 @@ export class EditComponent {
   ngAfterViewInit(): void {
     if (typeof document == 'undefined') return;
     setTimeout(() => {
-    this.personalInfoForm.patchValue(this.teacher);
-    const user = (this.teacher as any)['user'] as User;
-    this.credForms.controls.userName.setValue(user.userName);
-    this.credForms.controls.userName.disable()
-    this.credForms.patchValue({...this.teacher });
-    this.educationFormComponents().patchValue(this.teacher['teachersEducation'] || []);
-    this.experienceFormComponents().patchValue(this.teacher['teachersExperience'] || []);
-    this.handleDynamicOptions();
+      this.personalInfoForm.patchValue(this.teacher);
+      const user = (this.teacher as any)['user'] as User;
+      this.credForms.controls.userName.setValue(user.userName);
+      this.credForms.controls.userName.disable();
+      this.credForms.patchValue({ ...this.teacher });
+      this.educationFormComponents().patchValue(this.teacher['teachersEducation'] || []);
+      this.experienceFormComponents().patchValue(this.teacher['teachersExperience'] || []);
+      this.handleDynamicOptions();
     }, 500); // Adjust the timeout duration as needed
   }
 
@@ -94,7 +94,6 @@ export class EditComponent {
     this.dynamicOptions['pincode'] = this.sharedStore
       .addressPincode$(formControls.state.value, formControls.city.value)
       .pipe(map((v) => v.map((d) => ({ key: d, label: d }))));
-
 
     formControls.state.valueChanges.subscribe((state) => {
       if (state) {

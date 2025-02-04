@@ -20,8 +20,8 @@ export class SafeToastService extends HotToastService {
     >;
   }
   override error<DataType>(message?: Content, options?: ToastOptions<DataType>): CreateHotToastRef<DataType | unknown> {
-    if(!options){
-      options = {}
+    if (!options) {
+      options = {};
     }
     options.icon = 'cancel';
     options.className = 'mat-icon-toast toast-error';

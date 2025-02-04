@@ -219,7 +219,7 @@ mat-label {
 .bg-primary {
   background-color: var(--primary-550) !important;
 }
-.mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background{
+.mdc-checkbox__native-control:enabled:checked ~ .mdc-checkbox__background {
   border-color: var(--primary-550) !important;
   border: 2px solid var(--primary-550);
   background-color: var(--primary-550) !important;

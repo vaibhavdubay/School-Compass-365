@@ -1,16 +1,16 @@
 <div class="row justify-content-between">
-  @if(config().filter) {
+  @if (config().filter) {
     <div class="col" [formGroup]="filterForm">
       <sc-form-element
         [control]="filterForm.controls['search']"
-        [formElement]="{ 
+        [formElement]="{
           elementType: 'text',
           element: {
             key: 'search',
             validateAs: 'text',
             placeholder: 'Search...',
-          }
-         }"
+          },
+        }"
       ></sc-form-element>
     </div>
   }
@@ -45,7 +45,7 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell py-3 text-center text-bold" [attr.colspan]="displayedColumns.length">No record found</td>
+      <td class="mat-cell text-bold py-3 text-center" [attr.colspan]="displayedColumns.length">No record found</td>
     </tr>
   </table>
   <mat-divider></mat-divider>

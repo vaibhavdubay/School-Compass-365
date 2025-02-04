@@ -27,7 +27,10 @@ export class TitleService {
           const routerPath =
             snapshot.routeConfig?.path == '' ? snapshot['parent']?.routeConfig?.path : snapshot.routeConfig?.path;
           if (routerPath && routerPath.split('/').length > 1) {
-            return routerPath.split('/').reverse().every((route, i) => route.includes(':') || route == paths[paths.length - (1 + i)] )
+            return routerPath
+              .split('/')
+              .reverse()
+              .every((route, i) => route.includes(':') || route == paths[paths.length - (1 + i)]);
           }
           return routerPath == paths[paths.length - 1] && event.snapshot.data?.['title'];
         }),

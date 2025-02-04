@@ -25,9 +25,15 @@ import { ForgetPasswordComponent } from './components/forget-password/forget-pas
 import { MatDialogModule } from '@angular/material/dialog';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { ImageHandlerDirective } from './directives/image-handler.directive';
-
 @NgModule({
-  declarations: [LoginComponent, LayoutComponent, MenuComponent, ForgetPasswordComponent, CapitalizePipe, ImageHandlerDirective],
+  declarations: [
+    LoginComponent,
+    LayoutComponent,
+    MenuComponent,
+    ForgetPasswordComponent,
+    CapitalizePipe,
+    ImageHandlerDirective,
+  ],
   imports: [
     FormsModule,
     CommonModule,
