@@ -26,7 +26,7 @@ export class FormComponent<T = { [k: string]: string }> implements OnChanges {
     key: string;
     element: Button;
   }>();
-  private readonly inputElements = ['checkbox', 'chip', 'date', 'radio', 'select', 'text', 'textarea'];
+  private readonly inputElements = ['checkbox', 'chip', 'date', 'radio', 'select', 'text', 'time', 'textarea'];
 
   readonly formGroup = new FormGroup({}) as unknown as FormGroup<{
     [K in keyof T]: AbstractControl;
@@ -123,7 +123,7 @@ export class FormComponent<T = { [k: string]: string }> implements OnChanges {
       // Validate password
       if (passwordControl.errors) {
         passwordControl.markAsTouched(); // Mark password as touched if invalid
-        confirmPasswordControl.setErrors(null)
+        confirmPasswordControl.setErrors(null);
         return null; // No further validation needed if password is invalid
       }
 

@@ -24,11 +24,13 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatTimepickerModule } from '@angular/material/timepicker';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { InputFormattingDirective } from './text-element/input-formatting.directive';
 import { ErrorComponent } from './error/error.component';
 import { FormArrayComponent } from './form-array/form-array.component';
 import { ChipElementComponent } from './chip-element/chip-element.component';
+import { TimeElementComponent } from './time-element/time-element.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,7 @@ import { ChipElementComponent } from './chip-element/chip-element.component';
     ErrorComponent,
     FormArrayComponent,
     ChipElementComponent,
+    TimeElementComponent,
   ],
   imports: [
     CommonModule,
@@ -61,6 +64,7 @@ import { ChipElementComponent } from './chip-element/chip-element.component';
     MatFormFieldModule,
     MatDatepickerModule,
     MatAutocompleteModule,
+    MatTimepickerModule,
     F_Module,
     ReactiveFormsModule,
   ],

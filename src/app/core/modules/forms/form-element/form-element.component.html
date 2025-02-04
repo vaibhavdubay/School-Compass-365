@@ -6,6 +6,9 @@
   @case ('date') {
     <sc-date-element [element]="element.element" [control]="control()"></sc-date-element>
   }
+  @case ('time') {
+    <sc-time-element [element]="element.element" [control]="control()"></sc-time-element>
+  }
   @case ('radio') {
     <sc-radio-element [element]="element.element" [control]="control()"></sc-radio-element>
   }
@@ -14,7 +17,12 @@
       dynamicListOptions() && dynamicListOptions()[element.element.key]
         ? (dynamicListOptions()[element.element.key] | async)
         : element.element.options;
-    <sc-chip-element [keywords]="control().value || element.element.value" [options]="options ?? []" [element]="element.element" [control]="control()"></sc-chip-element>
+    <sc-chip-element
+      [keywords]="control().value || element.element.value"
+      [options]="options ?? []"
+      [element]="element.element"
+      [control]="control()"
+    ></sc-chip-element>
   }
   @case ('select') {
     @let options =
@@ -35,7 +43,7 @@
       (clicked)="
         btnClick.emit({
           key: element.element.key,
-          element: element.element
+          element: element.element,
         })
       "
     ></sc-button-element>

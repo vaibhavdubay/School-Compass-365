@@ -3,12 +3,21 @@ import { Observable } from 'rxjs';
 export type FormConfig = FormElement[];
 export type FormElement = InputElement | UiElement;
 
-export type InputElement = CheckboxElement | DateElement | RadioElement | SelectElement | ChipElement | TextElement | TextAreaElement;
+export type InputElement =
+  | CheckboxElement
+  | DateElement
+  | TimeElement
+  | RadioElement
+  | SelectElement
+  | ChipElement
+  | TextElement
+  | TextAreaElement;
 export type UiElement = ButtonElement | LabelElement | ButtonGroupElement;
 
 export type CheckboxElement = { elementType: 'checkbox'; element: Checkbox };
 export type RadioElement = { elementType: 'radio'; element: Radio };
 export type DateElement = { elementType: 'date'; element: DateInput };
+export type TimeElement = { elementType: 'time'; element: TimeInput };
 export type SelectElement = { elementType: 'select'; element: Select };
 export type ChipElement = { elementType: 'chip'; element: Chip };
 export type TextElement = { elementType: 'text'; element: TextInput };
@@ -57,6 +66,16 @@ export type DateInput = Element &
     min?: string;
     max?: string;
   };
+export type TimeInput = Element &
+  CoreInputElement & {
+    placeholder?: string;
+    filteredDates?: Date[];
+    interval?: string;
+    min?: string | Date;
+    max?: string | Date;
+    minTime?: string;
+    maxTime?: string;
+  };
 export type Radio = Element &
   CoreInputElement & {
     options?: ListOptions;
@@ -76,7 +95,7 @@ export type Chip = Element &
   CoreInputElement & {
     autoComplete?: boolean;
     placeholder?: string;
-    value?: string [];
+    value?: string[];
     options?: ListOptions;
   };
 

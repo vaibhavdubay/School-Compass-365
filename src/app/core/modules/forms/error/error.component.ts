@@ -47,6 +47,15 @@ export class ErrorComponent {
         case 'mustMatch':
           this.message = errorMessages.mustMatch;
           break;
+        case 'matTimepickerParse':
+          this.message = errorMessages.matTimepickerParse;
+          break;
+          case 'matTimepickerMin':
+          this.message = errorMessages.matTimepickerMin;
+          break;
+          case 'matTimepickerMax':
+          this.message = errorMessages.matTimepickerMax;
+          break;
       }
       const errorMessagesValue = this.errorMessages();
       if (errorMessagesValue[error]) {
