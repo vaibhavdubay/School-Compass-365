@@ -30,11 +30,14 @@
     >
       @if (elem.allowMultiple) {
         <mat-select-trigger>
-          {{ cntrl.value?.[0] || '' }}
+          {{ (cntrl.value?.[0]?.label) || '' }}
           @if ((cntrl.value?.length || 0) > 1) {
-            <span>
-              (+{{ (cntrl.value?.length || 0) - 1 }} {{ cntrl.value?.length === 2 ? 'other' : 'others' }})
-            </span>
+            , {{ (cntrl.value?.[1]?.label) || '' }}
+            @if ((cntrl.value?.length || 0) > 2) {
+              <span>
+                (+{{ (cntrl.value?.length || 0) - 2 }} {{ cntrl.value?.length === 3 ? 'other' : 'others' }})
+              </span>
+            }
           }
         </mat-select-trigger>
       }
@@ -42,13 +45,13 @@
         @for (group of elem.categoriesList; track group.category) {
           <mat-optgroup [label]="group.category" [disabled]="group.disabled">
             @for (option of group.options; track option) {
-              <mat-option [title]="option.label" [value]="option.key">{{ capitalizeWords(option.label) }}</mat-option>
+              <mat-option [title]="option.label" [value]="elem.allowMultiple ? option : option.key">{{ capitalizeWords(option.label) }}</mat-option>
             }
           </mat-optgroup>
         }
       } @else {
         @for (option of options(); track option.key) {
-          <mat-option [title]="option.label" [value]="option.key">{{ capitalizeWords(option.label) }}</mat-option>
+          <mat-option [title]="option.label" [value]="elem.allowMultiple ? option : option.key">{{ capitalizeWords(option.label) }}</mat-option>
         }
       }
     </mat-select>

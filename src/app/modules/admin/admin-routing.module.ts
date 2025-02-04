@@ -38,6 +38,10 @@ const routes: Routes = [
       {
         "path":"students",
         loadChildren:() => import('./modules/students/students.module').then((s)=>s.StudentsModule)
+      },
+      {
+        "path":"classes",
+        loadChildren:() => import('./modules/classes/classes.module').then((c)=>c.ClassesModule)
       }
     ],
   },
