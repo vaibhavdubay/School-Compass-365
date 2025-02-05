@@ -50,12 +50,14 @@ export class ErrorComponent {
         case 'matTimepickerParse':
           this.message = errorMessages.matTimepickerParse;
           break;
-          case 'matTimepickerMin':
+        case 'matTimepickerMin':
           this.message = errorMessages.matTimepickerMin;
           break;
-          case 'matTimepickerMax':
+        case 'matTimepickerMax':
           this.message = errorMessages.matTimepickerMax;
           break;
+        case 'invalidEndTime':
+          this.message = 'End time must be greater than start time.';
       }
       const errorMessagesValue = this.errorMessages();
       if (errorMessagesValue[error]) {

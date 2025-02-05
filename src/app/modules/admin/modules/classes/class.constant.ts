@@ -13,21 +13,23 @@ export const addShiftFormConfig: FormConfig = [
     },
   },
   {
-    elementType: 'date',
+    elementType: 'time',
     element: {
       key: 'shiftStartTime',
       cssClass: 'col-md-6',
       label: 'Shift Start Time',
       placeholder: '__:__ AM',
+      type: 'startTime',
     },
   },
   {
-    elementType: 'date',
+    elementType: 'time',
     element: {
       key: 'shiftEndTime',
       cssClass: 'col-md-6',
       label: 'Shift End Time',
       placeholder: '__:__ PM',
+      type: 'endTime',
     },
   },
   {
@@ -37,7 +39,9 @@ export const addShiftFormConfig: FormConfig = [
       cssClass: 'col-md-6',
       label: 'Break Start Time',
       minTime: '06:00 AM',
+      maxTime: '05:00 PM',
       placeholder: '__:__ AM',
+      type: 'startTime',
     },
   },
   {
@@ -45,9 +49,11 @@ export const addShiftFormConfig: FormConfig = [
     element: {
       key: 'breakEndTime',
       cssClass: 'col-md-6',
-      maxTime: '06:00 PM',
+      minTime: '06:00 AM',
+      maxTime: '05:00 PM',
       label: 'Break End Time',
       placeholder: '__:__ PM',
+      type: 'endTime',
     },
   },
   {

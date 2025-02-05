@@ -43,7 +43,9 @@ export class ShiftDialogComponent {
         this.dialogRef.close(); // No data on cancel
         break;
       case 'save':
-        this.dialogRef.close({ data: this.addShiftForm.value }); // Send form data
+        if (this.addShiftForm.valid) {
+          this.dialogRef.close({ data: this.addShiftForm.value }); // Send form data
+        } else this.addShiftForm.markAllAsTouched();
         break;
     }
   }

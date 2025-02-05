@@ -1,14 +1,16 @@
-<mat-label>{{ element().label }}</mat-label>
+<mat-label
+  >{{ element().label }}
+</mat-label>
 <mat-form-field class="w-100">
   <input
     matInput
     [formControl]="control()"
     [matTimepicker]="hoursPicker"
     [required]="element().required || false"
-    [max]="max"
-    [min]="min"
     [matTimepickerMin]="element().minTime"
     [matTimepickerMax]="element().maxTime"
+    (click)="changesEndTime()"
+    [placeholder]="element().placeholder || ''"
   />
   <mat-timepicker [interval]="element().interval || '30m'" #hoursPicker />
 
@@ -21,6 +23,6 @@
     <mat-hint>{{ element().hint }}</mat-hint>
   }
   @if (!element().disabled) {
-    <mat-timepicker-toggle matIconSuffix [for]="hoursPicker" />
+    <mat-timepicker-toggle matIconSuffix [for]="hoursPicker" (click)="changesEndTime()" />
   }
 </mat-form-field>

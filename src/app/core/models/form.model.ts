@@ -75,6 +75,7 @@ export type TimeInput = Element &
     max?: string | Date;
     minTime?: string;
     maxTime?: string;
+    type: 'startTime' | 'endTime';
   };
 export type Radio = Element &
   CoreInputElement & {

@@ -2,4 +2,7 @@
   .form-container {
     box-shadow: none !important;
   }
+  input::placeholder {
+    font-size: 0.8rem;
+  }
 }

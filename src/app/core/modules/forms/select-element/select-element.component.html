@@ -1,7 +1,12 @@
 @let elem = element();
 @let cntrl = control();
 
-<mat-label>{{ elem.label }}</mat-label>
+<mat-label
+  >{{ elem.label }}
+  @if (element().required) {
+    <span [ngStyle]="{ color: control().errors ? 'red' : 'black' }">&nbsp; *</span>
+  }
+</mat-label>
 <mat-form-field [style]="elem.width ? { width: elem.width } : { width: '100%' }">
   @if (elem.autoComplete) {
     <input

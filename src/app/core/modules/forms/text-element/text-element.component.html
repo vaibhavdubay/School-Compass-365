@@ -1,4 +1,9 @@
-<mat-label>{{ element().label }}</mat-label>
+<mat-label
+  >{{ element().label }}
+  @if (element().required) {
+    <span [ngStyle]="{ color: control().errors ? 'red' : 'black' }">&nbsp; *</span>
+  }
+</mat-label>
 <mat-form-field [style]="element().width ? { width: element().width } : { width: '100%' }">
   @if (['text', 'email', 'password', 'confirmPassword'].includes(element().validateAs)) {
     <input
