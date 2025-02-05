@@ -53,6 +53,9 @@ type CoreInputElement = {
   required?: boolean;
   value?: string;
   valueFn?: (form: { [k: string]: string | boolean | object | undefined }) => string;
+  relation?: {
+    [key: string]: RelativeValidations
+  }
 };
 export type Checkbox = Element &
   CoreInputElement & {
@@ -75,8 +78,17 @@ export type TimeInput = Element &
     max?: string | Date;
     minTime?: string;
     maxTime?: string;
-    type: 'startTime' | 'endTime';
   };
+export interface RelativeValidations {
+  disabled?: (val: string) => boolean;
+  hidden?: (val: string) => boolean;
+  readonly?: (val: string) => boolean;
+  required?: (val: string) => boolean;
+  min?: (val: string) => Date | number;
+  max?: (val: string) => Date | number;
+  minTime?: (val: string) => Date | string;
+  maxTime?: (val: string) => Date | string;
+}
 export type Radio = Element &
   CoreInputElement & {
     options?: ListOptions;

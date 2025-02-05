@@ -56,8 +56,6 @@ export class ErrorComponent {
         case 'matTimepickerMax':
           this.message = errorMessages.matTimepickerMax;
           break;
-        case 'invalidEndTime':
-          this.message = 'End time must be greater than start time.';
       }
       const errorMessagesValue = this.errorMessages();
       if (errorMessagesValue[error]) {

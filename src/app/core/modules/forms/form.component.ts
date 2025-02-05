@@ -1,5 +1,13 @@
 import { Component, OnChanges, SimpleChanges, inject, input, output } from '@angular/core';
-import { Button, ButtonElement, DateElement, DynamicListOptions, FormElement, InputElement } from '@sc-models/form';
+import {
+  Button,
+  ButtonElement,
+  DateElement,
+  DynamicListOptions,
+  FormElement,
+  InputElement,
+  RelativeValidations,
+} from '@sc-models/form';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
@@ -73,7 +81,6 @@ export class FormComponent<T = { [k: string]: string }> implements OnChanges {
           inputsWithValueFn.forEach((element) => {
             if (element.element?.valueFn) {
               element.element.value = element.element?.valueFn(this.formGroup.value);
-              console.log(element.element, this.formGroup.value);
             }
           });
         });
@@ -87,6 +94,21 @@ export class FormComponent<T = { [k: string]: string }> implements OnChanges {
       if (password && confirmPassword) {
         this.formGroup.addValidators(this.passwordMatchValidator(password.key, confirmPassword.key));
       }
+
+      inputElements.forEach((element) => {
+        if (element.element['relation']) {
+          const relations = Object.entries(element.element['relation']);
+          relations.forEach(([key, relation]) => {
+            this.formGroup.get(key)?.valueChanges?.subscribe((val) => {
+              Object.entries(relation).forEach(([relationKey, relationValue]) => {
+                if (relationValue && relationKey in element.element) {
+                  (element.element as any)[relationKey] = relationValue(val);
+                }
+              });
+            });
+          });
+        }
+      });
     }
     if (changes['dateFilter']) {
       Object.keys(this.dateFilters()).forEach((key) => {

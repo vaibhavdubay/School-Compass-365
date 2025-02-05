@@ -9,7 +9,6 @@
     [required]="element().required || false"
     [matTimepickerMin]="element().minTime"
     [matTimepickerMax]="element().maxTime"
-    (click)="changesEndTime()"
     [placeholder]="element().placeholder || ''"
   />
   <mat-timepicker [interval]="element().interval || '30m'" #hoursPicker />
@@ -23,6 +22,6 @@
     <mat-hint>{{ element().hint }}</mat-hint>
   }
   @if (!element().disabled) {
-    <mat-timepicker-toggle matIconSuffix [for]="hoursPicker" (click)="changesEndTime()" />
+    <mat-timepicker-toggle matIconSuffix [for]="hoursPicker" />
   }
 </mat-form-field>
