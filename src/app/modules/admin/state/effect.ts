@@ -1,7 +1,14 @@
 import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ApiService } from 'src/app/core/service/http.service';
-import { adminActions, classes as classAction, school as schoolActions, teachersAction, studentAction } from './action';
+import {
+  adminActions,
+  classes as classAction,
+  school as schoolActions,
+  teachersAction,
+  studentAction,
+  classes,
+} from './action';
 import { catchError, filter, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { AdminUser, Class, SchoolProfile, StudentProfile, TeacherProfile } from '@sc-models/core';
 import { apiRoutes } from 'src/app/core/constants/api.constants';
@@ -19,6 +26,7 @@ export class AdminEffects {
   private readonly router = inject(Router);
   private readonly toasterService = inject(SafeToastService);
 
+  //#region Class effects
   getAllClasses$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(classAction.getAll),
@@ -32,6 +40,82 @@ export class AdminEffects {
       ),
     );
   });
+  createsClass$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(classAction.createClass),
+      switchMap(({ Classes }) =>
+        this.apiService.post<Class>(apiRoutes.class.create, Classes).pipe(
+          map((Classes) => classAction.createClassSuccess({ Classes: Classes })),
+          catchError((err) => of(classAction.createClassFailure({ error: err }))),
+        ),
+      ),
+    );
+  });
+
+  createClassSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(classAction.createClassSuccess),
+        tap(() => {
+          this.toasterService.success(TOASTER_MESSAGES.SAVED_SUCCESS);
+          this.router.navigate(['admin', 'classes']);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
+
+  updateClass$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(classAction.updateClass),
+      switchMap(({ Classes, id }) =>
+        this.apiService.put<Class>(apiRoutes.class.update(id), Classes).pipe(
+          map((Classes) => classAction.updateClassSuccess({ Classes: Classes })),
+          catchError((err) => of(classAction.updateClassFailure({ error: err }))),
+        ),
+      ),
+    );
+  });
+
+  updateClassSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(classAction.updateClassSuccess),
+        tap(() => {
+          this.router.navigate(['admin', 'classes']);
+          this.toasterService.success(TOASTER_MESSAGES.UPDATED_SUCCESS);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
+
+  deleteClass$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(classAction.deleteClass),
+      switchMap(({ id }) =>
+        this.apiService.delete<Class>(apiRoutes.class.delete(id)).pipe(
+          map(() => classAction.deleteClassSuccess({ id })),
+          catchError((err) => of(classAction.deleteClassFailure({ error: err }))),
+        ),
+      ),
+    );
+  });
+
+  deleteClassSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(classAction.deleteClassSuccess),
+        tap(() => {
+          this.router.navigate(['admin', 'classes']);
+          this.toasterService.success(TOASTER_MESSAGES.DELETED_SUCCESS);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
+  //#endregion
+
   //#region teachers effects
 
   getAllTeachers$ = createEffect(() => {

@@ -32,6 +32,18 @@ export const AdminReducer = createReducer<AdminState>(
     ...state,
     classes: action.classes,
   })),
+  on(classAction.createClassSuccess, (state, action) => ({
+    ...state,
+    classes: [...state.classes, action.Classes],
+  })),
+  on(classAction.updateClassSuccess, (state, action) => ({
+    ...state,
+    classes: state.classes.map((cl) => (cl.id == action.Classes.id ? action.Classes : cl)),
+  })),
+  on(classAction.deleteClassSuccess, (state, action) => ({
+    ...state,
+    classes: state.classes.filter((cl) => cl.id !== action.id),
+  })),
   //#endregion
   //#region Teacher
   on(teachersAction.getAllTeachersSuccess, (state, action) => ({

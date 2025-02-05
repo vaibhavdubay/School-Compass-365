@@ -8,6 +8,7 @@ import {
   TeacherProfile,
   StudentProfile,
   StudentProfileDTO,
+  classDTO,
 } from '@sc-models/core';
 
 export const initAdminState = createAction('[ADMIN] Initiate State', props<{ adminProfile: AdminUser }>());
@@ -18,6 +19,15 @@ export const classes = createActionGroup({
     'Get All': emptyProps(),
     'Get All Success': props<{ classes: Class[] }>(),
     'Get All Failure': props<{ error: HttpErrorObject }>(),
+    'Create Class': props<{ Classes: classDTO }>(),
+    'Create ClassSuccess': props<{ Classes: Class }>(),
+    'Create ClassFailure': props<{ error: HttpErrorObject }>(),
+    'Update Class': props<{ Classes: classDTO; id: string }>(),
+    'Update ClassSuccess': props<{ Classes: Class }>(),
+    'Update ClassFailure': props<{ error: HttpErrorObject }>(),
+    'Delete Class': props<{ id: string }>(),
+    'Delete ClassSuccess': props<{ id: string }>(),
+    'Delete ClassFailure': props<{ error: HttpErrorObject }>(),
   },
 });
 

@@ -172,6 +172,13 @@ export interface Class {
   updatedAt: Date;
 }
 
+export interface classDTO {
+  className: string;
+  nextClass: string;
+  order: number;
+  streamsRequired: boolean;
+}
+
 export interface LoginDto {
   username: string;
   password: string;
