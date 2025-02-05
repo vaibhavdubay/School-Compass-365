@@ -18,8 +18,9 @@ export const addShiftFormConfig: FormConfig = [
       key: 'shiftStartTime',
       cssClass: 'col-md-6',
       label: 'Shift Start Time',
+      minTime: '06:00 AM',
+      maxTime: '05:00 PM',
       placeholder: '__:__ AM',
-      type: 'startTime',
     },
   },
   {
@@ -27,9 +28,15 @@ export const addShiftFormConfig: FormConfig = [
     element: {
       key: 'shiftEndTime',
       cssClass: 'col-md-6',
+      minTime: '06:00 AM',
+      maxTime: '05:00 PM',
       label: 'Shift End Time',
       placeholder: '__:__ PM',
-      type: 'endTime',
+      relation: {
+        shiftStartTime: {
+          minTime: (val) => val
+        }
+      },
     },
   },
   {
@@ -41,7 +48,6 @@ export const addShiftFormConfig: FormConfig = [
       minTime: '06:00 AM',
       maxTime: '05:00 PM',
       placeholder: '__:__ AM',
-      type: 'startTime',
     },
   },
   {
@@ -53,7 +59,11 @@ export const addShiftFormConfig: FormConfig = [
       maxTime: '05:00 PM',
       label: 'Break End Time',
       placeholder: '__:__ PM',
-      type: 'endTime',
+      relation: {
+        breakStartTime: {
+          minTime: (val) => val
+        }
+      },
     },
   },
   {

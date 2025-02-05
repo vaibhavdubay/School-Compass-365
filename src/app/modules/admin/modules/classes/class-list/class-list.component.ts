@@ -10,6 +10,7 @@ import { ShiftDialogComponent } from '../dialog/shift-dialog/shift-dialog.compon
 })
 export class ClassListComponent {
   constructor(public dialog: MatDialog) {}
+  shiftList:any[] = []
 
   openShiftDialog() {
     const dialogRef = this.dialog.open(ShiftDialogComponent, {
@@ -20,6 +21,7 @@ export class ClassListComponent {
     });
     dialogRef.afterClosed().subscribe((res) => {
       if (res) {
+        this.shiftList.push(res);
         console.log(res);
       }
     });

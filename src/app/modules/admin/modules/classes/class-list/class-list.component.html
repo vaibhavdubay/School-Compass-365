@@ -1,6 +1,7 @@
-<section>
-  <div class="add-shift-container container">
-    <div class="d-flex flex-column content-center items-center gap-3" (click)="openShiftDialog()">
+@if (!shiftList.length) {
+  <section>
+    <div class="add-shift-container container">
+      <div class="d-flex flex-column content-center items-center gap-3" (click)="openShiftDialog()">
       <button mat-mini-fab class="add-shift">
         <mat-icon class="font-extralight">add_circle</mat-icon>
       </button>
@@ -11,3 +12,5 @@
     </div>
   </div>
 </section>
+} @else {
+}
