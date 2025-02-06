@@ -7,12 +7,12 @@ import {
   school as schoolActions,
   teachersAction,
   studentAction,
-  classes,
+  ShiftAction
 } from './action';
 import { catchError, filter, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
-import { AdminUser, Class, SchoolProfile, StudentProfile, TeacherProfile } from '@sc-models/core';
+import { AdminUser, Class, SchoolProfile, ShiftRes, StudentProfile, TeacherProfile } from '@sc-models/core';
 import { apiRoutes } from 'src/app/core/constants/api.constants';
-import { selectClasses, selectDashboard, selectStudents, selectTeachers } from './selector';
+import { selectClasses, selectDashboard, selectShift, selectStudents, selectTeachers } from './selector';
 import { AdminService } from '../services/admin.service';
 import { Router } from '@angular/router';
 import { SafeToastService } from 'src/app/core/service/safe-toast.service';
@@ -358,4 +358,94 @@ export class AdminEffects {
     { dispatch: false },
   );
   //#endregion
+
+  
+  //#region Shift effects
+
+  getAllShift$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ShiftAction.getAllShift),
+      withLatestFrom(this.store.select(selectShift)),
+      filter(([_, shift]) => !shift || !shift.length),
+      switchMap(() =>
+        this.apiService.get<ShiftRes[]>(apiRoutes.shift.get).pipe(
+          map((shift) => ShiftAction.getAllShiftSuccess({ Shift: shift })),
+          catchError((err) => of(ShiftAction.getAllShiftFailure({ error: err }))),
+        ),
+      ),
+    );
+  });
+  createsShift$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ShiftAction.createShift),
+      switchMap(({ Shift }) =>
+        this.apiService.post<ShiftRes>(apiRoutes.shift.create, Shift).pipe(
+          map((shift) => ShiftAction.createShiftSuccess({ Shift: shift })),
+          catchError((err) => of(ShiftAction.createShiftFailure({ error: err }))),
+        ),
+      ),
+    );
+  });
+
+  createShiftSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(ShiftAction.createShift),
+        tap(() => {
+          this.toasterService.success(TOASTER_MESSAGES.SAVED_SUCCESS);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
+
+  updateShift$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ShiftAction.updateShift),
+      switchMap(({ Shift, id }) =>
+        this.apiService.put<ShiftRes>(apiRoutes.shift.update(id), Shift).pipe(
+          map((shift) => ShiftAction.updateShiftSuccess({ Shift: shift })),
+          catchError((err) => of(ShiftAction.updateShiftFailure({ error: err }))),
+        ),
+      ),
+    );
+  });
+
+  updateShiftSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(ShiftAction.updateShiftSuccess),
+        tap(() => {
+          this.toasterService.success(TOASTER_MESSAGES.UPDATED_SUCCESS);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
+
+  deleteShift$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ShiftAction.deleteShift),
+      switchMap(({ id }) =>
+        this.apiService.delete<ShiftRes>(apiRoutes.shift.delete(id)).pipe(
+          map(() => ShiftAction.deleteShiftSuccess({ id })),
+          catchError((err) => of(ShiftAction.deleteShiftFailure({ error: err }))),
+        ),
+      ),
+    );
+  });
+
+  deleteShiftSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(ShiftAction.deleteShiftSuccess),
+        tap(() => {
+          this.toasterService.success(TOASTER_MESSAGES.DELETED_SUCCESS);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
+  //#endregion
+
 }

@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import { AdminUser, Class, Nullable, SchoolProfile, StudentProfile, TeacherProfile } from '@sc-models/core';
-import { adminActions, initAdminState, teachersAction, studentAction } from './action';
+import { AdminUser, Class, Nullable, SchoolProfile, ShiftRes, StudentProfile, TeacherProfile } from '@sc-models/core';
+import { adminActions, initAdminState, teachersAction, studentAction, ShiftAction } from './action';
 import { classes as classAction, school as schoolAction } from './action';
 
 export interface AdminState {
@@ -10,6 +10,7 @@ export interface AdminState {
   classes: Class[];
   teachers: TeacherProfile[];
   students: StudentProfile[];
+  shift: ShiftRes[];
 }
 
 export const initialState: Nullable<AdminState> = {
@@ -19,6 +20,7 @@ export const initialState: Nullable<AdminState> = {
   classes: [],
   teachers: [],
   students: [],
+  shift: [],
 };
 
 export const AdminReducer = createReducer<AdminState>(
@@ -79,6 +81,23 @@ export const AdminReducer = createReducer<AdminState>(
   on(studentAction.deleteStudentsSuccess, (state, action) => ({
     ...state,
     students: state.students.filter((student) => student.id !== action.id),
+  })),
+  //#region Shift
+  on(ShiftAction.getAllShiftSuccess, (state, action) => ({
+    ...state,
+    shift: action.Shift,
+  })),
+  on(ShiftAction.createShiftSuccess, (state, action) => ({
+    ...state,
+    shift: [...state.shift, action.Shift],
+  })),
+  on(ShiftAction.updateShiftSuccess, (state, action) => ({
+    ...state,
+    shift: state.shift.map((shift) => (shift.id == action.Shift.id ? action.Shift : shift)),
+  })),
+  on(ShiftAction.deleteShiftSuccess, (state, action) => ({
+    ...state,
+    shift: state.shift.filter((shift) => shift.id !== action.id),
   })),
   //#endregion
   //#region School

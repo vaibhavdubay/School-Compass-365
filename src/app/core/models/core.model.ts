@@ -178,6 +178,34 @@ export interface classDTO {
   order: number;
   streamsRequired: boolean;
 }
+export interface ShiftRes {
+  id: string;
+  school: SchoolProfile;
+  name: string;
+  startTime: string;
+  endTime: string;
+  shiftBreak: ShiftBreak[];
+  Class:Class[]
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string;
+}
+export interface ShiftDTO {
+  name: string;
+  startTime: string;
+  endTime: string;
+  shiftBreak: ShiftBreak[];
+  classes:string[]
+}
+export interface ShiftBreak {
+  id: string;
+  shift: string;
+  startTime: string;
+  endTime: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string;
+}
 
 export interface LoginDto {
   username: string;

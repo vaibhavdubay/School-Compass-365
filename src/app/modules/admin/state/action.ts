@@ -9,6 +9,8 @@ import {
   StudentProfile,
   StudentProfileDTO,
   classDTO,
+  ShiftRes,
+  ShiftDTO,
 } from '@sc-models/core';
 
 export const initAdminState = createAction('[ADMIN] Initiate State', props<{ adminProfile: AdminUser }>());
@@ -75,6 +77,23 @@ export const studentAction = createActionGroup({
     'Delete Students': props<{ id: string }>(),
     'Delete StudentsSuccess': props<{ id: string }>(),
     'Delete StudentsFailure': props<{ error: HttpErrorObject }>(),
+  },
+});
+export const ShiftAction = createActionGroup({
+  source: 'Shift',
+  events: {
+    'Get All Shift': emptyProps(),
+    'Get All ShiftSuccess': props<{ Shift: ShiftRes[] }>(),
+    'Get All ShiftFailure': props<{ error: HttpErrorObject }>(),
+    'Create Shift': props<{ Shift: ShiftDTO }>(),
+    'Create ShiftSuccess': props<{ Shift: ShiftRes }>(),
+    'Create ShiftFailure': props<{ error: HttpErrorObject }>(),
+    'Update Shift': props<{ Shift: ShiftDTO; id: string }>(),
+    'Update ShiftSuccess': props<{ Shift: ShiftRes }>(),
+    'Update ShiftFailure': props<{ error: HttpErrorObject }>(),
+    'Delete Shift': props<{ id: string }>(),
+    'Delete ShiftSuccess': props<{ id: string }>(),
+    'Delete ShiftFailure': props<{ error: HttpErrorObject }>(),
   },
 });
 export const adminActions = createActionGroup({

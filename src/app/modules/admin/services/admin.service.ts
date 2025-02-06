@@ -2,10 +2,10 @@ import { Injectable, inject } from '@angular/core';
 import { StoreService } from 'src/app/core/service/store.service';
 import { AdminState } from '../state/reducer';
 import { Store } from '@ngrx/store';
-import { selectAdminUser, selectClasses, selectDashboard, selectStudents, selectTeachers } from '../state/selector';
-import { adminActions, classes, studentAction, school, teachersAction } from '../state/action';
+import { selectAdminUser, selectClasses, selectDashboard, selectShift, selectStudents, selectTeachers } from '../state/selector';
+import { adminActions, classes, studentAction, school, teachersAction, ShiftAction } from '../state/action';
 import { filter } from 'rxjs';
-import { AdminUser, StudentProfileDTO, TeacherProfileDTO } from '@sc-models/core';
+import { AdminUser, ShiftDTO, StudentProfileDTO, TeacherProfileDTO } from '@sc-models/core';
 
 @Injectable()
 export class AdminService extends StoreService<AdminState> {
@@ -46,7 +46,7 @@ export class AdminService extends StoreService<AdminState> {
     this.dispatch(adminActions.updateAdmin({ adminUser }));
   }
 
-  // Students Profile
+  //#region  Students Profile
   get students$() {
     this.dispatch(studentAction.getAllStudents());
     return this.select(selectStudents).pipe(filter((c) => !!c));
@@ -62,4 +62,23 @@ export class AdminService extends StoreService<AdminState> {
   deleteStudentProfile(id: string) {
     this.dispatch(studentAction.deleteStudents({ id }));
   }
+  //#endregion
+  
+  //#region Shift
+  get grtShiftList$() {
+    this.dispatch(ShiftAction.getAllShift());
+    return this.select(selectShift).pipe(filter((s) => !!s));
+  }
+  createShiftProfile(shift: ShiftDTO) {
+    this.dispatch(ShiftAction.createShift({ Shift: shift }));
+  }
+
+  updateShiftProfile(id: string, shift: ShiftDTO) {
+    this.dispatch(ShiftAction.updateShift({ id, Shift: shift }));
+  }
+
+  deleteShiftProfile(id: string) {
+    this.dispatch(ShiftAction.deleteShift({ id }));
+  }
+  //#endregion
 }

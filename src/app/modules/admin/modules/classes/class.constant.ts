@@ -4,7 +4,7 @@ export const addShiftFormConfig: FormConfig = [
   {
     elementType: 'text',
     element: {
-      key: 'shiftName',
+      key: 'name',
       cssClass: 'col-md-12', // Full width
       label: 'Name your shift',
       placeholder: 'Morning Shift',
@@ -15,7 +15,7 @@ export const addShiftFormConfig: FormConfig = [
   {
     elementType: 'time',
     element: {
-      key: 'shiftStartTime',
+      key: 'startTime',
       cssClass: 'col-md-6',
       label: 'Shift Start Time',
       minTime: '06:00 AM',
@@ -26,7 +26,7 @@ export const addShiftFormConfig: FormConfig = [
   {
     elementType: 'time',
     element: {
-      key: 'shiftEndTime',
+      key: 'endTime',
       cssClass: 'col-md-6',
       minTime: '06:00 AM',
       maxTime: '05:00 PM',
@@ -42,7 +42,7 @@ export const addShiftFormConfig: FormConfig = [
   {
     elementType: 'time',
     element: {
-      key: 'breakStartTime',
+      key: 'startTime',
       cssClass: 'col-md-6',
       label: 'Break Start Time',
       minTime: '06:00 AM',
@@ -53,7 +53,7 @@ export const addShiftFormConfig: FormConfig = [
   {
     elementType: 'time',
     element: {
-      key: 'breakEndTime',
+      key: 'endTime',
       cssClass: 'col-md-6',
       minTime: '06:00 AM',
       maxTime: '05:00 PM',
@@ -69,7 +69,7 @@ export const addShiftFormConfig: FormConfig = [
   {
     elementType: 'select',
     element: {
-      key: 'classId',
+      key: 'classes',
       cssClass: 'col-md-12',
       label: 'Classes',
       options: [], // Populate dynamically

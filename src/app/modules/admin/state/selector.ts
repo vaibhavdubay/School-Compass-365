@@ -9,3 +9,4 @@ export const selectDashboard = createSelector(selectAdminState, (state) => state
 export const selectClasses = createSelector(selectAdminState, (state) => state.classes);
 export const selectTeachers = createSelector(selectAdminState, (state) => state.teachers);
 export const selectStudents = createSelector(selectAdminState, (state) => state.students);
+export const selectShift = createSelector(selectAdminState, (state) => state.shift);

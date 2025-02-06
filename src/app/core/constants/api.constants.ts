@@ -42,4 +42,11 @@ export const apiRoutes = {
     update: (id: string) => `/student/${id}`,
     delete: (id: string) => `/student/${id}`,
   },
+  shift: {
+    get: '/shift',
+    create: '/shift',
+    getById: (id: string) => `/shift/${id}`,
+    update: (id: string) => `/shift/${id}`,
+    delete: (id: string) => `/shift/${id}`,
+  },
 };
