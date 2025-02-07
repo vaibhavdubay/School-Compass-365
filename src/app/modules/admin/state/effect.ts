@@ -194,7 +194,7 @@ export class AdminEffects {
     return this.actions$.pipe(
       ofType(studentAction.getAllStudents),
       withLatestFrom(this.store.select(selectStudents)),
-      filter(([_, students]) => !students || !students.length),
+      filter(([_, students]) => !students?.length),
       switchMap(() =>
         this.apiService.get<StudentProfile[]>(apiRoutes.students.get).pipe(
           map((student) => studentAction.getAllStudentsSuccess({ Students: student })),
