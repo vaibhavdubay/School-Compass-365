@@ -48,7 +48,7 @@ export class TableComponent<T = { [k: string]: string }> implements OnChanges {
 
   public filterForm = new FormGroup({
     search: new FormControl(),
-  })
+  });
   public formGroup = new FormGroup<{ [k: string]: FormControl }>({});
   public dataSource = new MatTableDataSource<T>(this.data() || []);
   public displayedColumns: (string | keyof T)[] = [];

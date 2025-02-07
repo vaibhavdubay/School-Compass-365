@@ -20,7 +20,7 @@ const routes: Routes = [
       },
       {
         path: 'chat',
-        component: ChatLayoutComponent
+        component: ChatLayoutComponent,
       },
       {
         path: 'school-profile',
@@ -37,9 +37,13 @@ const routes: Routes = [
         },
       },
       {
-        path: "teachers",
+        path: 'teachers',
         loadChildren: () => import('./modules/teachers/teachers.module').then((m) => m.TeachersModule),
-      }
+      },
+      {
+        path: 'students',
+        loadChildren: () => import('./modules/students/students.module').then((s) => s.StudentsModule),
+      },
     ],
   },
 ];

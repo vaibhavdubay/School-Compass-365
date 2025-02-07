@@ -10,7 +10,6 @@ import { ChatCardComponent } from './component/chat-card/chat-card.component';
 import { ChatListComponent } from './component/chat-list/chat-list.component';
 import { ChatLayoutComponent } from './component/chat-layout/chat-layout.component';
 
-
 @NgModule({
   declarations: [
     ChatComponent,
@@ -19,11 +18,8 @@ import { ChatLayoutComponent } from './component/chat-layout/chat-layout.compone
     ChatBodyComponent,
     ChatCardComponent,
     ChatListComponent,
-    ChatLayoutComponent
+    ChatLayoutComponent,
   ],
-  imports: [
-    CommonModule,
-    ChatRoutingModule
-  ]
+  imports: [CommonModule, ChatRoutingModule],
 })
-export class ChatModule { }
+export class ChatModule {}

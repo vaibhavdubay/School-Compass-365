@@ -7,5 +7,5 @@ export const errorMessages = {
   max: (field: string, value: number) => `${field} must be less than or equal to ${value}.`,
   matDatepickerMin: 'Please enter a valid date.',
   matDatepickerMax: 'Please enter a valid date.',
-  mustMatch: 'The Password & Confirm Password must match'
+  mustMatch: 'The Password & Confirm Password must match',
 };

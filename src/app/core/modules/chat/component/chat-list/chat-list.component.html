@@ -1,5 +1,5 @@
 @let chatsList = chatsList$ | async;
 
 @for (chat of chatsList; track chat.id) {
-    <sc-chat-card [chat]="chat"></sc-chat-card> <br>
+  <sc-chat-card [chat]="chat"></sc-chat-card> <br />
 }

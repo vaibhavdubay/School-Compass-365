@@ -3,6 +3,9 @@ import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { FormComponent } from '@sc-forms/form.component';
 import { FormElement, DynamicListOptions } from '@sc-models/form';
 
+type FormGroupObj<T> = FormGroup<{
+  [K in keyof T]: AbstractControl;
+}>;
 @Component({
   selector: 'sc-form-array',
   standalone: false,
@@ -26,12 +29,11 @@ export class FormArrayComponent<T = { [k: string]: string }> implements OnChange
   readonly dynamicListOptions = input<DynamicListOptions>({});
   readonly elements: number[] = [];
 
-  readonly formArray = this.fb.array<
-    FormGroup<{
-      [K in keyof T]: AbstractControl;
-    }>
-  >([]);
+  readonly formArraySignal = input(this.fb.array<FormGroupObj<T>>([]));
 
+  get formArray() {
+    return this.formArraySignal();
+  }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['min'] && this.min()) {
       Array.from({ length: this.min() }, (_, i) => {

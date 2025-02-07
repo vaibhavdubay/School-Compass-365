@@ -14,7 +14,12 @@
       dynamicListOptions() && dynamicListOptions()[element.element.key]
         ? (dynamicListOptions()[element.element.key] | async)
         : element.element.options;
-    <sc-chip-element [keywords]="control().value || element.element.value" [options]="options ?? []" [element]="element.element" [control]="control()"></sc-chip-element>
+    <sc-chip-element
+      [keywords]="control().value || element.element.value"
+      [options]="options ?? []"
+      [element]="element.element"
+      [control]="control()"
+    ></sc-chip-element>
   }
   @case ('select') {
     @let options =
@@ -35,7 +40,7 @@
       (clicked)="
         btnClick.emit({
           key: element.element.key,
-          element: element.element
+          element: element.element,
         })
       "
     ></sc-button-element>
@@ -67,5 +72,12 @@
         </div>
       }
     </div>
+  }
+  @case ('form-array') {
+    <sc-form-array
+      [dynamicListOptions]="dynamicListOptions()"
+      [formConfig]="element.element.config"
+      [formArraySignal]="$any(control())"
+    ></sc-form-array>
   }
 }

@@ -25,7 +25,7 @@ export const apiRoutes = {
     create: '/chat',
     getList: '/chat/list',
     update: (chatId: string) => `/chat/${chatId}`,
-    delete: (chatId: string) => `/chat/${chatId}`
+    delete: (chatId: string) => `/chat/${chatId}`,
   },
   school: {
     update: (id: string) => `/school/${id}`,
@@ -37,5 +37,12 @@ export const apiRoutes = {
     getById: (id: string) => `/teacher/${id}`,
     update: (id: string) => `/teacher/${id}`,
     delete: (id: string) => `/teacher/${id}`,
-  }
+  },
+  students: {
+    get: '/student',
+    create: '/student',
+    getById: (id: string) => `/student/${id}`,
+    update: (id: string) => `/student/${id}`,
+    delete: (id: string) => `/student/${id}`,
+  },
 };

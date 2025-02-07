@@ -1,4 +1,4 @@
-import { AcademicYear, Class } from "./core.model";
+import { AcademicYear, Class } from './core.model';
 
 export interface SchoolProfile {
   id: string;
@@ -18,4 +18,3 @@ export interface SchoolProfile {
   createdAt: Date;
   updatedAt: Date;
 }
-

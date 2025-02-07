@@ -163,8 +163,8 @@ export const editFormConfig: FormConfig = [
       key: 'submit',
       label: 'Change Password',
       cssClass: 'col-12 mt-1',
-      color: "primary",
-      theme: "raised",
+      color: 'primary',
+      theme: 'raised',
     },
-  }
+  },
 ];

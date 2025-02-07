@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { Component, computed, inject, input, model } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
@@ -20,12 +20,12 @@ export class ChipElementComponent {
   readonly control = input.required<FormControl>();
   readonly options = input.required<ListOptions>();
 
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
   readonly currentChip = model('');
   readonly filteredFruits = computed(() => {
     const currentFruit = this.currentChip().toLowerCase();
     return currentFruit
-      ? this.options().filter(fruit => fruit.label.toLowerCase().includes(currentFruit))
+      ? this.options().filter((fruit) => fruit.label.toLowerCase().includes(currentFruit))
       : this.options().slice();
   });
   removeKeyword(keyword: string) {
@@ -47,10 +47,18 @@ export class ChipElementComponent {
       this.keywords.update((keywords) => (keywords || []).concat(value));
     }
     event.chipInput!.clear();
+    this.currentChip.set('');
+  }
+  addFromBlur(): void {
+    const value = this.currentChip().trim(); // Get current input text
+    if (value) {
+      this.keywords.update((keywords) => [...keywords, value]); // Add to chips
+    }
+    this.currentChip.set(''); // Clear input
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.keywords.update(keyword => [...keyword, event.option.viewValue]);
+    this.keywords.update((keyword) => [...keyword, event.option.viewValue]);
     this.currentChip.set('');
     event.option.deselect();
   }

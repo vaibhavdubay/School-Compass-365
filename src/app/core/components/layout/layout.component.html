@@ -23,8 +23,8 @@
           {{ schoolProfile?.name }}
         </h6>
         <span class="school_address sub_title">
-          {{ schoolProfile?.town | capitalize}},
-          {{ schoolProfile?.city | capitalize}}
+          {{ schoolProfile?.town | capitalize }},
+          {{ schoolProfile?.city | capitalize }}
           @if (schoolProfile?.state) {
             ({{ states[schoolProfile?.state?.toUpperCase() || ''] }})
           }
@@ -47,7 +47,10 @@
       <mat-icon class="close_mobile_menu position-absolute" (click)="drawer.toggle()"> close </mat-icon>
     }
 
-    <div class="position-absolute w-100" [ngStyle]="{ display: screenObserver.isMobile ? 'initial' : 'none', bottom: '1rem' }">
+    <div
+      class="position-absolute w-100"
+      [ngStyle]="{ display: screenObserver.isMobile ? 'initial' : 'none', bottom: '1rem' }"
+    >
       <div class="d-flex profile_option ps-3">
         <ng-container [ngTemplateOutlet]="profile_card"></ng-container>
         <div class="d-flex justify-content-end w-100 py-3 pe-3">
@@ -76,10 +79,20 @@
           <div class="d-flex align-items-center layout_title">
             {{ title$ | async }}
           </div>
-          <div class="action_and_conversation_container flex align-items-center">
+          <div class="action_and_conversation_container align-items-center flex">
             <div class="conversation_container flex gap-2.5 pe-4">
-              <mat-icon class="d-flex items-center content-center" [matBadge]="1" matBadgeSize="small" [hidden]="0"> message </mat-icon>
-              <mat-icon class="d-flex items-center content-center" style="font-size: 1.3rem;" [matBadge]="1" matBadgeSize="small" [hidden]="0"> notifications </mat-icon>
+              <mat-icon class="d-flex content-center items-center" [matBadge]="1" matBadgeSize="small" [hidden]="0">
+                message
+              </mat-icon>
+              <mat-icon
+                class="d-flex content-center items-center"
+                style="font-size: 1.3rem"
+                [matBadge]="1"
+                matBadgeSize="small"
+                [hidden]="0"
+              >
+                notifications
+              </mat-icon>
             </div>
             <div class="profile_container d-flex justify-content-end p-1" [matMenuTriggerFor]="menu">
               <div class="profile d-flex flex-column text-end">

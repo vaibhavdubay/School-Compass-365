@@ -18,8 +18,8 @@ export interface SharedState {
   fetchingPincodes: boolean;
   fetchingTowns: boolean;
   fetchingChatList: boolean;
-  chatList: Chat[],
-  chats: {[user: string]: Chat[]}
+  chatList: Chat[];
+  chats: { [user: string]: Chat[] };
 }
 
 export const initialState: Nullable<SharedState> = {
@@ -32,7 +32,7 @@ export const initialState: Nullable<SharedState> = {
   fetchingTowns: false,
   fetchingChatList: false,
   chatList: [],
-  chats: {}
+  chats: {},
 };
 
 export const SharedStoreReducer = createReducer(
@@ -107,18 +107,18 @@ export const SharedStoreReducer = createReducer(
 
   // #region Chats
 
-  on(chatsAction.getMessageList, (state)=> ({
+  on(chatsAction.getMessageList, (state) => ({
     ...state,
-    fetchingChatList: true
+    fetchingChatList: true,
   })),
-  on(chatsAction.getMessageListSuccess, (state, action)=> ({
+  on(chatsAction.getMessageListSuccess, (state, action) => ({
     ...state,
     chatList: action.chats,
-    fetchingChatList: false
+    fetchingChatList: false,
   })),
-  on(chatsAction.getMessageListFailure, (state)=> ({
+  on(chatsAction.getMessageListFailure, (state) => ({
     ...state,
-    fetchingChatList: false
+    fetchingChatList: false,
   })),
 
   // #endregion Chats

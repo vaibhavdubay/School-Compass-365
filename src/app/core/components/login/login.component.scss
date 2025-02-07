@@ -78,6 +78,7 @@
           padding: var(--spacing-s3);
           color: var(--color-white);
           font-weight: 700;
+          cursor: pointer;
           background: var(--primary-550);
           border-radius: var(--borderRadius-xxxl);
         }
@@ -200,6 +201,7 @@
           font-weight: 700;
           background: var(--primary-550);
           border-radius: var(--borderRadius-xxxl);
+          cursor: pointer;
         }
       }
     }

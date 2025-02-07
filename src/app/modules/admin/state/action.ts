@@ -2,6 +2,7 @@ import { createAction, createActionGroup, emptyProps, props } from '@ngrx/store'
 import { AdminUser } from '@sc-models/admin';
 import { Class, HttpErrorObject } from '@sc-models/core';
 import { SchoolProfile } from '@sc-models/school';
+import { StudentProfile, StudentProfileDTO } from '@sc-models/student';
 import { TeacherProfile, TeacherProfileDTO } from '@sc-models/teacher';
 
 export const initAdminState = createAction('[ADMIN] Initiate State', props<{ adminProfile: AdminUser }>());
@@ -44,7 +45,23 @@ export const teachersAction = createActionGroup({
     'Delete TeacherFailure': props<{ error: HttpErrorObject }>(),
   },
 });
-
+export const studentAction = createActionGroup({
+  source: 'Students',
+  events: {
+    'Get All Students': emptyProps(),
+    'Get All StudentsSuccess': props<{ Students: StudentProfile[] }>(),
+    'Get All StudentsFailure': props<{ error: HttpErrorObject }>(),
+    'Create Students': props<{ Students: StudentProfileDTO }>(),
+    'Create StudentsSuccess': props<{ Students: StudentProfile }>(),
+    'Create StudentsFailure': props<{ error: HttpErrorObject }>(),
+    'Update Students': props<{ Students: StudentProfileDTO; id: string }>(),
+    'Update StudentsSuccess': props<{ Students: StudentProfile }>(),
+    'Update StudentsFailure': props<{ error: HttpErrorObject }>(),
+    'Delete Students': props<{ id: string }>(),
+    'Delete StudentsSuccess': props<{ id: string }>(),
+    'Delete StudentsFailure': props<{ error: HttpErrorObject }>(),
+  },
+});
 export const adminActions = createActionGroup({
   source: 'Admin',
   events: {

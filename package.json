@@ -33,6 +33,7 @@
     "@ngxpert/hot-toast": "^4.1.1",
     "bootstrap": "^5.3.3",
     "express": "^4.18.2",
+    "material-icons": "^1.13.13",
     "material-symbols": "^0.17.0",
     "moment": "^2.30.1",
     "rxjs": "~7.8.0",

@@ -1,7 +1,7 @@
 <div class="form-array-container">
   @for (item of elements; track item) {
     <div class="align-items-center d-inline-flex">
-      @if ( min() <= $index ) {
+      @if (min() <= $index) {
         <button mat-mini-fab style="background-color: #eb7623" (click)="delete($index)">
           <mat-icon>delete</mat-icon>
         </button>

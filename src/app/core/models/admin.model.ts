@@ -1,4 +1,4 @@
-import { GENDER } from "@sc-enums/gender";
+import { GENDER } from '@sc-enums/gender';
 
 export interface AdminUser {
   id: string;

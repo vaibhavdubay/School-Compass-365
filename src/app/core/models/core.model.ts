@@ -31,11 +31,10 @@ export interface ChatUnread extends ChatBase {
 }
 
 // Case when roomId is present and recipientId is undefined
-export interface ChatWithRoom extends ChatBase {
-}
+export interface ChatWithRoom extends ChatBase {}
 
 // Final type that combines all possible cases
-export type Chat = (ChatRead | ChatUnread);
+export type Chat = ChatRead | ChatUnread;
 
 export interface Class {
   id: string;

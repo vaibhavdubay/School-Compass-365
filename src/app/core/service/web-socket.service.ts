@@ -45,7 +45,7 @@ export class WebSocketService {
           reconnectionAttempts: 5,
           reconnectionDelay: 1000,
           auth: {
-            token: this.cookieService.get('authorization')
+            token: this.cookieService.get('authorization'),
           },
           withCredentials: true,
         });
@@ -93,7 +93,7 @@ export class WebSocketService {
       console.log('Disconnected from server');
     });
 
-    this.socket?.on('exception', (error:HttpErrorObject) => {
+    this.socket?.on('exception', (error: HttpErrorObject) => {
       this.toasterService.error(error.message);
     });
   }

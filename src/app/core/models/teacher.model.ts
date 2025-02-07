@@ -1,5 +1,5 @@
-import { GENDER } from "@sc-enums/gender";
-import { AcademicYear } from "./core.model";
+import { GENDER } from '@sc-enums/gender';
+import { AcademicYear } from './core.model';
 
 export interface TeacherProfile {
   id: string;

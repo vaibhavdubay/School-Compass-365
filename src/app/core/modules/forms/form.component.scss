@@ -3,3 +3,12 @@
   box-shadow: var(--boxShadow-m);
   border-radius: var(--borderRadius-l);
 }
+:host ::ng-deep {
+  sc-form-array {
+    .form-container {
+      background-color: transparent;
+      box-shadow: initial;
+      border-radius: initial;
+    }
+  }
+}

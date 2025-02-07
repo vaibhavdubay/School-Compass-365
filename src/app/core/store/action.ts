@@ -37,17 +37,17 @@ export const addressActions = createActionGroup({
 });
 
 export const userActions = createActionGroup({
-  source: "Users",
+  source: 'Users',
   events: {
     'Update User': props<{ user: Partial<User> }>(),
     'Update User Success': props<{ user: User }>(),
     'Update User Failure': props<{ error: HttpErrorObject }>(),
-  }
-})
+  },
+});
 
 export const chatsAction = createActionGroup({
-  'source': 'chats',
-  'events': {
+  source: 'chats',
+  events: {
     'Send Message': props<{ chat: Chat }>(),
     'Send Message Success': props<{ chat: Chat }>(),
     'Send Message Failure': props<{ error: HttpErrorObject }>(),
@@ -60,7 +60,7 @@ export const chatsAction = createActionGroup({
     'Delete Message': props<{ messageId: string }>(),
     'Delete Message Success': emptyProps(),
     'Delete Message Failure': props<{ error: HttpErrorObject }>(),
-    'Edit Message': props<{ messageId: string, newMessage: Chat }>(),
+    'Edit Message': props<{ messageId: string; newMessage: Chat }>(),
     'Edit Message Success': emptyProps(),
     'Edit Message Failure': props<{ error: HttpErrorObject }>(),
     'Mark Message As Read': props<{ messageId: string }>(),
@@ -71,5 +71,5 @@ export const chatsAction = createActionGroup({
     'Start Conversation Failure': props<{ error: HttpErrorObject }>(),
     'End Conversation': emptyProps(),
     'End Conversation Success': emptyProps(),
-  }
-})
+  },
+});

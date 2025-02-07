@@ -30,7 +30,7 @@ export const MY_FORMATS = {
   providers: [
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-  ]
+  ],
 })
 export class DateElementComponent implements OnChanges {
   screenObserver = inject(ScreenSizeObserver);
@@ -56,12 +56,12 @@ export class DateElementComponent implements OnChanges {
         .map(([className]) => className);
     return classes.join(' ');
   };
-  max: Date | null = null
-  min: Date | null = null
+  max: Date | null = null;
+  min: Date | null = null;
   ngOnChanges() {
     const element = this.element();
-    this.max = element.max? new Date(element.max) : null;
-    this.min = element.min? new Date(element.min) : null;
+    this.max = element.max ? new Date(element.max) : null;
+    this.min = element.min ? new Date(element.min) : null;
     if (element.disabled) {
       this.control().disable();
     } else {

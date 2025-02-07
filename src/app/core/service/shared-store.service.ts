@@ -10,6 +10,7 @@ import {
   selectChatList,
   selectLoggedInUser,
   selectLoggedInUserWithSchool,
+  selectSchoolClasses$,
   selectSchoolProfile,
 } from '../store/selector';
 import { addressActions, chatsAction, logInActions, userActions } from '../store/action';
@@ -50,9 +51,12 @@ export class SharedStoreService extends StoreService<SharedState> {
 
   get chatList$() {
     this.dispatch(chatsAction.getMessageList());
-    return this.select(selectChatList)
+    return this.select(selectChatList);
   }
 
+  get schoolClasses$() {
+    return this.select(selectSchoolClasses$);
+  }
   addressDistrict$(state: string) {
     this.dispatch(addressActions.loadDistricts({ state }));
     return this.select(selectAddressDistricts(state));
@@ -68,6 +72,6 @@ export class SharedStoreService extends StoreService<SharedState> {
   }
 
   updateUser(user: Partial<User>) {
-    this.dispatch(userActions.updateUser({ user }))
+    this.dispatch(userActions.updateUser({ user }));
   }
 }

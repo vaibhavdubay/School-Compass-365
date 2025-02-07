@@ -1,16 +1,19 @@
 import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ApiService } from 'src/app/core/service/http.service';
-import { adminActions, classes as classAction, school as schoolActions, teachersAction } from './action';
+import { adminActions, classes as classAction, school as schoolActions, teachersAction, studentAction } from './action';
 import { catchError, filter, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { Class } from '@sc-models/core';
 import { apiRoutes } from 'src/app/core/constants/api.constants';
-import { selectClasses, selectDashboard, selectTeachers } from './selector';
+import { selectClasses, selectDashboard, selectStudents, selectTeachers } from './selector';
 import { AdminService } from '../services/admin.service';
 import { SchoolProfile } from '@sc-models/school';
 import { AdminUser } from '@sc-models/admin';
 import { Router } from '@angular/router';
 import { TeacherProfile } from '@sc-models/teacher';
+import { SafeToastService } from 'src/app/core/service/safe-toast.service';
+import { TOASTER_MESSAGES } from 'src/app/core/constants/toaster_messages.constant';
+import { StudentProfile } from '@sc-models/student';
 
 @Injectable()
 export class AdminEffects {
@@ -18,6 +21,7 @@ export class AdminEffects {
   private readonly apiService = inject(ApiService);
   private readonly store = inject(AdminService);
   private readonly router = inject(Router);
+  private readonly toasterService = inject(SafeToastService);
 
   getAllClasses$ = createEffect(() => {
     return this.actions$.pipe(
@@ -32,6 +36,8 @@ export class AdminEffects {
       ),
     );
   });
+  //#region teachers effects
+
   getAllTeachers$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(teachersAction.getAllTeachers),
@@ -57,14 +63,18 @@ export class AdminEffects {
     );
   });
 
-  createTeacherSuccess$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(teachersAction.createTeacherSuccess),
-      tap(() => {
-        this.router.navigate(['admin','teachers']);
-      }),
-    )
-  }, { dispatch: false });
+  createTeacherSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(teachersAction.createTeacherSuccess),
+        tap(() => {
+          this.toasterService.success(TOASTER_MESSAGES.SAVED_SUCCESS);
+          this.router.navigate(['admin', 'teachers']);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
   updateTeacher$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(teachersAction.updateTeacher),
@@ -76,6 +86,19 @@ export class AdminEffects {
       ),
     );
   });
+  updateTeacherSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(teachersAction.updateTeacherSuccess),
+        tap(() => {
+          this.toasterService.success(TOASTER_MESSAGES.UPDATED_SUCCESS);
+          this.router.navigate(['admin', 'teachers']);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
+
   deleteTeacher$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(teachersAction.deleteTeacher),
@@ -87,6 +110,20 @@ export class AdminEffects {
       ),
     );
   });
+  deleteTeacherSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(teachersAction.deleteTeacherSuccess),
+        tap(() => {
+          this.toasterService.success(TOASTER_MESSAGES.DELETED_SUCCESS);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
+  //#endregion
+
+  //#region school profile effects
 
   getDashboard$ = createEffect(() => {
     return this.actions$.pipe(
@@ -112,6 +149,20 @@ export class AdminEffects {
       ),
     );
   });
+  updateSchoolProfileSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(schoolActions.updateSchoolSuccess),
+        tap(() => {
+          this.toasterService.success(TOASTER_MESSAGES.UPDATED_SUCCESS);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
+
+  //#endregion
+  //#region admin profile effects
 
   updateAdminProfile$ = createEffect(() => {
     return this.actions$.pipe(
@@ -124,4 +175,107 @@ export class AdminEffects {
       ),
     );
   });
+
+  updateAdminProfileSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(adminActions.updateAdminSuccess),
+        tap(() => {
+          this.toasterService.success(TOASTER_MESSAGES.UPDATED_SUCCESS);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
+  //#endregion
+  //#region student effects
+
+  getAllStudent$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(studentAction.getAllStudents),
+      withLatestFrom(this.store.select(selectStudents)),
+      filter(([_, students]) => !students || !students.length),
+      switchMap(() =>
+        this.apiService.get<StudentProfile[]>(apiRoutes.students.get).pipe(
+          map((student) => studentAction.getAllStudentsSuccess({ Students: student })),
+          catchError((err) => of(studentAction.getAllStudentsFailure({ error: err }))),
+        ),
+      ),
+    );
+  });
+  createsStudent$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(studentAction.createStudents),
+      switchMap(({ Students }) =>
+        this.apiService.post<StudentProfile>(apiRoutes.students.create, Students).pipe(
+          map((student) => studentAction.createStudentsSuccess({ Students: student })),
+          catchError((err) => of(studentAction.createStudentsFailure({ error: err }))),
+        ),
+      ),
+    );
+  });
+
+  createStudentSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(studentAction.createStudentsSuccess),
+        tap(() => {
+          this.toasterService.success(TOASTER_MESSAGES.SAVED_SUCCESS);
+          this.router.navigate(['admin', 'students']);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
+
+  updateStudent$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(studentAction.updateStudents),
+      switchMap(({ Students, id }) =>
+        this.apiService.put<StudentProfile>(apiRoutes.students.update(id), Students).pipe(
+          map((student) => studentAction.updateStudentsSuccess({ Students: student })),
+          catchError((err) => of(studentAction.updateStudentsFailure({ error: err }))),
+        ),
+      ),
+    );
+  });
+
+  updateStudentSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(studentAction.updateStudentsSuccess),
+        tap(() => {
+          this.router.navigate(['admin', 'students']);
+          this.toasterService.success(TOASTER_MESSAGES.UPDATED_SUCCESS);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
+
+  deleteStudent$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(studentAction.deleteStudents),
+      switchMap(({ id }) =>
+        this.apiService.delete<StudentProfile>(apiRoutes.students.delete(id)).pipe(
+          map(() => studentAction.deleteStudentsSuccess({ id })),
+          catchError((err) => of(studentAction.deleteStudentsFailure({ error: err }))),
+        ),
+      ),
+    );
+  });
+
+  deleteStudentSuccess$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(studentAction.deleteStudentsSuccess),
+        tap(() => {
+          this.router.navigate(['admin', 'students']);
+          this.toasterService.success(TOASTER_MESSAGES.DELETED_SUCCESS);
+        }),
+      );
+    },
+    { dispatch: false },
+  );
+  //#endregion
 }

@@ -18,7 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatTableModule,
     MatDividerModule,
     MatPaginatorModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   exports: [TableComponent, FormsModule],
 })
