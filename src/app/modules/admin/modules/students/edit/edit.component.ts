@@ -1,13 +1,13 @@
 import { Component, inject, viewChild } from '@angular/core';
 import { FormArrayComponent } from '@sc-forms/form-array/form-array.component';
 import { FormComponent } from '@sc-forms/form.component';
-import { StudentProfile, ParentOrGuardian, StudentProfileDTO, User } from '@sc-models/core';
 import { DynamicListOptions } from '@sc-models/form';
 import { AdminService } from '@sc-modules/admin/services/admin.service';
 import { filter, map, of } from 'rxjs';
 import { SharedStoreService } from 'src/app/core/service/shared-store.service';
 import { studentPersonalInformationFormConfig, parentsOrGuardianFormConfig, addFormConfig } from '../student.constant';
-import { Router } from '@angular/router';
+import { User } from '@sc-models/core';
+import { StudentProfile, ParentOrGuardian, StudentProfileDTO } from '@sc-models/student';
 
 @Component({
   selector: 'sc-edit',

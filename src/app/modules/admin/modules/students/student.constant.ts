@@ -1,7 +1,7 @@
 import { BLOOD_GROUP } from '@sc-enums/bloodGroup';
 import { GENDER } from '@sc-enums/gender';
-import { StudentProfile } from '@sc-models/core';
 import { FormConfig } from '@sc-models/form';
+import { StudentProfile } from '@sc-models/student';
 import { TableConfig } from '@sc-models/table';
 
 export const StudentsTableConfig: TableConfig<StudentProfile> = {

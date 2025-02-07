@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { StudentProfile } from '@sc-models/core';
 import { Router } from '@angular/router';
 import { AdminService } from '@sc-modules/admin/services/admin.service';
 import { StudentsTableConfig } from '../student.constant';
+import { StudentProfile } from '@sc-models/student';
 
 @Component({
   selector: 'sc-list',

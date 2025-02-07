@@ -1,6 +1,5 @@
 import { Component, inject, viewChild } from '@angular/core';
 import { FormArrayComponent } from '@sc-forms/form-array/form-array.component';
-import { Class, ParentOrGuardian, StudentProfile, StudentProfileDTO } from '@sc-models/core';
 import { AdminService } from '@sc-modules/admin/services/admin.service';
 import { SharedStoreService } from 'src/app/core/service/shared-store.service';
 import { FormComponent } from '@sc-forms/form.component';
@@ -9,6 +8,7 @@ import { DynamicListOptions } from '@sc-models/form';
 import { studentPersonalInformationFormConfig, parentsOrGuardianFormConfig, addFormConfig } from '../student.constant';
 import { selectClasses } from '@sc-modules/admin/state/selector';
 import { Router } from '@angular/router';
+import { StudentProfile, ParentOrGuardian, StudentProfileDTO } from '@sc-models/student';
 
 @Component({
   selector: 'sc-add',
