@@ -128,7 +128,7 @@ export class ListOption {
   key: string;
   label: string;
   constructor(label: string, key?: string) {
-    this.key = key || label;
+    this.key = key ?? label;
     this.label = label;
   }
 }
