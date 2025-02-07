@@ -68,4 +68,7 @@
       }
     </div>
   }
+  @case ('form-array') {
+    <sc-form-array [dynamicListOptions]="dynamicListOptions()" [formConfig]="element.element.config" [formArraySignal]="$any(control())"></sc-form-array>
+  }
 }

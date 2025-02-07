@@ -1,6 +1,6 @@
 import { Component, input, output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Button, ButtonElement, DynamicListOptions, FormElement } from '@sc-models/form';
+import { Button, DynamicListOptions, FormElement } from '@sc-models/form';
 
 @Component({
   selector: 'sc-form-element',
