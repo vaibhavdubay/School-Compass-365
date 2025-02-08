@@ -7,8 +7,8 @@
         </button>
       }
       <sc-form
-        [formGroup]="formArray.controls[$index]"
-        [formConfig]="formConfig()"
+        [_formGroup]="formArray.controls[$index]"
+        [formConfig]="formConfig() | deepCopy"
         [dynamicListOptions]="dynamicListOptions()"
         [customDateClasses]="customDateClasses()"
         [dateFilters]="dateFilters()"

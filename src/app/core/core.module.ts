@@ -25,6 +25,7 @@ import { ForgetPasswordComponent } from './components/forget-password/forget-pas
 import { MatDialogModule } from '@angular/material/dialog';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { ImageHandlerDirective } from './directives/image-handler.directive';
+import { DeepCopyPipe } from './pipes/deep-copy.pipe';
 @NgModule({
   declarations: [
     LoginComponent,
@@ -33,6 +34,7 @@ import { ImageHandlerDirective } from './directives/image-handler.directive';
     ForgetPasswordComponent,
     CapitalizePipe,
     ImageHandlerDirective,
+    DeepCopyPipe,
   ],
   imports: [
     FormsModule,
@@ -53,6 +55,6 @@ import { ImageHandlerDirective } from './directives/image-handler.directive';
     EffectsModule.forFeature([SharedStoreEffect]),
     StoreModule.forFeature(STORE_FEATURES.SHARED, SharedStoreReducer),
   ],
-  exports: [LayoutComponent, CapitalizePipe, ImageHandlerDirective],
+  exports: [LayoutComponent, CapitalizePipe, ImageHandlerDirective, DeepCopyPipe],
 })
 export class CoreModule {}

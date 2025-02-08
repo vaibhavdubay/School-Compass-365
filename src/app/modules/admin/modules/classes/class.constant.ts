@@ -44,6 +44,7 @@ export const addShiftFormConfig: FormConfig = [
     element: {
       key: 'shiftBreak',
       cssClass: 'w-full',
+      min: 1,
       max: 3,
       config: [
         {

@@ -31,6 +31,7 @@ import { ErrorComponent } from './error/error.component';
 import { FormArrayComponent } from './form-array/form-array.component';
 import { ChipElementComponent } from './chip-element/chip-element.component';
 import { TimeElementComponent } from './time-element/time-element.component';
+import { CoreModule } from '../../core.module';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { TimeElementComponent } from './time-element/time-element.component';
     TimeElementComponent,
   ],
   imports: [
+    CoreModule,
     CommonModule,
     MatIconModule,
     MatInputModule,
