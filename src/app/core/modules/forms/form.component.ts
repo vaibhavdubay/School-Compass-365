@@ -1,13 +1,5 @@
 import { Component, OnChanges, SimpleChanges, inject, input, output } from '@angular/core';
-import {
-  Button,
-  ButtonElement,
-  DateElement,
-  DynamicListOptions,
-  FormElement,
-  InputElement,
-  RelativeValidations,
-} from '@sc-models/form';
+import { Button, DateElement, DynamicListOptions, FormElement, InputElement } from '@sc-models/form';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
@@ -34,7 +26,7 @@ export class FormComponent<T = { [k: string]: string }> implements OnChanges {
     key: string;
     element: Button;
   }>();
-  private readonly inputElements = ['checkbox', 'chip', 'date', 'radio', 'select', 'text', 'time', 'textarea'];
+  private readonly inputElements = ['checkbox', 'chip', 'date', 'radio', 'select', 'text', 'time', 'textarea', 'form-array'];
 
   readonly formGroup = new FormGroup({}) as unknown as FormGroup<{
     [K in keyof T]: AbstractControl;
@@ -53,10 +45,14 @@ export class FormComponent<T = { [k: string]: string }> implements OnChanges {
       inputElements
         .filter((elem) => !Object.keys(this.formGroup.value).includes(elem.element.key))
         .forEach((formElement) => {
-          this.formGroup.addControl(
-            formElement.element.key as string & keyof T,
-            this.fb.control(formElement.element.value ?? ''),
-          );
+          if(formElement.elementType != 'form-array') {
+            this.formGroup.addControl(
+              formElement.element.key as string & keyof T,
+              this.fb.control(formElement.element.value ?? ''),
+            );
+          } else {
+            this.formGroup.addControl(formElement.element.key as string & keyof T, this.fb.array([]));
+          }
           if (formElement.elementType === 'text') {
             const element = formElement.element;
             if (
