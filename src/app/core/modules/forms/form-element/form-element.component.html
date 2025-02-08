@@ -77,6 +77,13 @@
     </div>
   }
   @case ('form-array') {
-    <sc-form-array [dynamicListOptions]="dynamicListOptions()" [formConfig]="element.element.config" [formArraySignal]="$any(control())"></sc-form-array>
+    <sc-form-array
+      [dynamicListOptions]="dynamicListOptions()"
+      [formConfig]="element.element.config"
+      [formArraySignal]="$any(control())"
+      [min]="element.element.min || 0"
+      [max]="element.element.max || 5"
+      [showAdd]="element.element.showAdd !== false"
+    ></sc-form-array>
   }
 }

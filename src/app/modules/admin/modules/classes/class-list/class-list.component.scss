@@ -8,8 +8,8 @@
   border-radius: var(--borderRadius-xl);
   height: calc(100vh - (var(--mat-toolbar-standard-height) + 44px));
   .add-shift {
-    background-color: var(--primary-100);
     border-radius: 62px;
+    background-color: var(--primary-100);
     color: var(--primary-500);
     mat-icon {
       width: 7rem;
@@ -20,6 +20,46 @@
     &:hover {
       color: var(--primary-500);
       background: var(--primary-150);
+    }
+  }
+}
+
+.shift-card {
+  width: 50%;
+  padding: 20px;
+  font-size: 0.9em;
+  background-color: #ffffffff;
+  border-radius: var(--borderRadius-xl);
+  box-shadow: var(--boxShadow-xs);
+  mat-icon {
+    font-size: 1rem;
+  }
+
+  .add-shift {
+    mat-icon {
+      height: 100%;
+      width: 100%;
+      font-size: 4rem;
+    }
+  }
+}
+.drop-area-container {
+  box-shadow:
+    0px 0px 1.5px #171a1f26,
+    0px 0px 2px #171a1f33;
+  background-color: white;
+  cursor: pointer;
+  border-radius: var(--borderRadius-m);
+  .drop-area {
+    height: 50vh;
+    border-radius: 8px;
+    flex-direction: column;
+    border: 2px dashed #bdc1caff;
+    mat-icon {
+      width: 70px;
+      height: 60px;
+      font-size: 4rem;
+      color: #6f7787ff;
     }
   }
 }

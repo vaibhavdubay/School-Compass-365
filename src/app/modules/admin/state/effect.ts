@@ -10,13 +10,14 @@ import {
   ShiftAction
 } from './action';
 import { catchError, filter, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
-import { AdminUser, Class, SchoolProfile, ShiftRes, StudentProfile, TeacherProfile } from '@sc-models/core';
+import { AdminUser, Class, SchoolProfile, StudentProfile, TeacherProfile } from '@sc-models/core';
 import { apiRoutes } from 'src/app/core/constants/api.constants';
 import { selectClasses, selectDashboard, selectShift, selectStudents, selectTeachers } from './selector';
 import { AdminService } from '../services/admin.service';
 import { Router } from '@angular/router';
 import { SafeToastService } from 'src/app/core/service/safe-toast.service';
 import { TOASTER_MESSAGES } from 'src/app/core/constants/toaster_messages.constant';
+import { ShiftRes } from '@sc-models/classes';
 
 @Injectable()
 export class AdminEffects {

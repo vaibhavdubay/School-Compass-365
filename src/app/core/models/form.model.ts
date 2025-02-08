@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 export type FormConfig = FormElement[];
 export type FormElement = InputElement | UiElement;
 
-export type InputElement = CheckboxElement | DateElement | RadioElement | SelectElement | ChipElement | TextElement | TextAreaElement | FormArrayElement;
+export type InputElement = CheckboxElement | DateElement | TimeElement | RadioElement | SelectElement | ChipElement | TextElement | TextAreaElement | FormArrayElement;
 export type UiElement = ButtonElement | LabelElement | ButtonGroupElement;
 
 export type CheckboxElement = { elementType: 'checkbox'; element: Checkbox };
@@ -152,6 +152,9 @@ export type FormArray = Omit<Element, 'disabled'> & {
   config: FormConfig;
   valueFn?: (form: { [k: string]: string | boolean | object | undefined }) => Array<(object)>;
   value?: object;
+  min?: number;
+  max?: number;
+  showAdd?: boolean;
 };
 export type ListOptions = ListOption[];
 export type DynamicListOptions<T extends string | number | symbol = string> = {

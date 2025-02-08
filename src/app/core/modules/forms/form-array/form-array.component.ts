@@ -1,4 +1,4 @@
-import { Component, inject, input, OnChanges, SimpleChanges, viewChildren } from '@angular/core';
+import { Component, inject, input, model, OnChanges, SimpleChanges, viewChildren } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { FormComponent } from '@sc-forms/form.component';
 import { FormElement, DynamicListOptions } from '@sc-models/form';
@@ -18,6 +18,8 @@ export class FormArrayComponent<T = { [k: string]: string }> implements OnChange
 
   readonly formConfig = input.required<FormElement[]>();
   readonly min = input<number>(0);
+  readonly max = input<number>(5);
+  readonly showAdd = model<boolean>(true);
   readonly dateFilters = input<{
     [k: string]: Date[];
   }>({});
@@ -27,9 +29,10 @@ export class FormArrayComponent<T = { [k: string]: string }> implements OnChange
     };
   }>({});
   readonly dynamicListOptions = input<DynamicListOptions>({});
-  readonly elements: number[] = [];
 
   readonly formArraySignal = input(this.fb.array<FormGroupObj<T>>([]));
+
+  private hadShowAdd = false;
 
   get formArray() {
     return this.formArraySignal();
@@ -37,29 +40,32 @@ export class FormArrayComponent<T = { [k: string]: string }> implements OnChange
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['min'] && this.min()) {
       Array.from({ length: this.min() }, (_, i) => {
-        if (i >= this.elements.length) this.add();
+        if (i >= this.formArray.value.length) this.add();
       });
     }
   }
 
   patchValue(value: T[]) {
     this.formArray.clear();
-    this.elements.length = 0;
     value.forEach((v) => {
       this.add(v);
     });
   }
 
   delete(index: number) {
-    this.elements.splice(index, 1);
+    this.formArray.controls.splice(index, 1);
+    if(this.formArray.controls.length < this.max() && (this.hadShowAdd)) {
+      this.showAdd.set(true);
+    }
   }
 
   add(values?: T) {
-    const last = this.elements[this.elements.length - 1] || 0;
-    this.elements.push(last + 1);
+    this.formArray.push(this.fb.group({}) as unknown as FormGroupObj<T>);
     setTimeout(() => {
-      this.formComponents()[last].formGroup.patchValue(values as any);
-      this.formArray.push(this.formComponents()[last].formGroup);
+      if(this.formArray.controls.length == this.max()) {
+        this.showAdd.set(false);
+        this.hadShowAdd = true
+      }
     });
   }
 }

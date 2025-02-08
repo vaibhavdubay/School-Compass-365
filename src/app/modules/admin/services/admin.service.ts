@@ -5,7 +5,8 @@ import { Store } from '@ngrx/store';
 import { selectAdminUser, selectClasses, selectDashboard, selectShift, selectStudents, selectTeachers } from '../state/selector';
 import { adminActions, classes, studentAction, school, teachersAction, ShiftAction } from '../state/action';
 import { filter } from 'rxjs';
-import { AdminUser, ShiftDTO, StudentProfileDTO, TeacherProfileDTO } from '@sc-models/core';
+import { AdminUser, StudentProfileDTO, TeacherProfileDTO } from '@sc-models/core';
+import { ShiftDTO } from '@sc-models/classes';
 
 @Injectable()
 export class AdminService extends StoreService<AdminState> {
@@ -65,7 +66,7 @@ export class AdminService extends StoreService<AdminState> {
   //#endregion
   
   //#region Shift
-  get grtShiftList$() {
+  get getShiftList$() {
     this.dispatch(ShiftAction.getAllShift());
     return this.select(selectShift).pipe(filter((s) => !!s));
   }

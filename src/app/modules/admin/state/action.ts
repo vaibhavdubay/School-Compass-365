@@ -1,4 +1,5 @@
 import { createAction, createActionGroup, emptyProps, props } from '@ngrx/store';
+import { ShiftRes, ShiftDTO } from '@sc-models/classes';
 import {
   AdminUser,
   Class,
@@ -9,8 +10,6 @@ import {
   StudentProfile,
   StudentProfileDTO,
   classDTO,
-  ShiftRes,
-  ShiftDTO,
 } from '@sc-models/core';
 
 export const initAdminState = createAction('[ADMIN] Initiate State', props<{ adminProfile: AdminUser }>());

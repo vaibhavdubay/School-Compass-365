@@ -22,15 +22,21 @@ export class FormComponent<T = { [k: string]: string }> implements OnChanges {
   }>({});
 
   readonly dynamicListOptions = input<DynamicListOptions>({});
+  
+  readonly _formGroup = input(new FormGroup({}) as unknown as FormGroup<{
+    [K in keyof T]: AbstractControl;
+  }>);
+
   readonly buttonClick = output<{
     key: string;
     element: Button;
   }>();
+  
   private readonly inputElements = ['checkbox', 'chip', 'date', 'radio', 'select', 'text', 'time', 'textarea', 'form-array'];
 
-  readonly formGroup = new FormGroup({}) as unknown as FormGroup<{
-    [K in keyof T]: AbstractControl;
-  }>;
+  get formGroup() {
+    return this._formGroup()
+  }
 
   set formValue(value: Partial<T>) {
     this.formGroup.patchValue(value as any);
@@ -92,7 +98,7 @@ export class FormComponent<T = { [k: string]: string }> implements OnChanges {
       }
 
       inputElements.forEach((element) => {
-        if (element.element['relation']) {
+        if (element.elementType != 'form-array' && element.element['relation']) {
           const relations = Object.entries(element.element['relation']);
           relations.forEach(([key, relation]) => {
             this.formGroup.get(key)?.valueChanges?.subscribe((val) => {

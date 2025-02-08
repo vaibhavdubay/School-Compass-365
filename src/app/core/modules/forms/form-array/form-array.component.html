@@ -1,5 +1,5 @@
 <div class="form-array-container">
-  @for (item of elements; track item) {
+  @for (item of formArray.controls; track item) {
     <div class="align-items-center d-inline-flex">
       @if (min() <= $index) {
         <button mat-mini-fab style="background-color: #eb7623" (click)="delete($index)">
@@ -7,6 +7,7 @@
         </button>
       }
       <sc-form
+        [formGroup]="formArray.controls[$index]"
         [formConfig]="formConfig()"
         [dynamicListOptions]="dynamicListOptions()"
         [customDateClasses]="customDateClasses()"
@@ -15,7 +16,8 @@
     </div>
   }
 </div>
-
-<div class="pb-4">
-  <button class="shadow" color="primary" mat-raised-button (click)="add()">Add +</button>
-</div>
+@if (showAdd()) {
+  <div class="pb-4">
+    <button class="shadow" color="primary" mat-raised-button (click)="add()">Add +</button>
+  </div>
+}

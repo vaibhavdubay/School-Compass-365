@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between px-3 pt-3">
   <div class="text-lg"><strong>Add Shift</strong></div>
-  <button mat-mini-fab class="add-shift" (click)="shiftDialog('cancel')">
+  <button mat-mini-fab class="add-shift" (click)="dialogRef.close()">
     <mat-icon>close</mat-icon>
   </button>
 </div>
@@ -11,7 +11,7 @@
     Note: Break time is optional. Leave these fields blank if no break is needed during this shift.</span
   >
   <div class="d-flex justify-content-end">
-    <button mat-raised-button color="basic" class="mx-2 shadow" (click)="shiftDialog('cancel')">Cancel</button>
-    <button mat-raised-button color="primary" class="mx-2 shadow" (click)="shiftDialog('save')">Save</button>
+    <button mat-raised-button color="basic" class="mx-2 shadow" (click)="dialogRef.close()">Cancel</button>
+    <button mat-raised-button color="primary" class="mx-2 shadow" (click)="shiftDialog()">Save</button>
   </div>
 </div>

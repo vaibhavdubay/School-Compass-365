@@ -1,7 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
-import { AdminUser, Class, Nullable, SchoolProfile, ShiftRes, StudentProfile, TeacherProfile } from '@sc-models/core';
+import { AdminUser, Class, Nullable, SchoolProfile, StudentProfile, TeacherProfile } from '@sc-models/core';
 import { adminActions, initAdminState, teachersAction, studentAction, ShiftAction } from './action';
 import { classes as classAction, school as schoolAction } from './action';
+import { ShiftRes } from '@sc-models/classes';
 
 export interface AdminState {
   adminUser: AdminUser;

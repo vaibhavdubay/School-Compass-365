@@ -8,9 +8,10 @@ import { ShiftDialogComponent } from './dialog/shift-dialog/shift-dialog.compone
 import { FormsModule as SCFormsModule } from '@sc-forms/forms.module';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [ClassListComponent, ShiftDialogComponent],
-  imports: [CommonModule, SCFormsModule, CoreModule, MatIcon, MatButton, ClassesRoutingModule],
+  imports: [CommonModule, SCFormsModule, CoreModule, MatIcon, MatButton, ClassesRoutingModule, DragDropModule],
 })
 export class ClassesModule {}

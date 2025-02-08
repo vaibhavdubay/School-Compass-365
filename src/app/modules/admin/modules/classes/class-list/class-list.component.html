@@ -1,16 +1,54 @@
-@if (!shiftList.length) {
+@if (!shiftList) {
   <section>
     <div class="add-shift-container container">
       <div class="d-flex flex-column content-center items-center gap-3" (click)="openShiftDialog()">
-      <button mat-mini-fab class="add-shift">
-        <mat-icon class="font-extralight">add_circle</mat-icon>
-      </button>
-      <div class="text-lg"><strong> Set up your shift</strong></div>
-      <div class="text-center text-neutral-400">
-        Set up shifts to organize your classes.<br />You’ll be able to assign specific class timings and breaks later.
+        <button mat-mini-fab class="add-shift">
+          <mat-icon class="font-extralight">add_circle</mat-icon>
+        </button>
+        <div class="text-lg"><strong> Set up your shift</strong></div>
+        <div class="text-center text-neutral-400">
+          Set up shifts to organize your classes.<br />You’ll be able to assign specific class timings and breaks later.
+        </div>
+      </div>
+    </div>
+  </section>
+} @else {
+  <div class="container">
+    <div class="shift-container d-flex gap-4">
+      <div cdkDrag class="shift-card d-flex flex-wrap items-center justify-between">
+        <div>
+          <h3 class="pb-2 font-bold text-orange-500">Morning Shift</h3>
+          <p class="d-flex py-1"><mat-icon>schedule</mat-icon> 07:00 - 12:00 AM</p>
+          <p class="d-flex py-1"><mat-icon>location_on</mat-icon> 07:00 - 12:00 AM</p>
+          <p class="d-flex py-1"><mat-icon>coffee</mat-icon> Class 1 - 5</p>
+        </div>
+        <div class="actions d-flex flex-column justify-between">
+          <button mat-fab class="add" (click)="openShiftDialog()">
+            <mat-icon>add</mat-icon>
+          </button>
+          <button mat-fab class="edit" (click)="openShiftDialog('edit', 'i')">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-fab class="delete" (click)="deleteShift('i')">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+      
+      <div class="d-flex flex-column shift-card content-center items-center" (click)="openShiftDialog()">
+        <button mat-fab class="add-shift">
+          <mat-icon class="font-extralight text-orange-500">add_circle</mat-icon>
+        </button>
+        <div class="text-orange-500"><strong> Add Shift</strong></div>
+      </div>
+    </div>
+    <hr class="mt-3">
+    <h3 class="text-orange-500 text-2xl font-bold py-3">Schedules</h3>
+    <div class="drop-area-container p-5" >
+      <div class="drop-area d-flex justify-center items-center">
+        <mat-icon>upload</mat-icon>
+        <p class="text-lg font-light">Drop shift here</p>
       </div>
     </div>
   </div>
-</section>
-} @else {
 }
