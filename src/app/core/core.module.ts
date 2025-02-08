@@ -26,6 +26,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { MatBadgeModule } from '@angular/material/badge';
 import { ImageHandlerDirective } from './directives/image-handler.directive';
+import { TimeAgoPipe } from './pipes/time-ago.pipe';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ImageHandlerDirective } from './directives/image-handler.directive';
     MenuComponent,
     ForgetPasswordComponent,
     CapitalizePipe,
+    TimeAgoPipe,
     ImageHandlerDirective,
   ],
   imports: [
@@ -56,6 +58,6 @@ import { ImageHandlerDirective } from './directives/image-handler.directive';
     EffectsModule.forFeature([SharedStoreEffect]),
     StoreModule.forFeature(STORE_FEATURES.SHARED, SharedStoreReducer),
   ],
-  exports: [LayoutComponent, CapitalizePipe, ImageHandlerDirective],
+  exports: [LayoutComponent, CapitalizePipe, TimeAgoPipe, ImageHandlerDirective],
 })
 export class CoreModule {}

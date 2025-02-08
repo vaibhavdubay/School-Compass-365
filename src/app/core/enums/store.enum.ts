@@ -3,4 +3,5 @@ export enum STORE_FEATURES {
   TEACHER = 'TeacherState',
   ADMIN = 'AdminState',
   SHARED = 'SharedState',
+  CHAT = 'chat',
 }

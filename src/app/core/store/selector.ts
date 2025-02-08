@@ -12,8 +12,6 @@ export const selectLoggedInUserWithSchool = createSelector(selectSharedState, ({
   schoolProfile,
 }));
 
-export const selectChatList = createSelector(selectSharedState, (state) => state.chatList);
-
 export const selectSchoolClasses$ = createSelector(selectSharedState, (state) => state.schoolProfile?.classes);
 export const selectAddress = createSelector(selectSharedState, (state) => state.addressHelper);
 export const selectAddressStates = createSelector(selectSharedState, (state) => Object.keys(state.addressHelper || {}));

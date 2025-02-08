@@ -7,13 +7,12 @@ import {
   selectAddressPincodes,
   selectAddressStates,
   selectAddressTowns,
-  selectChatList,
   selectLoggedInUser,
   selectLoggedInUserWithSchool,
   selectSchoolClasses$,
   selectSchoolProfile,
 } from '../store/selector';
-import { addressActions, chatsAction, logInActions, userActions } from '../store/action';
+import { addressActions, logInActions, userActions } from '../store/action';
 import { filter } from 'rxjs';
 import { User } from '@sc-models/core';
 
@@ -47,11 +46,6 @@ export class SharedStoreService extends StoreService<SharedState> {
   get addressStates$() {
     this.dispatch(addressActions.loadStates());
     return this.select(selectAddressStates);
-  }
-
-  get chatList$() {
-    this.dispatch(chatsAction.getMessageList());
-    return this.select(selectChatList);
   }
 
   get schoolClasses$() {

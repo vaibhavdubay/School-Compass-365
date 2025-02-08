@@ -23,7 +23,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
-import { ChatModule } from 'src/app/core/modules/chat/chat.module';
 
 const material = [
   MatTabsModule,
@@ -40,7 +39,6 @@ const material = [
   imports: [
     ...material,
     CoreModule,
-    ChatModule,
     TableModule,
     FormsModule,
     ReactiveFormsModule,

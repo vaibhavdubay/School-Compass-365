@@ -19,6 +19,8 @@ export interface ChatBase {
   recipient?: User;
   content: string;
   isRead: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface ChatRead extends ChatBase {

@@ -23,6 +23,7 @@ interface NotificationsObject {
  */
 type EventTypes = {
   message: Chat;
+  privateMessage: Chat;
   notification: NotificationsObject;
 };
 

@@ -11,10 +11,12 @@ import { httpInterceptor } from './core/interceptor/http.interceptor';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHotToastConfig } from '@ngxpert/hot-toast';
+import { ChatModule } from './core/modules/chat/chat.module';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    ChatModule,
     CoreModule,
     LayoutModule,
     BrowserModule,

@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { SharedStoreService } from 'src/app/core/service/shared-store.service';
+import { ChatStoreService } from '../../chat.service';
 
 @Component({
   selector: 'sc-chat-list',
@@ -9,6 +9,6 @@ import { SharedStoreService } from 'src/app/core/service/shared-store.service';
   styleUrl: './chat-list.component.scss',
 })
 export class ChatListComponent {
-  private readonly sharedService = inject(SharedStoreService);
+  private readonly sharedService = inject(ChatStoreService);
   chatsList$ = this.sharedService.chatList$;
 }

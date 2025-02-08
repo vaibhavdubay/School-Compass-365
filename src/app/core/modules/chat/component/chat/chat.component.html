@@ -1,1 +1,11 @@
-<p>chat works!</p>
+<mat-list class="space-y-4">
+    <mat-list-item *ngFor="let message of $any([])" class="flex items-center space-x-2">
+      <div class="bg-indigo-500 text-white p-2 rounded-full">
+        <span>{{ message.senderInitials }}</span>
+      </div>
+      <div class="flex-1">
+        <p class="text-sm">{{ message.content }}</p>
+      </div>
+    </mat-list-item>
+  </mat-list>
+  

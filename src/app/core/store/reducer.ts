@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { Address, Chat, Nullable, User } from '@sc-models/core';
-import { logInActions, addressActions, chatsAction } from './action';
+import { logInActions, addressActions } from './action';
 import { SchoolProfile } from '@sc-models/school';
 
 export interface AddressState {
@@ -104,24 +104,6 @@ export const SharedStoreReducer = createReducer(
   })),
 
   // #endregion Address
-
-  // #region Chats
-
-  on(chatsAction.getMessageList, (state) => ({
-    ...state,
-    fetchingChatList: true,
-  })),
-  on(chatsAction.getMessageListSuccess, (state, action) => ({
-    ...state,
-    chatList: action.chats,
-    fetchingChatList: false,
-  })),
-  on(chatsAction.getMessageListFailure, (state) => ({
-    ...state,
-    fetchingChatList: false,
-  })),
-
-  // #endregion Chats
 
   // #region Logout
   on(logInActions.logOut, () => ({
