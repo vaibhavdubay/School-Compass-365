@@ -3,10 +3,9 @@ import moment from 'moment';
 
 @Pipe({
   name: 'timeAgo',
-  standalone: false
+  standalone: false,
 })
 export class TimeAgoPipe implements PipeTransform {
-
   transform(value: any): string {
     if (!value) return '';
 
@@ -25,5 +24,4 @@ export class TimeAgoPipe implements PipeTransform {
     // Otherwise, return the full date in dd/mm/yyyy format
     return date.format('DD/MM/YYYY');
   }
-
 }

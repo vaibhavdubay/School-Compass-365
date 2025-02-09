@@ -1,12 +1,12 @@
-import { inject, Injectable } from "@angular/core";
-import { StoreService } from "../../service/store.service";
-import { ChatStoreState } from "./state/reducer";
-import { Store } from "@ngrx/store";
-import { chatsAction } from "./state/action";
-import { selectChatList } from "./state/selector";
+import { inject, Injectable } from '@angular/core';
+import { StoreService } from '../../service/store.service';
+import { ChatStoreState } from './state/reducer';
+import { Store } from '@ngrx/store';
+import { chatsAction } from './state/action';
+import { selectChatList } from './state/selector';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class ChatStoreService extends StoreService<ChatStoreState> {
   constructor() {
@@ -14,11 +14,9 @@ export class ChatStoreService extends StoreService<ChatStoreState> {
 
     super(store);
   }
-    
-    
-      get chatList$() {
-        this.dispatch(chatsAction.getMessageList());
-        return this.select(selectChatList);
-      }
-    
+
+  get chatList$() {
+    this.dispatch(chatsAction.getMessageList());
+    return this.select(selectChatList);
+  }
 }

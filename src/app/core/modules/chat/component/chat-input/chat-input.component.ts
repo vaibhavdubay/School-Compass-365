@@ -10,25 +10,26 @@ import { WebSocketService } from 'src/app/core/service/web-socket.service';
   styleUrl: './chat-input.component.scss',
 })
 export class ChatInputComponent {
-  
   input = new FormControl('');
-  service = inject(WebSocketService)
+  service = inject(WebSocketService);
 
   constructor() {
-    this.service.socketEvent('privateMessage').subscribe((chat)=> {
-      console.log(chat)
-    })
+    this.service.socketEvent('privateMessage').subscribe((chat) => {
+      console.log(chat);
+    });
   }
 
   sendMessage() {
-    const value = this.input.value
-    this.input.reset()
-    this.service.emitSocketEvent('privateMessage', {
-      to: "bbf1deb2-0867-4456-bf7a-c7629e613ee3",
-      chat: {value}
-    }).subscribe((res)=> {
-      console.log(res)
-    })
-    console.log(value)
+    const value = this.input.value;
+    this.input.reset();
+    this.service
+      .emitSocketEvent('privateMessage', {
+        to: 'bbf1deb2-0867-4456-bf7a-c7629e613ee3',
+        chat: { value },
+      })
+      .subscribe((res) => {
+        console.log(res);
+      });
+    console.log(value);
   }
 }

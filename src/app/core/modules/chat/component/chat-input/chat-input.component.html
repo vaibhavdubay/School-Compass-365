@@ -1,8 +1,8 @@
-<div class="p-4 pb-0 items-center bg-gray-50 flex border-t">
+<div class="flex items-center border-t bg-gray-50 p-4 pb-0">
   <mat-form-field class="w-full" appearance="fill">
     <textarea matInput [formControl]="input" placeholder="Type a message..." [attr.resize]="false" rows="1"></textarea>
   </mat-form-field>
-  <button mat-icon-button (click)="sendMessage()" class="text-indigo-600 p-3 pt-0">
+  <button mat-icon-button (click)="sendMessage()" class="p-3 pt-0 text-indigo-600">
     <mat-icon>send</mat-icon>
   </button>
 </div>

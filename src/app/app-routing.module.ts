@@ -24,8 +24,8 @@ const routes: Routes = [
       },
       {
         path: 'chat',
-        component: ChatLayoutComponent
-      }
+        component: ChatLayoutComponent,
+      },
     ],
   },
   { path: '**', redirectTo: '/' },

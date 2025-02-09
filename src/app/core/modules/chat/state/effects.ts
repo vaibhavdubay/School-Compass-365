@@ -13,9 +13,6 @@ export class ChatStoreEffect {
   private readonly apiService = inject(ApiService);
   private readonly store = inject(Store);
 
-
-  // #region Chats
-
   getMessageList$ = createEffect(() => {
     return this.action$.pipe(
       ofType(chatsAction.getMessageList),

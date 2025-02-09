@@ -1,15 +1,17 @@
 @let _chat = chat();
 @let currentUser = user$ | async;
 
-@if(currentUser) {
+@if (currentUser) {
   @let user = _chat.sender.id === currentUser.id ? _chat.recipient : _chat.sender;
-  <mat-card class="m-0 flex items-start content-center space-x-4 hover:bg-indigo-100 cursor-pointer p-1 bg-transparent shadow-none">
-      <div class="w-100">
-        <div class="flex justify-between w-100 items-center">
-            <h3 class="font-semibold text-sm">{{ user?.name }}</h3>
-            <div class="text-xs"> {{_chat.createdAt | timeAgo}} </div>
-        </div>
-        <p class="text-sm text-gray-600 truncate w-full">{{ _chat.content }}</p>
+  <mat-card
+    class="m-0 flex cursor-pointer content-center items-start space-x-4 bg-transparent p-1 shadow-none hover:bg-indigo-100"
+  >
+    <div class="w-100">
+      <div class="w-100 flex items-center justify-between">
+        <h3 class="text-sm font-semibold">{{ user?.name }}</h3>
+        <div class="text-xs">{{ _chat.createdAt | timeAgo }}</div>
       </div>
-    </mat-card>
+      <p class="w-full truncate text-sm text-gray-600">{{ _chat.content }}</p>
+    </div>
+  </mat-card>
 }

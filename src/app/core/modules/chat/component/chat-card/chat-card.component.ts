@@ -11,7 +11,7 @@ import { SharedStoreService } from 'src/app/core/service/shared-store.service';
   styleUrl: './chat-card.component.scss',
 })
 export class ChatCardComponent {
-  sharedStore = inject(SharedStoreService)
+  sharedStore = inject(SharedStoreService);
   chat = input.required<Chat>();
-  user$ = this.sharedStore.loggedInUser$.pipe(filter((user) => !!user))
+  user$ = this.sharedStore.loggedInUser$.pipe(filter((user) => !!user));
 }
