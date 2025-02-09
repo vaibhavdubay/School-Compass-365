@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { Address, Chat, HttpErrorObject, LoggedInUser, LoginDto, LoginResponse, User } from '@sc-models/core';
+import { Address, HttpErrorObject, LoggedInUser, LoginDto, LoginResponse, User } from '@sc-models/core';
 
 export const logInActions = createActionGroup({
   source: 'Authentication',
