@@ -45,7 +45,6 @@ export class ShiftDialogComponent {
     if (this.addShiftForm.valid) {
       const shift = {
         ...(this.addShiftForm.value as ShiftDTO),
-      classes:this.addShiftForm.value.classes.map(({key}: any) => key)  
       };
 
       if (this.data.type == 'edit') {
