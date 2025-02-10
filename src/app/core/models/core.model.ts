@@ -12,31 +12,6 @@ export interface AcademicYear {
   createdAt: Date;
   updatedAt: Date;
 }
-export interface ChatBase {
-  id?: string;
-  sender: User;
-  room?: any;
-  recipient?: User;
-  content: string;
-  isRead: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface ChatRead extends ChatBase {
-  isRead: true;
-  readAt: Date;
-}
-
-export interface ChatUnread extends ChatBase {
-  isRead: false;
-}
-
-// Case when roomId is present and recipientId is undefined
-export interface ChatWithRoom extends ChatBase {}
-
-// Final type that combines all possible cases
-export type Chat = ChatRead | ChatUnread;
 
 export interface Class {
   id: string;

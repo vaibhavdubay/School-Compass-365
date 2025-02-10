@@ -1,7 +1,5 @@
-@let chatsList = chatsList$ | async;
-
 <mat-list class="">
-  @for (chat of chatsList; track chat.id) {
+  @for (chat of list(); track chat.id) {
     <sc-chat-card [chat]="chat"></sc-chat-card>
   }
 </mat-list>

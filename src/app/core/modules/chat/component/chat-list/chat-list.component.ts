@@ -1,5 +1,6 @@
-import { Component, inject } from '@angular/core';
-import { ChatStoreService } from '../../chat.service';
+import { Component, input } from '@angular/core';
+import { Chat } from '@sc-models/chat';
+import { User } from '@sc-models/core';
 
 @Component({
   selector: 'sc-chat-list',
@@ -9,6 +10,6 @@ import { ChatStoreService } from '../../chat.service';
   styleUrl: './chat-list.component.scss',
 })
 export class ChatListComponent {
-  private readonly sharedService = inject(ChatStoreService);
-  chatsList$ = this.sharedService.chatList$;
+  list = input.required<Chat[]>();
+  loggedInUser = input.required<User>();
 }

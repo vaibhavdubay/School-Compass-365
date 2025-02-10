@@ -2,7 +2,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { logInActions, addressActions, userActions } from './action';
 import { catchError, exhaustMap, filter, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { ApiService } from '../service/http.service';
-import { Address, AddressSearchKey, Chat, LoggedInUser, LoginResponse, User, UserProfile } from '@sc-models/core';
+import { Address, AddressSearchKey, LoggedInUser, LoginResponse, User, UserProfile } from '@sc-models/core';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';

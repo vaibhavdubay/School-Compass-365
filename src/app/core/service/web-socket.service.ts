@@ -1,10 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '@sc-environment';
-import { Chat, HttpErrorObject } from '@sc-models/core';
+import { HttpErrorObject } from '@sc-models/core';
 import { Observable, Subject } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
 import { CookieService } from './cookie.service';
 import { SafeToastService } from './safe-toast.service';
+import { Chat } from '@sc-models/chat';
 
 /**
  * Represents a notification object.
@@ -108,8 +109,8 @@ export class WebSocketService {
   socketEvent<T extends keyof EventTypes>(event: T): Observable<EventTypes[T]> {
     return new Observable<EventTypes[T]>((observer) => {
       // Listen to the event and parse the incoming data as JSON
-      this.socket?.on<string>(event, (data: string) => {
-        observer.next(JSON.parse(data)); // Parse the data and emit it to the observer
+      this.socket?.on<string>(event, (data: EventTypes[T]) => {
+        observer.next((data)); // Parse the data and emit it to the observer
       });
 
       // Complete the observer when the subject emits (disconnects)
@@ -126,13 +127,18 @@ export class WebSocketService {
    * @param data - The data to send with the event.
    * @returns {Observable<T>} An observable that completes when the data is emitted.
    */
-  emitSocketEvent<T extends keyof EventTypes>(event: T, data: any): Observable<T> {
-    return new Observable<T>((observer) => {
+  emitSocketEvent<T extends keyof EventTypes>(event: T, data: any): Observable<EventTypes[T]> {
+    return new Observable<EventTypes[T]>((observer) => {
       // Emit the event and send data to the server
-      this.socket?.emit(event, data, observer.next);
-
+      this.socket?.emit(event, data);
+      this.socket?.on<string>(event+'Success', (data: EventTypes[T]) => {
+        if(data) {
+          observer.next(data);
+          observer.complete();
+          this.socket?.off(event+'Success');
+        }
+      });
       // Complete the observer after emitting
-      observer.complete();
     });
   }
 

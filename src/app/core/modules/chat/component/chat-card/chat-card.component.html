@@ -2,16 +2,19 @@
 @let currentUser = user$ | async;
 
 @if (currentUser) {
-  @let user = _chat.sender.id === currentUser.id ? _chat.recipient : _chat.sender;
-  <mat-card
-    class="m-0 flex cursor-pointer content-center items-start space-x-4 bg-transparent p-1 shadow-none hover:bg-indigo-100"
-  >
-    <div class="w-100">
-      <div class="w-100 flex items-center justify-between">
-        <h3 class="text-sm font-semibold">{{ user?.name }}</h3>
-        <div class="text-xs">{{ _chat.createdAt | timeAgo }}</div>
+  @let user = _chat.sender.id === currentUser.id ? _chat.recipient || _chat.room : _chat.sender;
+  @if(user) {
+    <mat-card
+      class="m-0 flex cursor-pointer content-center items-start space-x-4 bg-transparent p-1 shadow-none hover:bg-indigo-100"
+      (click)="selectChat(_chat, user)"
+    >
+      <div class="w-100">
+        <div class="w-100 flex items-center justify-between">
+          <h3 class="text-sm font-semibold">{{ user?.name }}</h3>
+          <div class="text-xs">{{ _chat.createdAt | timeAgo }}</div>
+        </div>
+        <p class="w-full truncate text-sm text-gray-600">{{ _chat.content }}</p>
       </div>
-      <p class="w-full truncate text-sm text-gray-600">{{ _chat.content }}</p>
-    </div>
-  </mat-card>
+    </mat-card>
+  }
 }

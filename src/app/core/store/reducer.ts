@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { Address, Chat, Nullable, User } from '@sc-models/core';
+import { Address, Nullable, User } from '@sc-models/core';
 import { logInActions, addressActions } from './action';
 import { SchoolProfile } from '@sc-models/school';
 
@@ -17,9 +17,6 @@ export interface SharedState {
   fetchingDistricts: boolean;
   fetchingPincodes: boolean;
   fetchingTowns: boolean;
-  fetchingChatList: boolean;
-  chatList: Chat[];
-  chats: { [user: string]: Chat[] };
 }
 
 export const initialState: Nullable<SharedState> = {
@@ -30,9 +27,6 @@ export const initialState: Nullable<SharedState> = {
   fetchingDistricts: false,
   fetchingPincodes: false,
   fetchingTowns: false,
-  fetchingChatList: false,
-  chatList: [],
-  chats: {},
 };
 
 export const SharedStoreReducer = createReducer(

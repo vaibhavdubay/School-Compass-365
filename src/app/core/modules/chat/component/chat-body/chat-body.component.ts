@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { Chat } from '@sc-models/chat';
 
 @Component({
   selector: 'sc-chat-body',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
   templateUrl: './chat-body.component.html',
   styleUrl: './chat-body.component.scss',
 })
-export class ChatBodyComponent {}
+export class ChatBodyComponent {
+  chats = input.required<Chat[]>();
+}

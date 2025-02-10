@@ -21,9 +21,9 @@ export const apiRoutes = {
     get: '/class',
   },
   chat: {
-    get: '/chat',
-    create: '/chat',
     getList: '/chat/list',
+    getChats: (threadId: string) => `/chat/${threadId}`,
+    markAsRead: (threadId: string) => `/chat/mark-as-read/${threadId}`,
     update: (chatId: string) => `/chat/${chatId}`,
     delete: (chatId: string) => `/chat/${chatId}`,
   },

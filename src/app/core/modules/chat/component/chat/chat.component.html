@@ -1,10 +1,5 @@
-<mat-list class="space-y-4">
-  <mat-list-item *ngFor="let message of $any([])" class="flex items-center space-x-2">
-    <div class="rounded-full bg-indigo-500 p-2 text-white">
-      <span>{{ message.senderInitials }}</span>
-    </div>
-    <div class="flex-1">
-      <p class="text-sm">{{ message.content }}</p>
-    </div>
-  </mat-list-item>
-</mat-list>
+  <span>{{ chat().sender.name }}</span>
+  <span>{{ chat().status }}</span>
+<div class="flex-1">
+  <p class="text-sm">{{ chat().content }}</p>
+</div>
